@@ -69,6 +69,7 @@ class DashboardController extends Controller
 
     public function showGrid($userid, $idmatch, Request $request)
         {
+            $a = gvgtop::where('gvgDataId', $idmatch)->get();
             $y = [];
             // $blog = TbBlog::find($id);
             $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
@@ -85,9 +86,13 @@ orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
                 }
 
             }
+            if($grid[0]->isOwnGuild == 1){ 
+                $guildenemy = $a[0]->guildDataNameB;
+            }
+            else{ $guildenemy = $a[0]->guildDataNameA;}
 
             // return response()->json($y);
-            return view('grid')->with('gridlist',$y)->with('username',$grid[0]->userName);
+            return view('grid')->with('gridlist',$y)->with('username',$grid[0]->userName)->with('guildenemy',$guildenemy);
         }
 
     public function getLog($id, Request $request){
@@ -116,8 +121,8 @@ orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
         $records = gvglog::orderBy($columnName,$columnSortOrder)
           ->where('gvgDataId', $id)
           ->where('gvglogs.userName', 'like', '%' .$searchValue . '%')
-          ->orWhere('gvgDataId', $id)
-          ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+        //   ->orWhere('gvgDataId', $id)
+        //   ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
           ->select('gvglogs.*')
           ->skip($start)
           ->take($rowperpage)
