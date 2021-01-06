@@ -14,6 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "psecio/oauth2-discord": "dev-master",
+        "wohali/oauth2-discord-new": "^1.1",
         "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {

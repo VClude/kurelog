@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'App\Http\Controllers\DashboardController@index');
+Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('index');
 Route::get('/log/{id}', 'App\Http\Controllers\DashboardController@log')->name('show.log');
 Route::get('/log/getlog/{id}','App\Http\Controllers\DashboardController@getLog')->name('show.getlog');
 Route::get('/log/showgrid/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGrid')->name('show.grid');

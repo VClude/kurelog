@@ -10,18 +10,49 @@
                             </div>
                         </div>
                     </div>
-
+                    @foreach ($imglist as $im)
+                    <img src="{{ asset($im) }}"></img>
+                    @endforeach
                     <div class="row justify-content-center">
-            <div class="col-md-6 col-xl-12">
+            <div class="col-md-3 col-xl-6">
                 <div class="block">
-                    <div class="block-content">
+                    <div class="block-content" style="word-wrap: break-word !important;">
+                    @php
+                        $i = 1
+                    @endphp
         @foreach ($gridlist as $g)
-
-                    <p>{{ $g }}</p>
-
-
+                    <h3>weapon {{$i}}</h3>
+                    <p>Colo Skill   : {{ $g }}</p>
+                    -----------------------------------------
+                    @php
+                        $i++
+                    @endphp
    
         @endforeach
+
+
+        </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 col-xl-6">
+                <div class="block">
+                    <div class="block-content" style="word-wrap: break-word !important;">
+                    @php
+                        $i = 1
+                    @endphp
+        @foreach ($cololist as $g)
+                    <h3>weapon {{$i}}</h3>
+                    <p>Colo Support : {{ $g }}</p>
+                    -----------------------------------------
+                    @php
+                        $i++
+                    @endphp
+   
+        @endforeach
+
+
         </div>
                 </div>
             </div>
