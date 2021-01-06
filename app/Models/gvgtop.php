@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class gvgtop extends Model
 {
+    
     use HasFactory;
 }
