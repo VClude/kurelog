@@ -18,7 +18,7 @@
         <div class="row text-center" style="margin-top: 30px;">
                         <div class="col-6">
                             
-                        <h2 style="color:white !important;"><img src="{{ asset('media/photos/'.$g->guildDataCountryCodeA .'.png') }}"> </img>{{ $g->guildDataNameA }}</h2>
+                        <h2 style="color:white !important;"><img src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeA}}.png"> </img>{{ $g->guildDataNameA }}</h2>
                         <h2 style="color:white !important; text-align:left !important;">Lifeforce : {{ $g->totalGuildPointA }}</h2>  
                         <h2 style="color:white !important; text-align:left !important;">Combo : {{ $g->selfComboCount }}</h2>  
                         <h2 style="color:white !important; text-align:left !important;"> Downed Guildships: {{ $g->selfSiegeWinCount }}</h2>  
@@ -26,8 +26,7 @@
                         </div>
 
                         <div class="col-6">
-                            
-                            <h2 style="color:white !important;"><img src="{{ asset('media/photos/'.$g->guildDataCountryCodeB .'.png') }}"> </img>{{ $g->guildDataNameB }}</h2>
+<h2 style="color:white !important;"><img src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeB}}.png"> </img>{{ $g->guildDataNameB }}</h2>
                             <h2 style="color:white !important; text-align:left !important;">Lifeforce : {{ $g->totalGuildPointB }}</h2>  
                             <h2 style="color:white !important; text-align:left !important;">Combo : {{ $g->enemyComboCount }}</h2>  
                             <h2 style="color:white !important; text-align:left !important;"> Downed Guildships: {{ $g->enemySiegeWinCount }}</h2>  
@@ -50,6 +49,7 @@
                                 </div>
                                 <div class="block-content">
                                 <a href="{{ route('show.grid', [$a->userId, $ide]) }}" class="btn btn-xs btn-info modalMd" target="_blank"><div class="font-size-md text-black mb-5">Click to See {{$a->name}} Grid</div></a>
+ 
                                 </div>
                             </div>
                             @endforeach
@@ -74,7 +74,8 @@
                                     <h3 class="block-title">{{$a->name}} | HP: {{$a->maxHp}}</h3>
                                 </div>
                                 <div class="block-content">
-                                <a href="#" value="{{ route('show.grid', [$a->userId, $ide]) }}" class="btn btn-xs btn-info modalMd" title="Click to See {{$a->name}} Grid" data-toggle="modal" data-target="#modalMd"><div class="font-size-md text-black mb-5">Click to See {{$a->name}} Grid</div></a>
+                                <a href="{{ route('show.grid', [$a->userId, $ide]) }}" class="btn btn-xs btn-info modalMd" target="_blank"><div class="font-size-md text-black mb-5">Click to See {{$a->name}} Grid</div></a>
+
                                 </div>
                             </div>
                             @endforeach

@@ -9,7 +9,7 @@ use App\Models\gvglog;
 use App\Models\gvgshinma;
 use App\Models\gvgmember;
 use App\Models\gvgenemymember;
-
+use DB;
 use App\Models\gvgshinmadetail;
 use DataTables;
 class DashboardController extends Controller
@@ -71,8 +71,10 @@ class DashboardController extends Controller
         {
             $y = [];
             // $blog = TbBlog::find($id);
-            $grid = gvglog::where('userId',$userid)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
-            foreach($grid as $g){
+            $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
+where('readableText', 'not like', '%summon skill%')->
+orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
+         foreach($grid as $g){
 
                 $thearr = explode("\n", $g->readableText);
                 if(preg_match('/combo.$/', $thearr[0])){
