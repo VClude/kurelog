@@ -11,7 +11,7 @@
                         </div>
                     </div>
                     @foreach ($imglist as $im)
-                    <img src="{{ asset($im) }}"></img>
+<img src="http://ec2-18-212-84-193.compute-1.amazonaws.com{{$im}}">
                     @endforeach
                     <div class="row justify-content-center">
             <div class="col-md-3 col-xl-6">

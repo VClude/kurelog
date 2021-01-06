@@ -205,7 +205,8 @@ class DashboardController extends Controller
                         // }
                         $regexq = $theq[0];
                         // print($regexq . '</br>');
-                        $imgquery = weapimg::where('weapname', 'like','%'.$regexq.'%')->first();
+                        $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
+
                         if($imgquery){
                             array_push($img,$imgquery->weapurl);
                         }
