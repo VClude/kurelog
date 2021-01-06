@@ -57,8 +57,8 @@ class DashboardController extends Controller
                 try {
             
                     $user = $provider->getResourceOwner($token);
-            
-                    $usersess = $user->getUsername().'#'. $user->getDiscriminator();
+                    
+                    $usersess = $user->getId();
                     $isAllowed = allowed::where('username',$usersess)->first();
                     if($isAllowed){
                         $request->session()->put('usern', $usersess);
