@@ -54,7 +54,7 @@
                     <div class="py-15 px-20 clearfix border-black-op-b">
 
                         <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo" data-speed="200" data-to="{{$apm}}">{{$apm}}</div>
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light">Weapon used in 20 Minutes</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light">Action Issued in 20 Minutes</div>
                     </div>
                     <div class="py-15 px-20 clearfix border-black-op-b">
 
