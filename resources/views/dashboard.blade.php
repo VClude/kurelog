@@ -28,6 +28,10 @@
         </a>
         @endforeach
 
+        @if(count($guild) == 0)
+            <h1 style="color:white !important;">Battle Records not Found</h1>
+        @endif
+
         
     </div>
     <!-- END Page Content -->

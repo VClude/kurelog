@@ -29,7 +29,7 @@ class DashboardController extends Controller
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
                 'clientId'          => '658613502415470631',
                 'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
-                'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
+                'redirectUri'       => 'http://localhost/kureha-log/public'
             ]);
             
             if (!isset($_GET['code'])) {
@@ -62,7 +62,8 @@ class DashboardController extends Controller
                     $isAllowed = allowed::where('username',$usersess)->first();
                     if($isAllowed){
                         $request->session()->put('usern', $usersess);
-                        $a = gvgtop::all();
+                        $a = gvgtop::where('guildDataIdA', $isAllowed->guildId)->orderBy('battleEndTime','Desc')->get();
+        
                         // return response()->json($a);
                         return view('dashboard')->with('guild',$a);
                     }
@@ -85,8 +86,10 @@ class DashboardController extends Controller
         else{
             $isAllowed = allowed::where('username',session('usern'))->first();
             if($isAllowed){
+
+                $a = gvgtop::where('guildDataIdA', $isAllowed->guildId)->orderBy('battleEndTime','Desc')->get();
+    
                 // $request->session()->put('usern', $usersess);
-                $a = gvgtop::orderBy('battleEndTime','Desc')->get();
                 // return response()->json($a);
                 return view('dashboard')->with('guild',$a);
             }
@@ -174,6 +177,16 @@ class DashboardController extends Controller
                     $y = [];
                     $yb =[];
                     $img = [];
+                    $arrdebug = [];
+                    $patkvalue=0;
+                    $matkvalue=0;
+                    $pdefvalue=0;
+                    $mdefvalue=0;
+                    $patkdvalue=0;
+                    $matkdvalue=0;
+                    $pdefdvalue=0;
+                    $mdefdvalue=0;
+                    $recovervalue=0;
                     // $blog = TbBlog::find($id);
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                         where('readableText', 'not like', '%summon skill%')->orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
@@ -195,18 +208,17 @@ class DashboardController extends Controller
                         $query2 = $ys.'activated.';
                         $theq = explode("'s", $ys);
                   
-                        // if(isset($theq[2])){
-                        //     $regexq = $theq[0]."'s". $theq[1];
+                        if(count($theq) > 3){
+                            $regexq = $theq[0]."'s". $theq[1];
                            
-                        // }
-                        // else{
-                        //     $regexq = $theq[0];
+                        }
+                        else{
+                            $regexq = $theq[0];
                             
-                        // }
-                        $regexq = $theq[0];
+                        }
+                        // $regexq = $theq[0];
                         // print($regexq . '</br>');
                         $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
-
                         if($imgquery){
                             array_push($img,$imgquery->weapurl);
                         }
@@ -218,14 +230,19 @@ class DashboardController extends Controller
                         ->where('readableText', 'like', '%'. $regexq . '%')
                         ->orderBy('gvgHistoryId','asc')->limit(1)->get();
 
-                        
-                        foreach($colosupport as $cs){
-                            $cse = explode("\n", $cs->readableText);
-                            $cskill = preg_grep("/^".$regexq . "/", $cse);
-                            $cskill2 = implode("",$cskill);
-                            // print($cskill2 . '</br>');
-                            array_push($yb, preg_replace('/also activated.$/', '', $cskill2));
+                        if(isset($colosupport[0])){
+                            foreach($colosupport as $cs){
+                                $cse = explode("\n", $cs->readableText);
+                                $cskill = preg_grep("/^".$regexq . "/", $cse);
+                                $cskill2 = implode("",$cskill);
+                                // print($cskill2 . '</br>');
+                                array_push($yb, preg_replace('/also activated.$/', '', $cskill2));
+                            }
                         }
+                        else{
+                            array_push($yb, 'not found');
+                        }
+
 
                         
 
@@ -244,9 +261,180 @@ class DashboardController extends Controller
                         $guildenemy = $a[0]->guildDataNameB;
                     }
                     else{ $guildenemy = $a[0]->guildDataNameA;}
+                    $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%');
+                    $apm = $thequery->count();
+
+                    $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('readableText', 'like', '%HP recovered by%')->get();
         
+                    
+                    //recover
+                    
+                    if(isset($recover[0])){
+                        foreach($recover as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/HP recovered by (.*)/", $cse);
+                        
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                                $recovervalue += $v;
+                            }
+                            // print($cskill2 . '</br>');
+                        }
+                    }
+
+
+                    //eof recover
+                    // $querybasic = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
+                    //patk buff
+
+                    $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%ATK UP by%')->get();
+                    $pdef = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF UP by%')->get();
+                    $patkd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%ATK DOWN by%')->get();
+                    $pdefd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF DOWN by%')->get();
+                    
+              
+                    
+                    if(isset($patk[0])){
+
+                        foreach($patk as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/M.ATK UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $matkvalue += $v;
+                            }
+                  
+                        }
+
+                        foreach($patk as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/[^M.]ATK UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $patkvalue += $v;
+                            }
+                  
+                        }
+                    }
+
+
+                    if(isset($pdef[0])){
+
+                        foreach($pdef as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/M.DEF UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $mdefvalue += $v;
+                            }
+                  
+                        }
+
+                        foreach($pdef as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/[^M.]DEF UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $pdefvalue += $v;
+                            }
+                  
+                        }
+                    }
+
+                    if(isset($patkd[0])){
+
+                        foreach($patkd as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/M.ATK DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $matkdvalue += $v;
+                            }
+                  
+                        }
+
+                        foreach($patkd as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/[^M.]ATK DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $patkdvalue += $v;
+                            }
+                  
+                        }
+                    }
+
+                    if(isset($pdefd[0])){
+                       
+                        foreach($pdefd as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/M.DEF DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $mdefdvalue += $v;
+                            }
+                  
+                        }
+
+                        foreach($pdefd as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/[^M.]DEF DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $v = preg_replace('/[^0-9]/', '', $crv);
+                
+                                $pdefdvalue += $v;
+                            }
+                  
+                        }
+                    }
+        
+
+
+                    //eof patkbuff
+
+
+
+                
+
                     // return response()->json($y);
-                    return view('grid')->with('gridlist',$y)->with('imglist',$img)->with('cololist',$yb)->with('username',$grid[0]->userName)->with('guildenemy',$guildenemy);
+                    return view('grid')
+                    ->with('gridlist',$y)
+                    ->with('imglist',$img)
+                    ->with('cololist',$yb)
+                    ->with('username',$grid[0]->userName)
+                    ->with('guildenemy',$guildenemy)
+                    ->with('uid',$userid)
+                    ->with('ide',$idmatch)
+                    ->with('apm',$apm)
+                    ->with('recover',number_format($recovervalue))
+                    ->with('patkbuff',number_format($patkvalue))
+                    ->with('matkbuff',number_format($matkvalue))
+                    ->with('pdefbuff',number_format($pdefvalue))
+                    ->with('mdefbuff',number_format($mdefvalue))
+                    ->with('patkdebuff',number_format($patkdvalue))
+                    ->with('matkdebuff',number_format($matkdvalue))
+                    ->with('pdefdebuff',number_format($pdefdvalue))
+                    ->with('mdefdebuff',number_format($mdefdvalue));
+
         
 
                 }
@@ -268,7 +456,87 @@ class DashboardController extends Controller
             else{
                 $isAllowed = allowed::where('username',$sess)->first();
                 if($isAllowed){
+                    
+                        ## Read value
+                        $draw = $request->get('draw');
+                        $start = $request->get("start");
+                        $rowperpage = $request->get("length"); // Rows display per page
 
+                        $columnIndex_arr = $request->get('order');
+                        $columnName_arr = $request->get('columns');
+                        $order_arr = $request->get('order');
+                        $search_arr = $request->get('search');
+
+                        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+                        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+                        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+                        $searchValue = $search_arr['value']; // Search value
+
+                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->count();
+                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userName', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                        ->count();
+
+                        // Fetch records
+                        $records = gvglog::orderBy($columnName,$columnSortOrder)
+                        ->where('gvgDataId', $id)
+                        ->where('gvglogs.userName', 'like', '%' .$searchValue . '%')
+                        //   ->orWhere('gvgDataId', $id)
+                        //   ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                        ->select('gvglogs.*')
+                        ->skip($start)
+                        ->take($rowperpage)
+                        ->get();
+
+                        
+
+                        $data_arr = array();
+                        
+                        foreach($records as $record){
+                        $id = $record->gvgHistoryId;
+                        $actTime = $record->actTime;
+                        $username = $record->userName;
+                        $isenemy = $record->isOwnGuild;
+                        $text = $record->readableText;
+
+                        $data_arr[] = array(
+                            "id" => $id,
+                            "actTime" => $actTime,
+                            "username" => $username,
+                            "isenemy" => ($isenemy)?'Ally':'Enemy',
+                            "text" => $text,
+                        );
+                        }
+
+                        $response = array(
+                        "draw" => intval($draw),
+                        "iTotalRecords" => $totalRecords,
+                        "iTotalDisplayRecords" => $totalRecordswithFilter,
+                        "aaData" => $data_arr
+                        );
+
+                        return json_encode($response);
+
+                }
+                else{
+                    return response()->json(['Not Astellians']);
+    
+                }
+            }
+
+
+      }
+
+    public function getLogz($id,$idm, Request $request){
+
+        $sess = session('usern');
+            if(!isset($sess)){
+                return redirect()->route('index');
+            }
+    
+            else{
+                $isAllowed = allowed::where('username',$sess)->first();
+                if($isAllowed){
+                    
                         ## Read value
                         $draw = $request->get('draw');
                         $start = $request->get("start");
@@ -284,21 +552,23 @@ class DashboardController extends Controller
                         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
                         $searchValue = $search_arr['value']; // Search value
                         
-                        // Total records
-                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->count();
-                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userName', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
-                        ->count();
+                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->count();
+                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->where('readableText', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->where('userId', $idm)->where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                    ->count();
 
-                        // Fetch records
-                        $records = gvglog::orderBy($columnName,$columnSortOrder)
-                        ->where('gvgDataId', $id)
-                        ->where('gvglogs.userName', 'like', '%' .$searchValue . '%')
-                        //   ->orWhere('gvgDataId', $id)
-                        //   ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
-                        ->select('gvglogs.*')
-                        ->skip($start)
-                        ->take($rowperpage)
-                        ->get();
+                    // Fetch records
+                            $records = gvglog::orderBy($columnName,$columnSortOrder)
+                            ->where('gvgDataId', $id)
+                            ->where('userId', $idm)
+                            // ->where('gvglogs.userName', 'like', '%' .$searchValue . '%')
+                            //   ->orWhere('gvgDataId', $id)
+                            ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                            ->select('gvglogs.*')
+                            ->skip($start)
+                            ->take($rowperpage)
+                            ->get();
+
+                        
 
                         $data_arr = array();
                         
