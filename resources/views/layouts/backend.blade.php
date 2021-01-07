@@ -78,7 +78,7 @@
                         Created by <a class="font-w600">Kureha</a>
                     </div>
                     <div class="float-left">
-                        <a class="font-w600" href="https://saweria.co/kureha" target="_blank">gift some TC</a> 
+                        <a class="font-w600" href="https://saweria.co/kureha" target="_blank">spare some TC</a> plz 
                     </div>
                 </div>
             </footer>
