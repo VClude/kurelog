@@ -76,6 +76,7 @@
         </div>
         <!-- END Row #3 -->
     </div>
+
     <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
         <!-- Row #4 -->
         <div class="col-md-4">
@@ -122,6 +123,73 @@
                       
                       <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$mdefdebuff}}</div>
                       <div class="font-size-sm font-w600 text-uppercase text-info-light">Overall M.DEF debuff</div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Row #4 -->
+    </div>
+
+    <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
+        <!-- Row #4 -->
+        <div class="col-md-4">
+            <div class="block block-transparent bg-primary-dark">
+                <div class="block-content block-content-full">
+                <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$dc1rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Dauntless Courage (I) Activation Rate</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$dc2rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Dauntless Courage (II) Activation Rate</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260"></div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light"></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="block block-transparent bg-primary-dark">
+                <div class="block-content block-content-full">
+                <div class="py-15 px-20 clearfix border-black-op-b">
+                <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$sb1rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Support Boon (I) Activation Rate</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$sb2rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Support Boon (II) Activation Rate</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$sb3rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Assistance Support (III) Activation Rate</div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="block block-transparent bg-primary-dark">
+                <div class="block-content block-content-full">
+                <div class="py-15 px-20 clearfix border-black-op-b">
+                <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$rs1rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Recovery Support (I) Activation Rate</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$rs2rate}}%</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Recovery Support (II) Activation Rate</div>
+                      
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260"></div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light"></div>
                   </div>
                 </div>
             </div>

@@ -187,6 +187,13 @@ class DashboardController extends Controller
                     $pdefdvalue=0;
                     $mdefdvalue=0;
                     $recovervalue=0;
+                    $dc1rate = 0;
+                    $sb1rate = 0;
+                    $rs1rate = 0;
+                    $dc2rate = 0;
+                    $sb2rate = 0;
+                    $sb3rate = 0;
+                    $rs2rate = 0;
                     // $blog = TbBlog::find($id);
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                         where('readableText', 'not like', '%summon skill%')->orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
@@ -295,9 +302,36 @@ class DashboardController extends Controller
                     $pdef = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF UP by%')->get();
                     $patkd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%ATK DOWN by%')->get();
                     $pdefd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF DOWN by%')->get();
-                    
-              
-                    
+                    $rs1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Recovery Support (I)%')->count();
+                    $dc1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Dauntless Courage (I)%')->count();
+                    $sb1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Support Boon (I)%')->count();
+                    $rs2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Recovery Support (II)%')->count();
+                    $dc2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Dauntless Courage (II)%')->count();
+                    $sb2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Support Boon (II)%')->count();
+                    $sb3 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Assistance Support (III)%')->count();
+
+                    if($dc1>0){
+                        $dc1rate = $dc1 / $apm * 100;
+                    }
+                    if($dc2>0){
+                        $dc2rate = $dc2 / $apm * 100;
+                    }
+                    if($sb1>0){
+                        $sb1rate = $sb1 / $apm * 100;
+                    }
+                    if($sb2>0){
+                        $sb2rate = $sb2 / $apm * 100;
+                    }
+                    if($sb3>0){
+                        $sb3rate = $sb3 / $apm * 100;
+                    }
+                    if($rs1>0){
+                        $rs1rate = $rs1 / $apm * 100;
+                    }
+                    if($rs2>0){
+                        $rs2rate = $rs2 / $apm * 100;
+                    }
+
                     if(isset($patk[0])){
 
                         foreach($patk as $cs){
@@ -433,7 +467,14 @@ class DashboardController extends Controller
                     ->with('patkdebuff',number_format($patkdvalue))
                     ->with('matkdebuff',number_format($matkdvalue))
                     ->with('pdefdebuff',number_format($pdefdvalue))
-                    ->with('mdefdebuff',number_format($mdefdvalue));
+                    ->with('mdefdebuff',number_format($mdefdvalue))
+                    ->with('dc1rate',number_format($dc1rate))
+                    ->with('sb1rate',number_format($sb1rate))
+                    ->with('rs1rate',number_format($rs1rate))
+                    ->with('dc2rate',number_format($dc2rate))
+                    ->with('sb2rate',number_format($sb2rate))
+                    ->with('rs2rate',number_format($rs2rate))
+                    ->with('sb3rate',number_format($sb3rate));
 
         
 
