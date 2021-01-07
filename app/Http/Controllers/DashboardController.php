@@ -25,11 +25,10 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if (!session('usern')) {
-
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
-                'clientId'          => '658613502415470631',
-                'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
-                'redirectUri'       => 'http://localhost/kureha-log/public'
+                'clientId'          => env('DISC_CLIENTID', 'a'),
+                'clientSecret'      => env('DISC_CLIENTSECRET', 'a'),
+                'redirectUri'       => env('DISC_URL', 'a')
             ]);
             
             if (!isset($_GET['code'])) {
