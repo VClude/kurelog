@@ -25,10 +25,11 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if (!session('usern')) {
+
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
-                'clientId'          => app('clientId'),
-                'clientSecret'      => app('clientSecret'),
-                'redirectUri'       => app('redirectUri')
+                'clientId'          => '658613502415470631',
+                'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
+                'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com/'
             ]);
             
             if (!isset($_GET['code'])) {
