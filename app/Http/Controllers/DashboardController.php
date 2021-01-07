@@ -64,7 +64,7 @@ class DashboardController extends Controller
                     $isAllowed = allowed::where('username',$usersess)->get();
                     if($isAllowed){
                         foreach($isAllowed as $d){
-                            array_push($inarr,$isAllowed->guildId);
+                            array_push($inarr,$d->guildId);
                         }
                         $request->session()->put('usern', $usersess);
                         $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime','Desc')->get();
