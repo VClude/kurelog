@@ -463,7 +463,7 @@
 
 <div class="col-md-12 mt-5">
 
-    <table id="btlog" class="table table-bordered data-table" style="max-width:100% !important;">
+    <table id="btlog" class="table table-bordered data-table" style="width:100% !important;">
 
         <thead>
 
