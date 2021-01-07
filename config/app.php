@@ -14,7 +14,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'clientId'          => env('DISC_CLIENTID', 'a'),
+    'clientSecret'      => env('DISC_CLIENTSECRET', 'a'),
+    'redirectUri'       => env('DISC_URL', 'a'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

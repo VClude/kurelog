@@ -26,9 +26,9 @@ class DashboardController extends Controller
     {
         if (!session('usern')) {
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
-                'clientId'          => env('DISC_CLIENTID', 'a'),
-                'clientSecret'      => env('DISC_CLIENTSECRET', 'a'),
-                'redirectUri'       => env('DISC_URL', 'a')
+                'clientId'          => app('clientId'),
+                'clientSecret'      => app('clientSecret'),
+                'redirectUri'       => app('redirectUri')
             ]);
             
             if (!isset($_GET['code'])) {
