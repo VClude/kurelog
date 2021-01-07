@@ -481,7 +481,7 @@ class DashboardController extends Controller
 
 
 
-                
+                dd($apm, $dc2rate, $dc2);return;
 
                     // return response()->json($y);
                     return view('grid')
@@ -502,13 +502,13 @@ class DashboardController extends Controller
                     ->with('matkdebuff',number_format($matkdvalue))
                     ->with('pdefdebuff',number_format($pdefdvalue))
                     ->with('mdefdebuff',number_format($mdefdvalue))
-                    ->with('dc1rate',$dc1rate)
-                    ->with('sb1rate',$sb1rate)
-                    ->with('rs1rate',$rs1rate)
-                    ->with('dc2rate',$dc2rate)
-                    ->with('sb2rate',$sb2rate)
-                    ->with('rs2rate',$rs2rate)
-                    ->with('sb3rate',$sb3rate);
+                    ->with('dc1rate',number_format($dc1rate))
+                    ->with('sb1rate',number_format($sb1rate))
+                    ->with('rs1rate',number_format($rs1rate))
+                    ->with('dc2rate',number_format($dc2rate))
+                    ->with('sb2rate',number_format($sb2rate))
+                    ->with('rs2rate',number_format($rs2rate))
+                    ->with('sb3rate',number_format($sb3rate));
 
         
 
