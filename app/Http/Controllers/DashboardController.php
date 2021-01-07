@@ -299,10 +299,10 @@ class DashboardController extends Controller
                         $guildenemy = $a[0]->guildDataNameB;
                     }
                     else{ $guildenemy = $a[0]->guildDataNameA;}
-                    $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
-                    ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
-                    ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%');
+                    $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
+                    // ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    // ->where('readableText', 'not like', '%10 mastery earned.%')
+                    // ->where('readableText', 'not like', '%summon skill%');
                     $apm = $thequery->count();
 
                     $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
@@ -481,7 +481,7 @@ class DashboardController extends Controller
 
 
 
-                dd($apm, $dc2rate, $dc2);return;
+                
 
                     // return response()->json($y);
                     return view('grid')
