@@ -38,7 +38,7 @@
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
                         <a class="font-w600 collapsed" data-toggle="collapse" data-parent="#accordion2"
-                            href="#accordion2_q1" aria-expanded="false" aria-controls="accordion2_q1">Ally Member List</a>
+                            href="#accordion2_q1" aria-expanded="false" aria-controls="accordion2_q1">Tap to show Ally Member List</a>
                     </div>
                     <div id="accordion2_q1" class="collapse" role="tabpanel" aria-labelledby="accordion2_h1" style="">
                         <div class="block-content">
@@ -64,7 +64,7 @@
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
                         <a class="font-w600 collapsed" data-toggle="collapse" data-parent="#accordion2"
-                            href="#accordion2_q2" aria-expanded="false" aria-controls="accordion2_q2">Enemy Member List</a>
+                            href="#accordion2_q2" aria-expanded="false" aria-controls="accordion2_q2">Tap to show Enemy Member List</a>
                     </div>
                     <div id="accordion2_q2" class="collapse" role="tabpanel" aria-labelledby="accordion2_h2" style="">
                         <div class="block-content">
@@ -127,7 +127,7 @@
             </div>
                     @endforeach
 
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="p1-tab" data-toggle="tab" href="#p1" role="tab" aria-controls="p1" aria-selected="true">Lifeforce</a>
   </li>
@@ -357,17 +357,109 @@
   </div>
 </div>
 
-
+<a data-toggle="collapse" href="#nmcollapse" role="button" aria-expanded="false" aria-controls="nmcollapse">
 <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
                         <div class="content text-center">
                             <div class="pt-50 pb-20">
-                                <h1 class="font-w700 text-white mb-10">Battle Log</h1>
-                                <h2 class="h4 font-w400 text-white-op">All Battle logs</h2>
+                                <h1 class="font-w700 text-white mb-10">Nightmare Logs</h1>
+                                <h2 class="h4 font-w400 text-white-op">Click here to Show</h2>
                             </div>
                     </div>
             </div>
+  </a>
 
-            <div class="row">
+            <div class="collapse container py-2 mt-4 mb-4" id="nmcollapse">
+            @php
+                $spacer = 1
+            @endphp
+            @foreach ($nml as $n)
+            @if($spacer % 2 == 0)
+
+            <div class="row no-gutters">
+            <div class="col-sm py-2 @if($n->isOwnGuild == 1) bg-success @else bg-warning @endif">
+                
+                        <div class="card-body">
+                        <div class="float-right text-muted small" style="padding-right:20px !important;">{{$n->actTime}}</div>
+                        <h4 class="card-title text-muted" style="padding-left:20px !important;">{{$n->userName}}</h4>
+                        <p class="card-text" style="white-space: pre-wrap !important; margin-left: 20px !important; margin-right: 20px !important;">{{$n->readableText}}</p>
+            
+                    </div>
+                </div>
+                <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-2">
+                        <span class="badge badge-pill bg-light border">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <!--spacer-->
+                </div>
+            </div>
+        
+            @endif
+
+            @if($spacer % 2 == 1)
+
+                <div class="row no-gutters">
+                    <div class="col-sm">
+                        <!--spacer-->
+                    </div>
+                    <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
+                        <div class="row h-50">
+                            <div class="col border-right">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                        <h5 class="m-2">
+                            <span class="badge badge-pill bg-light border">&nbsp;</span>
+                        </h5>
+                        <div class="row h-50">
+                            <div class="col border-right">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                    </div>
+                    <div class="col-sm py-2 @if($n->isOwnGuild == 1) bg-success @else bg-warning @endif">
+                        <div class="card">
+                            <div class="card-body">
+                            <div class="float-right text-muted small" style="padding-right:20px !important;">{{$n->actTime}}</div>
+                        <h4 class="card-title text-muted" style="padding-left:20px !important;">{{$n->userName}}</h4>
+                        <p class="card-text" style="white-space: pre-wrap !important; margin-left: 20px !important; margin-right: 20px !important;">{{$n->readableText}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            @endif
+
+            @php
+            $spacer++
+            @endphp
+            @endforeach
+
+            </div>
+
+
+
+
+            <a data-toggle="collapse" href="#blcollapse" role="button" aria-expanded="false" aria-controls="blcollapse">
+<div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
+                        <div class="content text-center">
+                            <div class="pt-50 pb-20">
+                                <h1 class="font-w700 text-white mb-10">Battle Logs</h1>
+                                <h2 class="h4 font-w400 text-white-op">Click here to Show</h2>
+                            </div>
+                    </div>
+            </div>
+  </a>
+
+            <div class="collapse row" id="blcollapse">
 
 <div class="col-md-12 mt-5">
 

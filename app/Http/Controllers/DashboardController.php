@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\gvgtop;
 use App\Models\gvgmvp;
 use App\Models\gvglog;
+use App\Models\gvgnmlog;
 use App\Models\gvgshinma;
 use App\Models\gvgmember;
 use App\Models\gvgenemymember;
@@ -143,6 +144,10 @@ class DashboardController extends Controller
                 $p5 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Enemy ATK Debuff')->orderBy('valueA','desc')->get();
                 $p6 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Enemy DEF Debuff')->orderBy('valueA','desc')->get();
                 $p7 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Combo')->orderBy('valueA','desc')->get();
+                $nml = gvgnmlog::where('gvgDataId', $id)->orderBy('gvgHistoryId','asc')->get();
+
+                
+
                 $ally = gvgmember::where('gvgDataId', $id)->get();
                 $enemy = gvgenemymember::where('gvgDataId', $id)->get();
         
@@ -158,7 +163,8 @@ class DashboardController extends Controller
                 ->with('p7',$p7)
                 ->with('ide',$id)
                 ->with('ally',$ally)
-                ->with('enemy',$enemy);
+                ->with('enemy',$enemy)
+                ->with('nml',$nml);
                 ;
             }
             else{
