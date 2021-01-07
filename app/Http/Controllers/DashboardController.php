@@ -59,10 +59,14 @@ class DashboardController extends Controller
                     $user = $provider->getResourceOwner($token);
                     
                     $usersess = $user->getId();
-                    $isAllowed = allowed::where('username',$usersess)->first();
+                    $inarr = [];
+                    $isAllowed = allowed::where('username',$usersess)->get();
                     if($isAllowed){
+                        foreach($isAllowed as $d){
+                            array_push($inarr,$isAllowed->guildId);
+                        }
                         $request->session()->put('usern', $usersess);
-                        $a = gvgtop::where('guildDataIdA', $isAllowed->guildId)->orderBy('battleEndTime','Desc')->get();
+                        $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime','Desc')->get();
         
                         // return response()->json($a);
                         return view('dashboard')->with('guild',$a);
@@ -84,10 +88,15 @@ class DashboardController extends Controller
         }
 
         else{
-            $isAllowed = allowed::where('username',session('usern'))->first();
+            $inarr = [];
+            $isAllowed = allowed::where('username',session('usern'))->get();
             if($isAllowed){
+                foreach($isAllowed as $d){
+                    // dd($d->guildId);return;
+                    array_push($inarr,$d->guildId);
+                }
 
-                $a = gvgtop::where('guildDataIdA', $isAllowed->guildId)->orderBy('battleEndTime','Desc')->get();
+                $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime','Desc')->get();
     
                 // $request->session()->put('usern', $usersess);
                 // return response()->json($a);
@@ -114,9 +123,18 @@ class DashboardController extends Controller
         }
 
         else{
-            $isAllowed = allowed::where('username',$sess)->first();
+            
+            $inarr = [];
+            $isAllowed = allowed::where('username',$sess)->get();
             if($isAllowed){
+                foreach($isAllowed as $d){
+                    array_push($inarr,$d->guildId);
+                }
                 $a = gvgtop::where('gvgDataId', $id)->get();
+                $amiallowed = $a[0]->guildDataIdA;
+                if(!in_array($amiallowed,$inarr)){
+                    return response()->json(['You are not allowed to see this log']);
+                }
                 $b = gvgshinma::where('gvgDataId', $id)->leftJoin('gvgshinmadetails', 'gvgshinmas.artMstId', '=', 'gvgshinmadetails.artMstId')->get();
                 $p1 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Lifeforce')->orderBy('valueA','desc')->get();
                 $p2 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Recover')->orderBy('valueA','desc')->get();
@@ -168,12 +186,19 @@ class DashboardController extends Controller
             if(!isset($sess)){
                 return redirect()->route('index');
             }
-    
             else{
-                $isAllowed = allowed::where('username',$sess)->first();
-                if($isAllowed){
+            $inarr = [];
+            $isAllowed = allowed::where('username',$sess)->get();
+            if($isAllowed){
+                foreach($isAllowed as $d){
+                    array_push($inarr,$d->guildId);
+                }
+                $a = gvgtop::where('gvgDataId', $idmatch)->get();
+                $amiallowed = $a[0]->guildDataIdA;
+                if(!in_array($amiallowed,$inarr)){
+                    return response()->json(['You are not allowed to see this grid']);
+                }
 
-                    $a = gvgtop::where('gvgDataId', $idmatch)->get();
                     $y = [];
                     $yb =[];
                     $img = [];
@@ -498,8 +523,18 @@ class DashboardController extends Controller
             }
     
             else{
-                $isAllowed = allowed::where('username',$sess)->first();
+
+                $inarr = [];
+                $isAllowed = allowed::where('username',$sess)->get();
                 if($isAllowed){
+                    foreach($isAllowed as $d){
+                        array_push($inarr,$d->guildId);
+                    }
+                    $a = gvgtop::where('gvgDataId', $id)->first();
+                    $amiallowed = $a->guildDataIdA;
+                    if(!in_array($amiallowed,$inarr)){
+                        return response()->json(['You are not allowed to see this grid']);
+                    }
                     
                         ## Read value
                         $draw = $request->get('draw');
@@ -578,8 +613,17 @@ class DashboardController extends Controller
             }
     
             else{
-                $isAllowed = allowed::where('username',$sess)->first();
+                $inarr = [];
+                $isAllowed = allowed::where('username',$sess)->get();
                 if($isAllowed){
+                    foreach($isAllowed as $d){
+                        array_push($inarr,$d->guildId);
+                    }
+                    $a = gvgtop::where('gvgDataId', $id)->first();
+                    $amiallowed = $a->guildDataIdA;
+                    if(!in_array($amiallowed,$inarr)){
+                        return response()->json(['You are not allowed to see this grid']);
+                    }
                     
                         ## Read value
                         $draw = $request->get('draw');
