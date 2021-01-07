@@ -279,20 +279,23 @@ class DashboardController extends Controller
         
                     
                     //recover
-                    
+            //    $cn = 0;
                     if(isset($recover[0])){
                         foreach($recover as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/HP recovered by (.*)/", $cse);
-                        
+                            // $cn++;
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
+                                $csve = explode("by", $crv);
+
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                // array_push($arrdebug, $csve);
                                 $recovervalue += $v;
                             }
                             // print($cskill2 . '</br>');
                         }
                     }
-
+// dd($arrdebug);return;
 
                     //eof recover
                     // $querybasic = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
@@ -337,10 +340,10 @@ class DashboardController extends Controller
                         foreach($patk as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/M.ATK UP by (.*)/", $cse);
-
+                            
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $matkvalue += $v;
                             }
                   
@@ -351,8 +354,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/[^M.]ATK UP by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $patkvalue += $v;
                             }
                   
@@ -367,8 +370,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/M.DEF UP by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $mdefvalue += $v;
                             }
                   
@@ -379,8 +382,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/[^M.]DEF UP by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $pdefvalue += $v;
                             }
                   
@@ -394,8 +397,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/M.ATK DOWN by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $matkdvalue += $v;
                             }
                   
@@ -406,8 +409,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/[^M.]ATK DOWN by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $patkdvalue += $v;
                             }
                   
@@ -421,8 +424,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/M.DEF DOWN by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $mdefdvalue += $v;
                             }
                   
@@ -433,8 +436,8 @@ class DashboardController extends Controller
                             $cskill = preg_grep("/[^M.]DEF DOWN by (.*)/", $cse);
 
                             foreach($cskill as $crv){
-                                $v = preg_replace('/[^0-9]/', '', $crv);
-                
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
                                 $pdefdvalue += $v;
                             }
                   
