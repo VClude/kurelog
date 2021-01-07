@@ -463,20 +463,20 @@
 
 <div class="col-md-12 mt-5">
 
-    <table id="btlog" class="table table-bordered data-table" style="width:100% !important;">
+    <table id="btlog" class="table table-bordered data-table" style="max-width:100% !important;">
 
         <thead>
 
             <tr>
-                <th style="background-color:white !important;">id</th>
+                <th style="width:5% !important; background-color:white !important;">id</th>
 
-                <th style="background-color:white !important;">Time</th>
+                <th style="width:20% !important; background-color:white !important;">Time</th>
 
-                <th style="background-color:white !important;">userName</th>
+                <th style="width:20% !important; background-color:white !important;">userName</th>
 
-                <th style="background-color:white !important;">ownGuild</th>
+                <th style="width:5% !important; background-color:white !important;">ownGuild</th>
 
-                <th style="background-color:white !important;">Action</th>
+                <th style="width:50% !important;    background-color:white !important;">Action</th>
 
             </tr>
 
