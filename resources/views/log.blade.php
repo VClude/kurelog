@@ -116,13 +116,13 @@
                                     <div class="row py-20">
                                         <div class="col-6 text-left border-r">
                                             <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
-                                                <div class="font-size-h3 font-w600 text-info">{{ $emostkiss }}</div>
+                                                <div class="font-size-h3 font-w600 text-success">{{ $emostkiss }}</div>
                                                 <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Most Targeted Enemy (Floor Kisser)</div>
                                             </div>
                                         </div>
                                         <div class="col-6 text-right">
                                             <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
-                                                <div class="font-size-h3 font-w600 text-success">{{ $mostkiss }}</div>
+                                                <div class="font-size-h3 font-w600 text-info">{{ $mostkiss }}</div>
                                                 <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Most Targeted Enemy (Floor Kisser)</div>
                                             </div>
                                         </div>
