@@ -183,13 +183,13 @@
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
                                             <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
-                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildBAbuff) }}</div>
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildBAbuff) }}</div>
                                                 <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Atk Buff</div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
-                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildAAdebuff) }}</div>
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildAAdebuff) }}</div>
                                                 <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Atk Debuff</div>
                                             </div>
                                         </div>
@@ -197,13 +197,13 @@
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
                                             <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
-                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildBDbuff) }}</div>
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildBDbuff) }}</div>
                                                 <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Def buff</div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
-                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildADdebuff) }}</div>
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildADdebuff) }}</div>
                                                 <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Def Debuff</div>
                                             </div>
                                         </div>
