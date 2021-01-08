@@ -31,6 +31,8 @@ class DashboardController extends Controller
                 'clientId'          => '658613502415470631',
                 'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
                 'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
+                // 'redirectUri'       => 'http://localhost/kureha-log/public'
+
             ]);
             
             if (!isset($_GET['code'])) {
@@ -117,7 +119,14 @@ class DashboardController extends Controller
 
     public function log($id, Request $request)
     {
-
+        $guildAAbuff = 0;
+        $guildBAbuff = 0;
+        $guildAAdebuff = 0;
+        $guildBAdebuff = 0;
+        $guildADbuff = 0;
+        $guildBDbuff = 0;
+        $guildADdebuff = 0;
+        $guildBDdebuff = 0;
         $sess = session('usern');
         if(!isset($sess)){
             return redirect()->route('index');
@@ -126,6 +135,10 @@ class DashboardController extends Controller
         else{
             
             $inarr = [];
+            $simped = [];
+            $esimped = [];
+            $kiss = [];
+            $ekiss = [];
             $isAllowed = allowed::where('username',$sess)->get();
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -144,9 +157,116 @@ class DashboardController extends Controller
                 $p5 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Enemy ATK Debuff')->orderBy('valueA','desc')->get();
                 $p6 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Enemy DEF Debuff')->orderBy('valueA','desc')->get();
                 $p7 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Combo')->orderBy('valueA','desc')->get();
-                $nml = gvgnmlog::where('gvgDataId', $id)->orderBy('gvgHistoryId','asc')->get();
+                $enemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->count();
+                $ownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->count();
+                
+                $ienemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->get();
+                $iownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->get();
 
                 
+                $selfsimp = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->get();
+                $enemy = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->get();
+
+                $nml = gvgnmlog::where('gvgDataId', $id)->orderBy('gvgHistoryId','asc')->get();
+                // $counter = 0;
+                foreach($selfsimp as $cs){
+                    $cse = explode("\n", $cs->readableText);
+                    $cskill = preg_grep("/(ATK UP by (.*)|DEF UP by (.*))/", $cse);
+
+                    foreach($cskill as $crv){
+                        $csve = explode("'s", $crv);   
+                        array_push($simped, $csve[0]);          
+                        // $simped[$counter]['name'] = $csve[0];
+                        // $counter++;
+                    }
+          
+                }
+                
+                foreach($iownkiss as $cs){
+                    $cse = explode("\n", $cs->readableText);
+                    $cskill = preg_grep("/(.*)has fainted./", $cse);
+                
+                    foreach($cskill as $crv){
+                        $csve = explode("has", $crv);   
+                        array_push($kiss, $csve[0]);          
+                        // $simped[$counter]['name'] = $csve[0];
+                        // $counter++;
+                    }
+          
+                }
+
+                foreach($ienemykiss as $cs){
+                    $cse = explode("\n", $cs->readableText);
+                    $cskill = preg_grep("/(.*)has fainted./", $cse);
+                
+                    foreach($cskill as $crv){
+                        $csve = explode("has", $crv);   
+                        array_push($ekiss, $csve[0]);          
+                        // $simped[$counter]['name'] = $csve[0];
+                        // $counter++;
+                    }
+          
+                }
+
+              
+
+                foreach($enemy as $cs){
+                    $cse = explode("\n", $cs->readableText);
+                    $cskill = preg_grep("/(ATK UP by (.*)|DEF UP by (.*))/", $cse);
+
+                    foreach($cskill as $crv){
+                        $csve = explode("'s", $crv);   
+                        array_push($esimped, $csve[0]);          
+                        // $simped[$counter]['name'] = $csve[0];
+                        // $counter++;
+                    }
+          
+                }
+
+                // usort($simped, function($a, $b) {
+                //     return $a['name'] <=> $b['name'];
+                // });
+                // usort($simped, function ($item1) {
+                //     return $item1['price'] <=> $item2['price'];
+                // });
+                $sm = array_count_values($simped);
+                arsort($sm);
+                $sm = array_keys($sm);
+                $mostsimped = $sm[0];
+
+                $km = array_count_values($kiss);
+                arsort($km);
+                $km = array_keys($km);
+                $mostkiss = $km[0];
+
+                $kme = array_count_values($ekiss);
+                arsort($kme);
+                $kme = array_keys($kme);
+                $emostkiss = $kme[0];
+
+               
+
+                $esm = array_count_values($esimped);
+                arsort($esm);
+                $esm = array_keys($esm);
+                $emostsimped = $esm[0];
+            
+                foreach($p3 as $v3){
+                    $guildAAbuff += $v3->valueA;
+                    $guildBAbuff += $v3->valueB;
+                }
+                foreach($p4 as $v3){
+                    $guildADbuff += $v3->valueA;
+                    $guildBDbuff += $v3->valueB;
+                }
+                foreach($p5 as $v3){
+                    $guildAAdebuff += $v3->valueA;
+                    $guildBAdebuff += $v3->valueB;
+                }
+                foreach($p6 as $v3){
+                    $guildADdebuff += $v3->valueA;
+                    $guildBDdebuff += $v3->valueB;
+                }
 
                 $ally = gvgmember::where('gvgDataId', $id)->get();
                 $enemy = gvgenemymember::where('gvgDataId', $id)->get();
@@ -164,7 +284,21 @@ class DashboardController extends Controller
                 ->with('ide',$id)
                 ->with('ally',$ally)
                 ->with('enemy',$enemy)
-                ->with('nml',$nml);
+                ->with('nml',$nml)
+                ->with('enemykiss',$enemykiss)
+                ->with('ownkiss',$ownkiss)
+                ->with('mostkiss',$mostkiss)
+                ->with('emostkiss',$emostkiss)
+                ->with('mostsimped',$mostsimped)
+                ->with('emostsimped',$emostsimped)
+                ->with('guildAAbuff',$guildAAbuff)
+                ->with('guildBAbuff',$guildBAbuff)
+                ->with('guildADbuff',$guildADbuff)
+                ->with('guildBDbuff',$guildBDbuff)
+                ->with('guildAAdebuff',$guildAAdebuff)
+                ->with('guildBAdebuff',$guildBAdebuff)
+                ->with('guildADdebuff',$guildADdebuff)
+                ->with('guildBDdebuff',$guildBDdebuff);
                 ;
             }
             else{

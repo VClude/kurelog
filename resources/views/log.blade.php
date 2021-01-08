@@ -15,24 +15,206 @@
 
        
 </hr>
-        <div class="row text-center" style="margin-top: 30px;">
-                        <div class="col-6">
-                            
-                        <h2 style="color:white !important;"><img src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeA}}.png"> </img>{{ $g->guildDataNameA }}</h2>
-                        <h2 style="color:white !important; text-align:left !important;">Lifeforce : {{ $g->totalGuildPointA }}</h2>  
-                        <h2 style="color:white !important; text-align:left !important;">Combo : {{ $g->selfComboCount }}</h2>  
-                        <h2 style="color:white !important; text-align:left !important;"> Downed Guildships: {{ $g->selfSiegeWinCount }}</h2>  
 
+
+        <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+                        <!-- Row #4 -->
+                        <div class="col-md-12">
+                        <a class="block block-link-shadow overflow-hidden">
+                                <div class="block-content block-content-full">
+                                    <div class="text-left">
+                                        <h3> Overall Results</h3>
+                                    </div>
+
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info"><img src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeA}}.png"> </img>{{ $g->guildDataNameA }}</div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                            <div class="font-size-h3 font-w600 text-success"><img src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeB}}.png"> </img>{{ $g->guildDataNameB }}</div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($g->totalGuildPointA) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Lifeforce</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($g->totalGuildPointB) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Lifeforce</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($g->selfComboCount) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Combo</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($g->enemyComboCount) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Combo</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ $g->selfSiegeWinCount }} times</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Shipping {{ $g->guildDataNameB }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ $g->enemySiegeWinCount }} Times</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Shipping {{ $g->guildDataNameA }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ $enemykiss }} times</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} make {{ $g->guildDataNameB }} Kissing floor</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ $ownkiss }} Times</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} make {{ $g->guildDataNameA }} Kissing floor</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ $mostsimped }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Most Targeted Ally (Buff Simps)</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ $emostsimped }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Most Targeted Ally (Buff Simps)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ $emostkiss }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Most Targeted Enemy (Floor Kisser)</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ $mostkiss }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Most Targeted Enemy (Floor Kisser)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
+                       
+                        <!-- END Row #4 -->
+                    </div>
 
-                        <div class="col-6">
-<h2 style="color:white !important;"><img src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeB}}.png"> </img>{{ $g->guildDataNameB }}</h2>
-                            <h2 style="color:white !important; text-align:left !important;">Lifeforce : {{ $g->totalGuildPointB }}</h2>  
-                            <h2 style="color:white !important; text-align:left !important;">Combo : {{ $g->enemyComboCount }}</h2>  
-                            <h2 style="color:white !important; text-align:left !important;"> Downed Guildships: {{ $g->enemySiegeWinCount }}</h2>  
-    
-                            </div>
-        </div>
+
+        <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+                        <!-- Row #4 -->
+                        <div class="col-md-6">
+                        <a class="block block-link-shadow overflow-hidden">
+                                <div class="block-content block-content-full">
+                                    <div class="text-left">
+                                        <h3> {{ $g->guildDataNameA }} Buff War Results</h3>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-right border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildAAbuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Atk Buff</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildBAdebuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Atk Debuff</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-right border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildADbuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Def buff</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildBDdebuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Def Debuff</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                        <a class="block block-link-shadow overflow-hidden">
+                                <div class="block-content block-content-full">
+                                    <div class="text-left">
+                                        <h3> {{ $g->guildDataNameB }} Buff War Results</h3>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-right border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildBAbuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Atk Buff</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildAAdebuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Atk Debuff</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-right border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ number_format($guildBDbuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Def buff</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ number_format($guildADdebuff) }}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Def Debuff</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- END Row #4 -->
+                    </div>
+
+
         <div class="row row-deck gutters-tiny"   id="accordion2" role="tablist" aria-multiselectable="true">
             <div class="col-md-6">
                 <div class="block block-rounded">
