@@ -333,208 +333,247 @@
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="p1" role="tabpanel" aria-labelledby="p1-tab">
-  <div class="row row-deck gutters-tiny text-center">
-  @foreach ($p1 as $p)
-                     
-                        <div class="col-md-6">
-                            <div class="block block-rounded">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">{{$p->nameA}}</h3>
-                                </div>
-                                <div class="block-content">
-                                    <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                                </div>
+<div class="tab-pane fade show active" id="p1" role="tabpanel" aria-labelledby="p1-tab">
+<div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Lifeforce</h3>
+            </div>
+            @foreach ($p1 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
                             </div>
                         </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
+</div>
+</div>
 
-                        <div class="col-md-6">
-                            <div class="block block-rounded">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">{{$p->nameB}}</h3>
-                                </div>
-                                <div class="block-content">
-                                    <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                                </div>
-                            </div>
-                        </div>
-  @endforeach
+
  
                     
-</div>
-  </div>
+
   <div class="tab-pane fade" id="p2" role="tabpanel" aria-labelledby="p2-tab">
-  <div class="row row-deck gutters-tiny text-center">
-
-  @foreach ($p2 as $p)
-                     
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameA}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameB}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                             </div>
-                         </div>
-                     </div>
-@endforeach
+  <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Recover</h3>
+            </div>
+            @foreach ($p2 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
 </div>
   </div>
   <div class="tab-pane fade" id="p3" role="tabpanel" aria-labelledby="p3-tab">
-  <div class="row row-deck gutters-tiny text-center">
-
-  @foreach ($p3 as $p)
-                     
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameA}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameB}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                             </div>
-                         </div>
-                     </div>
-@endforeach
+  <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Ally ATK Support</h3>
+            </div>
+            @foreach ($p3 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
 </div>
   </div>
   <div class="tab-pane fade" id="p4" role="tabpanel" aria-labelledby="p4-tab">
-  <div class="row row-deck gutters-tiny text-center">
-
-  @foreach ($p4 as $p)
-                     
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameA}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameB}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                             </div>
-                         </div>
-                     </div>
-@endforeach
+  <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Ally Def Support</h3>
+            </div>
+            @foreach ($p4 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
 </div>
   </div>
   <div class="tab-pane fade" id="p5" role="tabpanel" aria-labelledby="p5-tab">
-  <div class="row row-deck gutters-tiny text-center">
-
-  @foreach ($p5 as $p)
-                     
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameA}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameB}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                             </div>
-                         </div>
-                     </div>
-@endforeach
+  <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Enemy ATK Debuff</h3>
+            </div>
+            @foreach ($p5 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
 </div>
   </div>
   <div class="tab-pane fade" id="p6" role="tabpanel" aria-labelledby="p6-tab">
-  <div class="row row-deck gutters-tiny text-center">
-
-  @foreach ($p6 as $p)
-                     
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameA}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameB}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                             </div>
-                         </div>
-                     </div>
-@endforeach
+  <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Enemy DEF Debuff</h3>
+            </div>
+            @foreach ($p6 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
 </div>
   </div>
   <div class="tab-pane fade" id="p7" role="tabpanel" aria-labelledby="p7-tab">
-  <div class="row row-deck gutters-tiny text-center">
-
-  @foreach ($p7 as $p)
-                     
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameA}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueA}}</div>
-                             </div>
-                         </div>
-                     </div>
-
-                     <div class="col-md-6">
-                         <div class="block block-rounded">
-                             <div class="block-header block-header-default">
-                                 <h3 class="block-title">{{$p->nameB}}</h3>
-                             </div>
-                             <div class="block-content">
-                                 <div class="font-size-lg text-black mb-5">{{$p->valueB}}</div>
-                             </div>
-                         </div>
-                     </div>
-@endforeach
+  <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <a class="block block-link-shadow overflow-hidden">
+            <div class="block-content block-content-full">
+            <div class="text-center">
+                <h3> Combo</h3>
+            </div>
+            @foreach ($p7 as $p)
+                <div class="row py-20">
+                    <div class="col-6 text-right border-r">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <div class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameB}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </a>
+    </div>
+    <!-- END Row #4 -->
 </div>
   </div>
 </div>
