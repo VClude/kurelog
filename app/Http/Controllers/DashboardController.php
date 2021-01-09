@@ -374,6 +374,107 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function statSpec($specs,$userid, $idmatch, Request $request)
+        {
+            $allowedspec = ['atk','def','defd','atkd'];
+            if(!isset($specs) || !$specs || !in_array($specs, $allowedspec)){
+                return response()->json(['spec not found']);
+            }
+            $q = '';
+            switch($specs){
+                case 'atk':
+                    $q = '%ATK UP by%';
+                    $regex = 'ATK UP by';
+                    $key1 = 'patk';
+                    $key2 = 'matk';
+                    break;
+                case 'def':
+                    $q = '%DEF UP by%';
+                    $regex = 'DEF UP by';
+                    $key1 = 'pdef';
+                    $key2 = 'mdef';
+                    break;
+                case 'atkd':
+                    $q = '%ATK DOWN by%';
+                    $regex = 'ATK DOWN by';
+                    $key1 = 'patkdebuff';
+                    $key2 = 'matkdebuff';
+                    break;
+                case 'defd':
+                    $q = '%DEF DOWN by%';
+                    $regex = 'DEF DOWN by';
+                    $key1 = 'pdefdebuff';
+                    $key2 = 'mdefdebuff';
+                    break;
+                default:
+                    $q = '';
+            }
+            $p1value=0;
+            $p2value=0;
+            $sess = session('usern');
+            if(!isset($sess)){
+                return redirect()->route('index');
+            }
+            else{
+            $inarr = [];
+            $isAllowed = allowed::where('username',$sess)->get();
+            if($isAllowed){
+                foreach($isAllowed as $d){
+                    array_push($inarr,$d->guildId);
+                }
+                $a = gvgtop::where('gvgDataId', $idmatch)->get();
+                if(count($a) == 0){
+                    return response()->json(['match/grid not available']);
+                }
+                $amiallowed = $a[0]->guildDataIdA;
+                if(!in_array($amiallowed,$inarr)){
+                    return response()->json(['You are not allowed to see this grid']);
+                }
+
+                $specget = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', $q)->get();
+                if(isset($specget[0])){
+
+                    foreach($specget as $cs){
+                        $cse = explode("\n", $cs->readableText);
+                        $cskill = preg_grep("/M.".$regex." (.*)/", $cse);
+                        
+                        foreach($cskill as $crv){
+                            $csve = explode("by", $crv);
+                            $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                            $p2 += $v;
+                        }
+              
+                    }
+
+                    foreach($specget as $cs){
+                        $cse = explode("\n", $cs->readableText);
+                        $cskill = preg_grep("/[^M.]".$regex." (.*)/", $cse);
+
+                        foreach($cskill as $crv){
+                            $csve = explode("by", $crv);
+                            $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                            $p1 += $v;
+                        }
+              
+                    }
+                
+                    return response()->json([$key1=> $p1,$key2=>$p2]);
+
+                }
+
+                else{
+                    return response()->json(['patk'=> 0,'matk'=>0]);
+                }
+
+            }
+            else{
+                return response()->json(['You are not allowed']);
+
+            }
+
+        }
+    }
+
     public function showGrid($userid, $idmatch, Request $request)
         {
 
