@@ -92,12 +92,26 @@
         <!-- END Page Container -->
 
         <!-- Codebase Core JS -->
-        
+        <script src="{{asset('/js/codebase.core.js')}}"></script>
+
         <script src="{{ mix('js/codebase.app.js') }}"></script>
        
 
         <!-- Laravel Scaffolding JS -->
         <script src="{{ mix('js/laravel.app.js') }}"></script>
+        <script src="{{asset('/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/chartjs/Chart.bundle.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/flot/jquery.flot.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/flot/jquery.flot.pie.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/flot/jquery.flot.stack.min.js')}}"></script>
+        <script src="{{asset('/js/plugins/flot/jquery.flot.resize.min.js')}}"></script>
+
+        <!-- Page JS Code -->
+        <!-- <script src="{{asset('/js/pages/be_comp_charts.min.js')}}"></script> -->
+
+        <!-- Page JS Helpers (Easy Pie Chart Plugin) -->
+        <!-- <script>jQuery(function(){ Codebase.helpers('easy-pie-chart'); });</script> -->
         @yield('js_after')
     </body>
 </html>
