@@ -423,7 +423,7 @@ class DashboardController extends Controller
                             }
                         }
                         else{
-                            array_push($yb, 'not found');
+                            array_push($yb, 'Colo skill not found / not proced');
                         }
 
 
