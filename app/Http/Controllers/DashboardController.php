@@ -25,6 +25,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        $inarr = [];
         if (!session('usern')) {
 
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
@@ -91,7 +92,7 @@ class DashboardController extends Controller
         }
 
         else{
-            $inarr = [];
+           
             $isAllowed = allowed::where('username',session('usern'))->get();
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -162,7 +163,9 @@ class DashboardController extends Controller
                 $p7 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Combo')->orderBy('valueA','desc')->get();
                 $enemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->count();
                 $ownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->count();
-                
+                $crit = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%critical hit%')->count();
+                $crite = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%critical hit%')->count();
+
                 $ienemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->get();
                 $iownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->get();
 
@@ -277,6 +280,8 @@ class DashboardController extends Controller
                 // return response()->json($a);
                 return view('log')->with('guild',$a)
                 ->with('shinma',$b)
+                ->with('crit',$crit)
+                ->with('crite',$crite)
                 ->with('p1',$p1)
                 ->with('p2',$p2)
                 ->with('p3',$p3)
