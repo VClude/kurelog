@@ -556,24 +556,23 @@ class DashboardController extends Controller
                         // $regexq = $theq[0];
                         // print($regexq . '</br>');
                         $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
-                        $ws = weapskill::where('weapskillid',$imgquery->weapskillid)->first();
+                        
 
                         if($imgquery){
+                            $ws = weapskill::where('weapskillid',$imgquery->weapskillid)->first();
+                            if($ws){
+                                array_push($ybd,$ws->weapskillname);
+                                array_push($ybe,$ws->weapdesc);
+    
+                            }
                             array_push($img,$imgquery->weapurl);
                         }
                         if(!$imgquery){
                             array_push($img,'not found');
-                        }
-                        if($ws){
-                            array_push($ybd,$ws->weapskillname);
-                            array_push($ybe,$ws->weapdesc);
-
-                        }
-                        if(!$ws){
                             array_push($ybd,'not found');
                             array_push($ybe,'not found');
-
                         }
+
                         $colosupport = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                         ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                         ->where('readableText', 'not like', '%10 mastery earned.%')
