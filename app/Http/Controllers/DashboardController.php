@@ -409,8 +409,8 @@ class DashboardController extends Controller
                 default:
                     $q = '';
             }
-            $p1value=0;
-            $p2value=0;
+            $p1=0;
+            $p2=0;
             $sess = session('usern');
             if(!isset($sess)){
                 return redirect()->route('index');
