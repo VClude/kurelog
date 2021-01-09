@@ -1292,7 +1292,7 @@
     });
     $(document).ready(function () {
         console.log('{{$ide}}');
-        $.noConflict();
+        // $.noConflict();
 // DataTable
         $('#btlog').DataTable({
 
