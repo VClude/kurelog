@@ -30,8 +30,8 @@ class DashboardController extends Controller
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
                 'clientId'          => '658613502415470631',
                 'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
-                'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
-                // 'redirectUri'       => 'http://localhost/kureha-log/public'
+                // 'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
+                'redirectUri'       => 'http://localhost/kureha-log/public'
 
             ]);
             
@@ -361,7 +361,8 @@ class DashboardController extends Controller
                     $rs2rate = 0;
                     // $blog = TbBlog::find($id);
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
-                        where('readableText', 'not like', '%summon skill%')->orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
+                        where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->
+                        orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
                     foreach($grid as $g){
         
                         $thearr = explode("\n", $g->readableText);
@@ -397,6 +398,7 @@ class DashboardController extends Controller
                         $colosupport = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                         ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                         ->where('readableText', 'not like', '%10 mastery earned.%')
+                        ->where('readableText', 'not like', '%switched with%')
                         ->where('readableText', 'not like', '%summon skill%')
                         ->where('readableText', 'not like', '%'. $query2 . '%')
                         ->where('readableText', 'like', '%'. $regexq . '%')

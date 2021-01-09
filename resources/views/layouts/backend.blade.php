@@ -37,6 +37,7 @@
     <body>
   
         <div id="page-container" class=" enable-page-overlay page-header-modern main-content-boxed">
+        
             <!-- Side Overlay-->
             <aside id="side-overlay">
                 <!-- Side Header -->
