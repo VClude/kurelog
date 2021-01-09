@@ -145,6 +145,9 @@ class DashboardController extends Controller
                     array_push($inarr,$d->guildId);
                 }
                 $a = gvgtop::where('gvgDataId', $id)->get();
+                if(count($a) == 0){
+                    return response()->json(['match/grid not available']);
+                }
                 $amiallowed = $a[0]->guildDataIdA;
                 if(!in_array($amiallowed,$inarr)){
                     return response()->json(['You are not allowed to see this log']);
@@ -334,6 +337,9 @@ class DashboardController extends Controller
                     array_push($inarr,$d->guildId);
                 }
                 $a = gvgtop::where('gvgDataId', $idmatch)->get();
+                if(count($a) == 0){
+                    return response()->json(['match/grid not available']);
+                }
                 $amiallowed = $a[0]->guildDataIdA;
                 if(!in_array($amiallowed,$inarr)){
                     return response()->json(['You are not allowed to see this grid']);
@@ -363,6 +369,9 @@ class DashboardController extends Controller
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                         where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->
                         orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
+                        if(count($grid) == 0){
+                            return response()->json(['match/grid not available']);
+                        }
                     foreach($grid as $g){
         
                         $thearr = explode("\n", $g->readableText);
@@ -435,10 +444,10 @@ class DashboardController extends Controller
                         $guildenemy = $a[0]->guildDataNameB;
                     }
                     else{ $guildenemy = $a[0]->guildDataNameA;}
-                    $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
-                    // ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
-                    // ->where('readableText', 'not like', '%10 mastery earned.%')
-                    // ->where('readableText', 'not like', '%summon skill%');
+                    $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%');
                     $apm = $thequery->count();
 
                     $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
@@ -472,13 +481,29 @@ class DashboardController extends Controller
                     $pdef = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF UP by%')->get();
                     $patkd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%ATK DOWN by%')->get();
                     $pdefd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF DOWN by%')->get();
-                    $rs1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Recovery Support (I)%')->count();
-                    $dc1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Dauntless Courage (I)%')->count();
-                    $sb1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Support Boon (I)%')->count();
-                    $rs2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Recovery Support (II)%')->count();
-                    $dc2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Dauntless Courage (II)%')->count();
-                    $sb2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Support Boon (II)%')->count();
-                    $sb3 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%Assistance Support (III)%')->count();
+                    $rs1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (I)%')->count();
+                    $dc1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Dauntless Courage (I)%')->count();
+                    $sb1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Support Boon (I)%')->count();
+                    $rs2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (II)%')->count();
+                    $dc2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Dauntless Courage (II)%')->count();
+                    $sb2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Support Boon (II)%')->count();
+                    $sb3 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Assistance Support (III)%')->count();
 
                     if($dc1>0){
                         $dc1rate = $dc1 / $apm * 100;
@@ -673,6 +698,7 @@ class DashboardController extends Controller
                         array_push($inarr,$d->guildId);
                     }
                     $a = gvgtop::where('gvgDataId', $id)->first();
+                   
                     $amiallowed = $a->guildDataIdA;
                     if(!in_array($amiallowed,$inarr)){
                         return response()->json(['You are not allowed to see this grid']);
@@ -762,6 +788,7 @@ class DashboardController extends Controller
                         array_push($inarr,$d->guildId);
                     }
                     $a = gvgtop::where('gvgDataId', $id)->first();
+                   
                     $amiallowed = $a->guildDataIdA;
                     if(!in_array($amiallowed,$inarr)){
                         return response()->json(['You are not allowed to see this grid']);

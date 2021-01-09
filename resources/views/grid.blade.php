@@ -138,12 +138,12 @@
                 <div class="py-15 px-20 clearfix border-black-op-b">
                       
                       <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$dc1rate}}%</div>
-                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Dauntless Courage (I) Activation Rate</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Dauntless Courage (I) Activation Rate (proc ship not counted)</div>
                   </div>
                   <div class="py-15 px-20 clearfix border-black-op-b">
                       
                       <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$dc2rate}}%</div>
-                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Dauntless Courage (II) Activation Rate</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Dauntless Courage (II) Activation Rate (proc ship not counted)</div>
                   </div>
                   <div class="py-15 px-20 clearfix border-black-op-b">
                       
