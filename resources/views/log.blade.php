@@ -477,6 +477,16 @@
                 </div>
             @endforeach
 
+            <!-- <div class="row py-20">
+                    <div class="col-12">
+                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                            data-class="animated fadeIn">
+                            <canvas class="js-chartjs-pie chartjs-render-monitor" id="piebuff"></canvas>
+                        </div>
+                    </div>
+                </div> -->
+
+
             <div class="row">
                      
                         <div class="col-xl-12">
