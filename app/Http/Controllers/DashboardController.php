@@ -447,8 +447,12 @@ class DashboardController extends Controller
                     $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%');
+                    ->where('readableText', 'not like', '%summon skill%')->
+                    where('readableText', 'not like', '%switched with%');
                     $apm = $thequery->count();
+
+                    $thequery2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
+                    $apm2 = $thequery2->count();
 
                     $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'like', '%HP recovered by%')->get();
@@ -654,6 +658,7 @@ class DashboardController extends Controller
                     ->with('uid',$userid)
                     ->with('ide',$idmatch)
                     ->with('apm',$apm)
+                    ->with('apm2',$apm2)
                     ->with('recover',number_format($recovervalue))
                     ->with('patkbuff',number_format($patkvalue))
                     ->with('matkbuff',number_format($matkvalue))
