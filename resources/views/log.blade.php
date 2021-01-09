@@ -417,6 +417,30 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="row">
+                     
+                     <div class="col-xl-12">
+                         <!-- Bars Chart -->
+                         <div class="block">
+                             <div class="block-header block-header-default">
+                                 <h3 class="block-title">Recover</h3>
+                                 <div class="block-options">
+                                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                                         <i class="si si-refresh"></i>
+                                     </button>
+                                 </div>
+                             </div>
+                             <div class="block-content block-content-full text-center"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                 <!-- Bars Chart Container -->
+                                 <canvas class="js-chartjs-bars chartjs-render-monitor" id="recover"></canvas>
+                             </div>
+                         </div>
+                         <!-- END Bars Chart -->
+                     </div>
+                    
+         </div>
+
             </div>
         </a>
     </div>
@@ -432,6 +456,7 @@
             <div class="text-center">
                 <h3> Ally ATK Support</h3>
             </div>
+
             @foreach ($p3 as $p)
                 <div class="row py-20">
                     <div class="col-6 text-right border-r">
@@ -451,6 +476,29 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="row">
+                     
+                        <div class="col-xl-12">
+                            <!-- Bars Chart -->
+                            <div class="block">
+                                <div class="block-header block-header-default">
+                                    <h3 class="block-title">ATK Support</h3>
+                                    <div class="block-options">
+                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                                            <i class="si si-refresh"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="block-content block-content-full text-center"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                    <!-- Bars Chart Container -->
+                                    <canvas class="js-chartjs-bars chartjs-render-monitor" id="atksupp"></canvas>
+                                </div>
+                            </div>
+                            <!-- END Bars Chart -->
+                        </div>
+                       
+            </div>
             </div>
         </a>
     </div>
@@ -485,6 +533,30 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="row">
+                     
+                     <div class="col-xl-12">
+                         <!-- Bars Chart -->
+                         <div class="block">
+                             <div class="block-header block-header-default">
+                                 <h3 class="block-title">Ally DEF Support</h3>
+                                 <div class="block-options">
+                                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                                         <i class="si si-refresh"></i>
+                                     </button>
+                                 </div>
+                             </div>
+                             <div class="block-content block-content-full text-center"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                 <!-- Bars Chart Container -->
+                                 <canvas class="js-chartjs-bars chartjs-render-monitor" id="defsupp"></canvas>
+                             </div>
+                         </div>
+                         <!-- END Bars Chart -->
+                     </div>
+                    
+         </div>
+
             </div>
         </a>
     </div>
@@ -519,6 +591,30 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="row">
+                     
+                     <div class="col-xl-12">
+                         <!-- Bars Chart -->
+                         <div class="block">
+                             <div class="block-header block-header-default">
+                                 <h3 class="block-title">Enemy ATK Debuff</h3>
+                                 <div class="block-options">
+                                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                                         <i class="si si-refresh"></i>
+                                     </button>
+                                 </div>
+                             </div>
+                             <div class="block-content block-content-full text-center"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                 <!-- Bars Chart Container -->
+                                 <canvas class="js-chartjs-bars chartjs-render-monitor" id="atkdebuff"></canvas>
+                             </div>
+                         </div>
+                         <!-- END Bars Chart -->
+                     </div>
+                    
+         </div>
+
             </div>
         </a>
     </div>
@@ -553,6 +649,30 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="row">
+                     
+                     <div class="col-xl-12">
+                         <!-- Bars Chart -->
+                         <div class="block">
+                             <div class="block-header block-header-default">
+                                 <h3 class="block-title">Enemy DEF Debuff</h3>
+                                 <div class="block-options">
+                                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                                         <i class="si si-refresh"></i>
+                                     </button>
+                                 </div>
+                             </div>
+                             <div class="block-content block-content-full text-center"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                 <!-- Bars Chart Container -->
+                                 <canvas class="js-chartjs-bars chartjs-render-monitor" id="defdebuff"></canvas>
+                             </div>
+                         </div>
+                         <!-- END Bars Chart -->
+                     </div>
+                    
+         </div>
+
             </div>
         </a>
     </div>
@@ -750,6 +870,207 @@
               </div>
           </div>
         </div>
+        @section('js_after')
+        <script>
+var ctx = document.getElementById('atksupp');
+var atkbuffchart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+                            labels: {!! json_encode($atkbuffnamearrayA) !!},
+                            datasets: [{
+                                label: "{{$guild[0]->guildDataNameA}}",
+                                fill: !0,
+                                backgroundColor: "rgba(66,165,245,.75)",
+                                borderColor: "rgba(66,165,245,1)",
+                                pointBackgroundColor: "rgba(66,165,245,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($atkbuffvaluearrayA) !!}
+                            }, {
+                                label: "{{$guild[0]->guildDataNameB}}",
+                                fill: !0,
+                                backgroundColor: "rgba(156,204,101,.25)",
+                                borderColor: "rgba(156,204,101,1)",
+                                pointBackgroundColor: "rgba(156,204,101,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($atkbuffvaluearrayB) !!}
+                            }]
+                        },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+var ctx = document.getElementById('defsupp');
+var atkbuffchart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+                            labels: {!! json_encode($defbuffnamearrayA) !!},
+                            datasets: [{
+                                label: "{{$guild[0]->guildDataNameA}}",
+                                fill: !0,
+                                backgroundColor: "rgba(66,165,245,.75)",
+                                borderColor: "rgba(66,165,245,1)",
+                                pointBackgroundColor: "rgba(66,165,245,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($defbuffvaluearrayA) !!}
+                            }, {
+                                label: "{{$guild[0]->guildDataNameB}}",
+                                fill: !0,
+                                backgroundColor: "rgba(156,204,101,.25)",
+                                borderColor: "rgba(156,204,101,1)",
+                                pointBackgroundColor: "rgba(156,204,101,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($defbuffvaluearrayB) !!}
+                            }]
+                        },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+var ctx = document.getElementById('atkdebuff');
+var atkbuffchart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+                            labels: {!! json_encode($atkdebuffnamearrayA) !!},
+                            datasets: [{
+                                label: "{{$guild[0]->guildDataNameA}}",
+                                fill: !0,
+                                backgroundColor: "rgba(66,165,245,.75)",
+                                borderColor: "rgba(66,165,245,1)",
+                                pointBackgroundColor: "rgba(66,165,245,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($atkdebuffvaluearrayA) !!}
+                            }, {
+                                label: "{{$guild[0]->guildDataNameB}}",
+                                fill: !0,
+                                backgroundColor: "rgba(156,204,101,.25)",
+                                borderColor: "rgba(156,204,101,1)",
+                                pointBackgroundColor: "rgba(156,204,101,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($atkdebuffvaluearrayB) !!}
+                            }]
+                        },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+var ctx = document.getElementById('defdebuff');
+var atkbuffchart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+                            labels: {!! json_encode($defdebuffnamearrayA) !!},
+                            datasets: [{
+                                label: "{{$guild[0]->guildDataNameA}}",
+                                fill: !0,
+                                backgroundColor: "rgba(66,165,245,.75)",
+                                borderColor: "rgba(66,165,245,1)",
+                                pointBackgroundColor: "rgba(66,165,245,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($defdebuffvaluearrayA) !!}
+                            }, {
+                                label: "{{$guild[0]->guildDataNameB}}",
+                                fill: !0,
+                                backgroundColor: "rgba(156,204,101,.25)",
+                                borderColor: "rgba(156,204,101,1)",
+                                pointBackgroundColor: "rgba(156,204,101,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($defdebuffvaluearrayB) !!}
+                            }]
+                        },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+var ctx = document.getElementById('recover');
+var atkbuffchart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+                            labels: {!! json_encode($recovernameA) !!},
+                            datasets: [{
+                                label: "{{$guild[0]->guildDataNameA}}",
+                                fill: !0,
+                                backgroundColor: "rgba(66,165,245,.75)",
+                                borderColor: "rgba(66,165,245,1)",
+                                pointBackgroundColor: "rgba(66,165,245,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($recoverarrayA) !!}
+                            }, {
+                                label: "{{$guild[0]->guildDataNameB}}",
+                                fill: !0,
+                                backgroundColor: "rgba(156,204,101,.25)",
+                                borderColor: "rgba(156,204,101,1)",
+                                pointBackgroundColor: "rgba(156,204,101,1)",
+                                pointBorderColor: "#fff",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(66,165,245,1)",
+                                data: {!! json_encode($recoverarrayB) !!}
+                            }]
+                        },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+</script>
+        @endsection
    <script>
 
 
