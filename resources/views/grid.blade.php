@@ -36,7 +36,7 @@
                 
                 @foreach ($imglist as $im)
                     <img src="{{ asset($im) }}" data-toggle="tooltip" data-placement="bottom"  data-html="true"
-                    title="Colo Skill : <br> @if(isset($gridlist[$b])){{ $gridlist[$b] }} @else'Not found' @endif <br><br>  Colo Support : <br> @if(isset($cololist[$b])){{ $cololist[$b] }} @else'Not found' @endif "></img>
+                    title="Colo Skill : <br> @if(isset($gridlist[$b])){{ $gridlist[$b] }} @else'Not found' @endif <br><br> Skill Desc : <br> {{ $ybe[$b] }} <br><br>   Colo Support : <br> @if(isset($cololist[$b])){{ $cololist[$b] }} @else'Not found' @endif "></img>
                 @php
                     $b++;
                 @endphp

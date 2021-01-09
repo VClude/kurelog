@@ -12,7 +12,7 @@ use App\Models\gvgmember;
 use App\Models\gvgenemymember;
 use DB;
 use App\Models\weapimg;
-
+use App\Models\weapskill;
 use App\Models\allowed;
 use App\Models\gvgshinmadetail;
 use DataTables;
@@ -352,6 +352,8 @@ class DashboardController extends Controller
 
                     $y = [];
                     $yb =[];
+                    $ybd = [];
+                    $ybe = [];
                     $img = [];
                     $arrdebug = [];
                     $patkvalue=0;
@@ -406,8 +408,23 @@ class DashboardController extends Controller
                         // $regexq = $theq[0];
                         // print($regexq . '</br>');
                         $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
+                        $ws = weapskill::where('weapskillid',$imgquery->weapskillid)->first();
+
                         if($imgquery){
                             array_push($img,$imgquery->weapurl);
+                        }
+                        if(!$imgquery){
+                            array_push($img,'not found');
+                        }
+                        if($ws){
+                            array_push($ybd,$ws->weapskillname);
+                            array_push($ybe,$ws->weapdesc);
+
+                        }
+                        if(!$ws){
+                            array_push($ybd,'not found');
+                            array_push($ybe,'not found');
+
                         }
                         $colosupport = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                         ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
@@ -417,6 +434,7 @@ class DashboardController extends Controller
                         ->where('readableText', 'not like', '%'. $query2 . '%')
                         ->where('readableText', 'like', '%'. $regexq . '%')
                         ->orderBy('gvgHistoryId','asc')->limit(1)->get();
+
 
                         if(isset($colosupport[0])){
                             foreach($colosupport as $cs){
@@ -650,7 +668,7 @@ class DashboardController extends Controller
                     //eof patkbuff
 
 
-
+// dd($ybd,$ybe);
                 
 
                     // return response()->json($y);
@@ -664,6 +682,8 @@ class DashboardController extends Controller
                     ->with('ide',$idmatch)
                     ->with('apm',$apm)
                     ->with('apm2',$apm2)
+                    ->with('ybd',$ybd)
+                    ->with('ybe',$ybe)
                     ->with('recover',number_format($recovervalue))
                     ->with('patkbuff',number_format($patkvalue))
                     ->with('matkbuff',number_format($matkvalue))
