@@ -1284,7 +1284,7 @@
 
 
     $(document).on('ajaxComplete ready', function () {
-        $.noConflict();
+        // $.noConflict();
         $('.modalMd').off('click').on('click', function () {
             $('#modalMdContent').load($(this).attr('value'));
             $('#modalMdTitle').html($(this).attr('title'));

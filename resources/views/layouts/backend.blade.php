@@ -92,7 +92,6 @@
         <!-- END Page Container -->
 
         <!-- Codebase Core JS -->
-        <script src="{{asset('/js/codebase.core.js')}}"></script>
 
         <script src="{{ mix('js/codebase.app.js') }}"></script>
        

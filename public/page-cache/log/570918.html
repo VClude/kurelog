@@ -12,7 +12,7 @@
         <meta name="csrf-token" content="oCp7lRCqUBC7tOirKDoJGYFBQSYpgq8ONV49yA1k">
 
         <!-- Fonts and Styles -->
-                <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+                <link href="http://localhost/kureha-log/public/js/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet">
 
 
 
@@ -2941,7 +2941,7 @@ Playdate♫&#039;s M.ATK Up by 7,966.</p>
 
 
     $(document).on('ajaxComplete ready', function () {
-        $.noConflict();
+        // $.noConflict();
         $('.modalMd').off('click').on('click', function () {
             $('#modalMdContent').load($(this).attr('value'));
             $('#modalMdTitle').html($(this).attr('title'));
@@ -2988,7 +2988,6 @@ Playdate♫&#039;s M.ATK Up by 7,966.</p>
         <!-- END Page Container -->
 
         <!-- Codebase Core JS -->
-        <script src="http://localhost/kureha-log/public/js/codebase.core.js"></script>
 
         <script src="/js/codebase.app.js"></script>
        
