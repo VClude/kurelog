@@ -14,9 +14,13 @@
         <!-- Fonts and Styles -->
         @yield('css_before')
         <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+
         <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
         <link rel="stylesheet" id="css-main" href="{{ mix('/css/codebase.css') }}">
+   
         <style>
             table tbody td {    
                 white-space: pre-wrap;
@@ -90,11 +94,10 @@
         <!-- Codebase Core JS -->
         
         <script src="{{ mix('js/codebase.app.js') }}"></script>
-
+       
 
         <!-- Laravel Scaffolding JS -->
         <script src="{{ mix('js/laravel.app.js') }}"></script>
-
         @yield('js_after')
     </body>
 </html>

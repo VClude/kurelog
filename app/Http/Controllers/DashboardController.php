@@ -12,7 +12,7 @@ use App\Models\gvgmember;
 use App\Models\gvgenemymember;
 use DB;
 use App\Models\weapimg;
-
+use App\Models\weapskill;
 use App\Models\allowed;
 use App\Models\gvgshinmadetail;
 use DataTables;
@@ -25,6 +25,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        $inarr = [];
         if (!session('usern')) {
 
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
@@ -91,7 +92,7 @@ class DashboardController extends Controller
         }
 
         else{
-            $inarr = [];
+           
             $isAllowed = allowed::where('username',session('usern'))->get();
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -162,7 +163,9 @@ class DashboardController extends Controller
                 $p7 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Combo')->orderBy('valueA','desc')->get();
                 $enemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->count();
                 $ownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->count();
-                
+                $crit = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%critical hit%')->count();
+                $crite = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%critical hit%')->count();
+
                 $ienemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->get();
                 $iownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->get();
 
@@ -277,6 +280,8 @@ class DashboardController extends Controller
                 // return response()->json($a);
                 return view('log')->with('guild',$a)
                 ->with('shinma',$b)
+                ->with('crit',$crit)
+                ->with('crite',$crite)
                 ->with('p1',$p1)
                 ->with('p2',$p2)
                 ->with('p3',$p3)
@@ -347,6 +352,8 @@ class DashboardController extends Controller
 
                     $y = [];
                     $yb =[];
+                    $ybd = [];
+                    $ybe = [];
                     $img = [];
                     $arrdebug = [];
                     $patkvalue=0;
@@ -401,8 +408,23 @@ class DashboardController extends Controller
                         // $regexq = $theq[0];
                         // print($regexq . '</br>');
                         $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
+                        $ws = weapskill::where('weapskillid',$imgquery->weapskillid)->first();
+
                         if($imgquery){
                             array_push($img,$imgquery->weapurl);
+                        }
+                        if(!$imgquery){
+                            array_push($img,'not found');
+                        }
+                        if($ws){
+                            array_push($ybd,$ws->weapskillname);
+                            array_push($ybe,$ws->weapdesc);
+
+                        }
+                        if(!$ws){
+                            array_push($ybd,'not found');
+                            array_push($ybe,'not found');
+
                         }
                         $colosupport = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                         ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
@@ -412,6 +434,7 @@ class DashboardController extends Controller
                         ->where('readableText', 'not like', '%'. $query2 . '%')
                         ->where('readableText', 'like', '%'. $regexq . '%')
                         ->orderBy('gvgHistoryId','asc')->limit(1)->get();
+
 
                         if(isset($colosupport[0])){
                             foreach($colosupport as $cs){
@@ -645,7 +668,7 @@ class DashboardController extends Controller
                     //eof patkbuff
 
 
-
+// dd($ybd,$ybe);
                 
 
                     // return response()->json($y);
@@ -659,6 +682,8 @@ class DashboardController extends Controller
                     ->with('ide',$idmatch)
                     ->with('apm',$apm)
                     ->with('apm2',$apm2)
+                    ->with('ybd',$ybd)
+                    ->with('ybe',$ybe)
                     ->with('recover',number_format($recovervalue))
                     ->with('patkbuff',number_format($patkvalue))
                     ->with('matkbuff',number_format($matkvalue))

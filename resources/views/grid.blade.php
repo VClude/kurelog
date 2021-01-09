@@ -21,6 +21,7 @@
 </div>  
     <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
         <!-- Row #3 -->
+
         <div class="col-xl-8 d-flex align-items-stretch">
             <div class="block block-themed block-mode-loading-inverse block-transparent bg-image w-100" style="background-image: url('assets/media/photos/photo34@2x.jpg');">
                 <div class="block-header">
@@ -35,7 +36,7 @@
                 
                 @foreach ($imglist as $im)
                     <img src="{{ asset($im) }}" data-toggle="tooltip" data-placement="bottom"  data-html="true"
-                    title="Colo Skill : <br> @if(isset($gridlist[$b])){{ $gridlist[$b] }} @else'Not found' @endif <br><br>  Colo Support : <br> @if(isset($cololist[$b])){{ $cololist[$b] }} @else'Not found' @endif "></img>
+                    title="Colo Skill : <br> @if(isset($gridlist[$b])){{ $gridlist[$b] }} @else'Not found' @endif <br><br> Skill Desc : <br> {{ $ybe[$b] }} <br><br>   Colo Support : <br> @if(isset($cololist[$b])){{ $cololist[$b] }} @else'Not found' @endif "></img>
                 @php
                     $b++;
                 @endphp

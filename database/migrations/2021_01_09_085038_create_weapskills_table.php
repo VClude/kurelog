@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Weapimg extends Migration
+class CreateWeapskillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class Weapimg extends Migration
      */
     public function up()
     {
-        Schema::create('weapimgs', function (Blueprint $table) {
+        Schema::create('weapskills', function (Blueprint $table) {
             $table->id();
-            $table->string('weapname',50); 
-            $table->string('weapskillid',50)->nullable(); 
-            $table->string('weapurl',161); 
+            $table->string('weapskillid',50); 
+            $table->text('weapskillname'); 
+            $table->text('weapdesc'); 
+       
         });
     }
 
@@ -28,6 +29,6 @@ class Weapimg extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('weapimgs');
+        Schema::dropIfExists('weapskills');
     }
 }

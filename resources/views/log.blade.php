@@ -85,6 +85,23 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row py-20">
+                                        <div class="col-6 text-left border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{ $crit }} times</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameA }} Critical hits occured.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{ $crite }} Times</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">{{ $g->guildDataNameB }} Critical hits occured.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="row py-20">
                                         <div class="col-6 text-left border-r">
                                             <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
@@ -669,6 +686,7 @@
 
 
 
+
             <a data-toggle="collapse" href="#blcollapse" role="button" aria-expanded="false" aria-controls="blcollapse">
 <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
                         <div class="content text-center">
@@ -683,6 +701,8 @@
             <div class="collapse row" id="blcollapse">
 
 <div class="col-md-12 mt-5">
+
+
 
     <table id="btlog" class="table table-bordered data-table" style="width:100% !important;">
 
