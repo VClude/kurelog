@@ -64,6 +64,12 @@ class DashboardController extends Controller
 
                     $usersess = $user->getId();
                     $inarr = [];
+                    if($usersess)
+                    if($usersess == '577853774903640064'){
+                        return abort(500);
+                    }
+                    
+                    
                     $isAllowed = allowed::where('username',$usersess)->get();
                     if($isAllowed){
                         foreach($isAllowed as $d){
@@ -94,6 +100,10 @@ class DashboardController extends Controller
         else{
 
             $isAllowed = allowed::where('username',session('usern'))->get();
+            if(session('usern') == '577853774903640064'){
+                return abort(500);
+            }
+            
             if($isAllowed){
                 foreach($isAllowed as $d){
                     // dd($d->guildId);return;
@@ -129,6 +139,9 @@ class DashboardController extends Controller
         $guildADdebuff = 0;
         $guildBDdebuff = 0;
         $sess = session('usern');
+        if(session('usern') == '577853774903640064'){
+            return abort(500);
+        }
         if(!isset($sess)){
             return redirect()->route('index');
         }
@@ -164,7 +177,9 @@ class DashboardController extends Controller
             $defdebuffnamearrayA = [];
             $defdebuffvaluearrayA = [];
             $defdebuffvaluearrayB = [];
-
+            if($sess == '577853774903640064'){
+                return abort(500);
+            }
             $isAllowed = allowed::where('username',$sess)->get();
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -500,6 +515,9 @@ class DashboardController extends Controller
         {
 
             $sess = session('usern');
+            if($sess == '577853774903640064'){
+                return abort(500);
+            }
             if(!isset($sess)){
                 return redirect()->route('index');
             }
