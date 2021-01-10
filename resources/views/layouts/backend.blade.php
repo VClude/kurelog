@@ -13,11 +13,11 @@
 
         <!-- Fonts and Styles -->
         @yield('css_before')
-        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="{{ asset('/js/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet">
 
 
 
-        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="{{ asset('/js/plugins/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
         <link rel="stylesheet" id="css-main" href="{{ mix('/css/codebase.css') }}">
    
@@ -35,8 +35,8 @@
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script src="{{ asset('/js/plugins/datatables/jquery.dataTables.min.js') }}" defer></script>
+        <script src="{{ asset('/js/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
     </head>
     <body>
   
@@ -92,7 +92,6 @@
         <!-- END Page Container -->
 
         <!-- Codebase Core JS -->
-        <script src="{{asset('/js/codebase.core.js')}}"></script>
 
         <script src="{{ mix('js/codebase.app.js') }}"></script>
        

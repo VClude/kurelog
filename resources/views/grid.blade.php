@@ -290,7 +290,7 @@
 
 
     $(document).ready(function(){
-        $.noConflict();
+        // $.noConflict();
 // DataTable
 $('#btlog').DataTable({
     
