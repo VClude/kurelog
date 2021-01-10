@@ -661,10 +661,18 @@ class DashboardController extends Controller
                     // $querybasic = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
                     //patk buff
 
-                    $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%ATK UP by%')->get();
-                    $pdef = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF UP by%')->get();
-                    $patkd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%ATK DOWN by%')->get();
-                    $pdefd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', '%DEF DOWN by%')->get();
+                    $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%ATK UP by%')->get();
+                    $pdef = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%DEF UP by%')->get();
+                    $patkd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%ATK DOWN by%')->get();
+                    $pdefd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%DEF DOWN by%')->get();
                     $rs1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
                     ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (I)%')->count();
@@ -712,22 +720,31 @@ class DashboardController extends Controller
                     }
 
                     if(isset($patk[0])){
-
+                        $patkarr= [];
                         foreach($patk as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/M.ATK UP by (.*)/", $cse);
+                            array_push($patkarr, $cskill);
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){
-$matkvalue += $v;
-}
+                     
+                                    if($v == ''){
+                                        
+                                    }
+                                    else{
+                                        $matkvalue += $v;
+                                    }
+                                
+                       
+
+                             
 
                             }
 
                         }
-
+                        // dd($patk);
                         foreach($patk as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/[^M.]ATK UP by (.*)/", $cse);
@@ -735,13 +752,18 @@ $matkvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){                                
-$patkvalue += $v;
-}
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $patkvalue += $v;
+                                }
+
                             }
 
                         }
                     }
+              
 
 
                     if(isset($pdef[0])){
@@ -753,9 +775,13 @@ $patkvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){
-$mdefvalue += $v;
-}
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $mdefvalue += $v;
+                                }
+
 
                             }
 
@@ -768,9 +794,13 @@ $mdefvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){
-$pdefvalue += $v;
-}
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $pdefvalue += $v;
+                                }
+
 
                             }
 
@@ -786,10 +816,14 @@ $pdefvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-	
-if(is_int($v)){
-$matkdvalue += $v;
-}
+                            
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $matkdvalue += $v;
+                                }
+
 
                             }
 
@@ -802,9 +836,13 @@ $matkdvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){
-$patkdvalue += $v;
-}
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $patkdvalue += $v;
+                                }
+
 
                             }
 
@@ -820,9 +858,13 @@ $patkdvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){
-$mdefdvalue += $v;
-}
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $mdefdvalue += $v;
+                                }
+
 
                             }
 
@@ -835,9 +877,13 @@ $mdefdvalue += $v;
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-if(is_int($v)){
-$pdefdvalue += $v;
-}
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $pdefdvalue += $v;
+                                }
+
 
                             }
 
