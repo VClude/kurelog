@@ -720,7 +720,10 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $matkvalue += $v;
+if(is_int($v)){
+$matkvalue += $v;
+}
+
                             }
 
                         }
@@ -732,7 +735,9 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $patkvalue += $v;
+if(is_int($v)){                                
+$patkvalue += $v;
+}
                             }
 
                         }
@@ -748,7 +753,10 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $mdefvalue += $v;
+if(is_int($v)){
+$mdefvalue += $v;
+}
+
                             }
 
                         }
@@ -760,7 +768,10 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $pdefvalue += $v;
+if(is_int($v)){
+$pdefvalue += $v;
+}
+
                             }
 
                         }
@@ -775,7 +786,11 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $matkdvalue += $v;
+	
+if(is_int($v)){
+$matkdvalue += $v;
+}
+
                             }
 
                         }
@@ -787,7 +802,10 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $patkdvalue += $v;
+if(is_int($v)){
+$patkdvalue += $v;
+}
+
                             }
 
                         }
@@ -802,7 +820,10 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $mdefdvalue += $v;
+if(is_int($v)){
+$mdefdvalue += $v;
+}
+
                             }
 
                         }
@@ -814,7 +835,10 @@ class DashboardController extends Controller
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                                $pdefdvalue += $v;
+if(is_int($v)){
+$pdefdvalue += $v;
+}
+
                             }
 
                         }
