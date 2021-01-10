@@ -32,7 +32,7 @@ class DashboardController extends Controller
                 'clientId'          => '658613502415470631',
                 'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
                'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
-                //  'redirectUri'       => 'http://localhost:8000'
+                //  'redirectUri'       => 'http://localhost/kureha-log/public'
 
             ]);
 
@@ -182,13 +182,14 @@ class DashboardController extends Controller
                     array_push($recoverarrayA, $v->valueA);
                     array_push($recoverarrayB, $v->valueB);
                 }
-
+                
                 $p3 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Ally ATK Support')->orderBy('valueA','desc')->get();
                 foreach($p3 as $v){
                     array_push($atkbuffnamearrayA, $v->nameA . ' vs ' . $v->nameB);
                     array_push($atkbuffvaluearrayA, $v->valueA);
                     array_push($atkbuffvaluearrayB, $v->valueB);
                 }
+
                 $p4 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Ally DEF Support')->orderBy('valueA','desc')->get();
                 foreach($p4 as $v){
                     array_push($defbuffnamearrayA, $v->nameA . ' vs ' . $v->nameB);
@@ -385,26 +386,26 @@ class DashboardController extends Controller
                 case 'atk':
                     $q = '%ATK UP by%';
                     $regex = 'ATK UP by';
-                    $key1 = 'patk';
-                    $key2 = 'matk';
+                    $key1 = 'P.ATK Buff';
+                    $key2 = 'M.ATK Buff';
                     break;
                 case 'def':
                     $q = '%DEF UP by%';
                     $regex = 'DEF UP by';
-                    $key1 = 'pdef';
-                    $key2 = 'mdef';
+                    $key1 = 'P.DEF Buff';
+                    $key2 = 'M.DEF Buff';
                     break;
                 case 'atkd':
                     $q = '%ATK DOWN by%';
                     $regex = 'ATK DOWN by';
-                    $key1 = 'patkdebuff';
-                    $key2 = 'matkdebuff';
+                    $key1 = 'P.ATK Debuff';
+                    $key2 = 'M.ATK Debuff';
                     break;
                 case 'defd':
                     $q = '%DEF DOWN by%';
                     $regex = 'DEF DOWN by';
-                    $key1 = 'pdefdebuff';
-                    $key2 = 'mdefdebuff';
+                    $key1 = 'P.DEF Debuff';
+                    $key2 = 'M.DEF Debuff';
                     break;
                 default:
                     $q = '';

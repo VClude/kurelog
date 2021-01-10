@@ -332,6 +332,7 @@
         </div>
 
 
+
         <div class="row row-deck gutters-tiny" id="accordion2" role="tablist" aria-multiselectable="true">
             <div class="col-md-6">
                 <div class="block block-rounded">
@@ -435,6 +436,45 @@
             </div>
         </div>
         @endforeach
+        <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+            <!-- Row #4 -->
+            <div class="col-md-12">
+                <a class="block block-link-shadow overflow-hidden">
+                    <div class="block-content block-content-full">
+                        <div class="text-left">
+                            <h3> Ally Statistics Breakdowns</h3>
+                        </div>
+                        <div class="row py-20" id="pgl">
+                            <div class="col-6 text-right border-r">
+                                <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                <div class="font-size-h3 font-w600 text-info" id="nameself">Ally Stats</div>
+                                <div class="d-none justify-content-center" id="allyloader">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    </div>
+                                     <canvas class="js-chartjs-pie chartjs-render-monitor" id="ours"></canvas>
+                                </div>
+                            </div>
+                        <div class="col-6">
+                                <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                <div class="font-size-h3 font-w600 text-success" id="nameenemy">Enemy Stats</div>
+                                <div class="d-none justify-content-center" id="enemyloader">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    </div>
+                                     <canvas class="js-chartjs-pie chartjs-render-monitor" id="theirs"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END Row #4 -->
+        </div>
+
+
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
@@ -613,20 +653,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                <div class="row py-20">
-                                    <div class="col-6 text-right border-r">
-                                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
-                                             data-class="animated fadeIn">
-                                            <canvas class="js-chartjs-pie chartjs-render-monitor" id="ours"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
-                                             data-class="animated fadeIn">
-                                            <canvas class="js-chartjs-pie chartjs-render-monitor" id="theirs"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <!-- <div class="row py-20">
                         <div class="col-12">
@@ -687,8 +714,8 @@
                                     <h3> Ally Def Support</h3>
                                 </div>
                                 @foreach ($p4 as $p)
-                                    <div class="row py-20">
-                                        <div class="col-6 text-right border-r">
+                                <div class="row py-20">
+                                        <div class="col-6 text-right border-r" onclick="changeChart('def', {{$ide}}, {{$p->userIdA}}, true)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -697,7 +724,7 @@
                                                     class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6" onclick="changeChart('def', {{$ide}}, {{$p->userIdB}}, false)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -760,8 +787,8 @@
                                     <h3> Enemy ATK Debuff</h3>
                                 </div>
                                 @foreach ($p5 as $p)
-                                    <div class="row py-20">
-                                        <div class="col-6 text-right border-r">
+                                <div class="row py-20">
+                                        <div class="col-6 text-right border-r" onclick="changeChart('atkd', {{$ide}}, {{$p->userIdA}}, true)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -770,7 +797,7 @@
                                                     class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6" onclick="changeChart('atkd', {{$ide}}, {{$p->userIdB}}, false)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -833,8 +860,8 @@
                                     <h3> Enemy DEF Debuff</h3>
                                 </div>
                                 @foreach ($p6 as $p)
-                                    <div class="row py-20">
-                                        <div class="col-6 text-right border-r">
+                                <div class="row py-20">
+                                        <div class="col-6 text-right border-r" onclick="changeChart('defd', {{$ide}}, {{$p->userIdA}}, true)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -843,7 +870,7 @@
                                                     class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6" onclick="changeChart('defd', {{$ide}}, {{$p->userIdB}}, false)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -1101,9 +1128,11 @@
         const pieOwn = new Chart(document.getElementById('ours'), {
             type: 'pie',
             data:   {
-                labels: ["PATK/PDEF", "MATK/MDEF"],
+                labels: ["Click Ally Name to breakthrough stats"],
                 datasets: [{
-                    data: [50, 50]
+                    data: [50],
+                    backgroundColor: ["rgba(38,198,218,1)"],
+                    hoverBackgroundColor: ["rgba(38,198,218,0.5)"]
                 }]
             }
         });
@@ -1111,15 +1140,26 @@
         const pieTheir = new Chart(document.getElementById('theirs'), {
             type: 'pie',
             data:   {
-                labels: ["PATK/PDEF", "MATK/MDEF"],
+                labels: ["Click Ally Name to breakthrough stats"],
                 datasets: [{
-                    data: [50, 50]
+                    data: [50],
+                    backgroundColor: ["rgba(156,204,101,1)"],
+                    hoverBackgroundColor: ["rgba(156,204,101,0.5)"]
                 }]
             }
         });
         function changeChart(type, userId, matchId, ownGuild){
             const chart = ownGuild ? pieOwn : pieTheir;
-
+            var ctx = ownGuild ? document.getElementById('nameself') : document.getElementById('nameenemy');
+            var ctx2 = ownGuild ? $("#allyloader") : $("#enemyloader");
+            var ctx3 = ownGuild ? $("#ours") : $("#theirs");
+            ctx.scrollIntoView({
+                behavior: 'smooth'
+            });
+            ctx3.hide();
+            ctx2.show();
+            // ctx.innerHTML(`${nameUser}`);
+            // ctx.innerHTML(nameUser);
             // Remote ec2-18-212-84-193.compute-1.amazonaws.com should have use .env you fuckers
             //use route u fucker no knowing i named route in web.php you ass ?
             fetch(`{{ route('spec.define') }}/${type}/${matchId}/${userId}`)
@@ -1144,9 +1184,12 @@
                     // Adding new data
                     chart.data.labels = labels;
                     chart.data.datasets[0].data = values;
-
+                    chart.data.datasets[0].backgroundColor= ["rgba(156,204,101,1)", "rgba(255,202,40,1)"];
+                    chart.data.datasets[0].hoverBackgroundColor= ["rgba(156,204,101,.5)", "rgba(255,202,40,.5)"];
                     // Updating chart
                     chart.update();
+                    ctx3.show();
+                    ctx2.hide();
                 })
                 .catch((error) => console.log(error));
         }
@@ -1360,7 +1403,7 @@
         });
     });
     $(document).ready(function () {
-        console.log('{{$ide}}');
+
         // $.noConflict();
 // DataTable
         $('#btlog').DataTable({
