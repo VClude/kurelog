@@ -661,7 +661,13 @@ class DashboardController extends Controller
 
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 // array_push($arrdebug, $csve);
-                                $recovervalue += $v;
+                                if($v == ''){
+                                        
+                                }
+                                else{
+                                    $recovervalue += $v;
+                                }
+                                
                             }
                             // print($cskill2 . '</br>');
                         }
