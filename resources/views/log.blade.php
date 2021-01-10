@@ -1122,7 +1122,8 @@
 
             // Remote ec2-18-212-84-193.compute-1.amazonaws.com should have use .env you fuckers
             //use route u fucker no knowing i named route in web.php you ass ?
-            fetch(`{{ route('spec.define', [$type,$a->userId, $ide]) }}`)
+
+            fetch(`{{ route('spec.define') }}${type}/${matchId}/${userId}`)
                 .then((response) => {
                     return response.json();
                 })
