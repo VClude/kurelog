@@ -1121,8 +1121,8 @@
             const chart = ownGuild ? pieOwn : pieTheir;
 
             // Remote ec2-18-212-84-193.compute-1.amazonaws.com should have use .env you fuckers
-            console.log(`http://localhost:8000/log/spec/${type}/${matchId}/${userId}`);
-            fetch(`http://localhost:8000/log/spec/${type}/${matchId}/${userId}`)
+            //use route u fucker no knowing i named route in web.php you ass ?
+            fetch(`{{ route('spec.define', [$type,$a->userId, $ide]) }}`)
                 .then((response) => {
                     return response.json();
                 })
