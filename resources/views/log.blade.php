@@ -519,7 +519,7 @@
                                 @foreach ($p1 as $p)
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -528,7 +528,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -539,6 +539,41 @@
                                         </div>
                                     </div>
                                 @endforeach
+
+                                <div class="row">
+
+                                <div class="col-xl-12">
+                                    <!-- Bars Chart -->
+                                    <div class="block">
+                                        <div class="block-header block-header-default">
+                                            <h3 class="block-title">Lifeforce</h3>
+                                            <div class="block-options">
+                                                <button type="button" class="btn-block-option"
+                                                        data-toggle="block-option" data-action="state_toggle"
+                                                        data-action-mode="demo">
+                                                    <i class="si si-refresh"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="block-content block-content-full text-center">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div class=""></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                            <!-- Bars Chart Container -->
+                                            <canvas class="js-chartjs-bars chartjs-render-monitor"
+                                                    id="lifeforce"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- END Bars Chart -->
+                                </div>
+
+                                </div>
+
                             </div>
                         </a>
                     </div>
@@ -559,7 +594,7 @@
                                 @foreach ($p2 as $p)
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -568,7 +603,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -627,13 +662,13 @@
                         <a class="block block-link-shadow overflow-hidden">
                             <div class="block-content block-content-full">
                                 <div class="text-center">
-                                    <h3> Ally ATK Support</h3>
+                                    <h3> Ally ATK Support (Tap Name to Break stats) </h3>
                                 </div>
 
                                 @foreach ($p3 as $p)
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r" onclick="changeChart('atk', {{$ide}}, {{$p->userIdA}}, true)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -642,7 +677,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6" onclick="changeChart('atk', {{$ide}}, {{$p->userIdB}}, false)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -711,12 +746,12 @@
                         <a class="block block-link-shadow overflow-hidden">
                             <div class="block-content block-content-full">
                                 <div class="text-center">
-                                    <h3> Ally Def Support</h3>
+                                    <h3> Ally Def Support (Tap Name to Break stats) </h3>
                                 </div>
                                 @foreach ($p4 as $p)
                                 <div class="row py-20">
                                         <div class="col-6 text-right border-r" onclick="changeChart('def', {{$ide}}, {{$p->userIdA}}, true)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -725,7 +760,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6" onclick="changeChart('def', {{$ide}}, {{$p->userIdB}}, false)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -784,12 +819,12 @@
                         <a class="block block-link-shadow overflow-hidden">
                             <div class="block-content block-content-full">
                                 <div class="text-center">
-                                    <h3> Enemy ATK Debuff</h3>
+                                    <h3> Enemy ATK Debuff (Tap Name to Break stats) </h3>
                                 </div>
                                 @foreach ($p5 as $p)
                                 <div class="row py-20">
                                         <div class="col-6 text-right border-r" onclick="changeChart('atkd', {{$ide}}, {{$p->userIdA}}, true)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -798,7 +833,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6" onclick="changeChart('atkd', {{$ide}}, {{$p->userIdB}}, false)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -857,12 +892,12 @@
                         <a class="block block-link-shadow overflow-hidden">
                             <div class="block-content block-content-full">
                                 <div class="text-center">
-                                    <h3> Enemy DEF Debuff</h3>
+                                    <h3> Enemy DEF Debuff (Tap Name to Break stats) </h3>
                                 </div>
                                 @foreach ($p6 as $p)
                                 <div class="row py-20">
                                         <div class="col-6 text-right border-r" onclick="changeChart('defd', {{$ide}}, {{$p->userIdA}}, true)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -871,7 +906,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6" onclick="changeChart('defd', {{$ide}}, {{$p->userIdB}}, false)">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -935,7 +970,7 @@
                                 @foreach ($p7 as $p)
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-info">{{number_format($p->valueA)}}</div>
@@ -944,7 +979,7 @@
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                            <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
                                                     class="font-size-h3 font-w600 text-success">{{number_format($p->valueB)}}</div>
@@ -1390,6 +1425,46 @@
             }
         });
 
+
+        var ctx = document.getElementById('lifeforce');
+        var atkbuffchart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($lifeforcenameA) !!},
+                datasets: [{
+                    label: "{{$guild[0]->guildDataNameA}}",
+                    fill: !0,
+                    backgroundColor: "rgba(66,165,245,.75)",
+                    borderColor: "rgba(66,165,245,1)",
+                    pointBackgroundColor: "rgba(66,165,245,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(66,165,245,1)",
+                    data: {!! json_encode($lifeforcearrayA) !!}
+                }, {
+                    label: "{{$guild[0]->guildDataNameB}}",
+                    fill: !0,
+                    backgroundColor: "rgba(156,204,101,.25)",
+                    borderColor: "rgba(156,204,101,1)",
+                    pointBackgroundColor: "rgba(156,204,101,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(66,165,245,1)",
+                data: {!! json_encode($lifeforcearrayB) !!}
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+
     </script>
 @endsection
 <script>
@@ -1402,7 +1477,9 @@
             $('#modalMdTitle').html($(this).attr('title'));
         });
     });
+
     $(document).ready(function () {
+        
 
         // $.noConflict();
 // DataTable

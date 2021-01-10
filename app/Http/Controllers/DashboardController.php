@@ -141,6 +141,10 @@ class DashboardController extends Controller
             $kiss = [];
             $ekiss = [];
 
+            $lifeforcenameA = [];
+            $lifeforcearrayA = [];
+            $lifeforcearrayB = [];
+
             $recovernameA = [];
             $recoverarrayA = [];
             $recoverarrayB = [];
@@ -176,6 +180,11 @@ class DashboardController extends Controller
                 }
                 $b = gvgshinma::where('gvgDataId', $id)->leftJoin('gvgshinmadetails', 'gvgshinmas.artMstId', '=', 'gvgshinmadetails.artMstId')->get();
                 $p1 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Lifeforce')->orderBy('valueA','desc')->get();
+                foreach($p1 as $v){
+                    array_push($lifeforcenameA, $v->nameA . ' vs ' . $v->nameB);
+                    array_push($lifeforcearrayA, $v->valueA);
+                    array_push($lifeforcearrayB, $v->valueB);
+                }
                 $p2 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Recover')->orderBy('valueA','desc')->get();
                 foreach($p2 as $v){
                     array_push($recovernameA, $v->nameA . ' vs ' . $v->nameB);
@@ -326,7 +335,7 @@ class DashboardController extends Controller
                 $enemy = gvgenemymember::where('gvgDataId', $id)->get();
 
                 // return response()->json($a);
-                return view('log', compact('recovernameA','recoverarrayA','recoverarrayB','atkbuffnamearrayA','atkbuffvaluearrayA', 'atkbuffvaluearrayB','defbuffnamearrayA','defbuffvaluearrayA', 'defbuffvaluearrayB','atkdebuffnamearrayA','atkdebuffvaluearrayA', 'atkdebuffvaluearrayB','defdebuffnamearrayA','defdebuffvaluearrayA', 'defdebuffvaluearrayB'))->with('guild',$a)
+                return view('log', compact('lifeforcenameA','lifeforcearrayA','lifeforcearrayB','recovernameA','recoverarrayA','recoverarrayB','atkbuffnamearrayA','atkbuffvaluearrayA', 'atkbuffvaluearrayB','defbuffnamearrayA','defbuffvaluearrayA', 'defbuffvaluearrayB','atkdebuffnamearrayA','atkdebuffvaluearrayA', 'atkdebuffvaluearrayB','defdebuffnamearrayA','defdebuffvaluearrayA', 'defdebuffvaluearrayB'))->with('guild',$a)
                 ->with('shinma',$b)
                 ->with('crit',$crit)
                 ->with('crite',$crite)
