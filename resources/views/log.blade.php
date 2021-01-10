@@ -592,7 +592,7 @@
 
                                 @foreach ($p3 as $p)
                                     <div class="row py-20">
-                                        <div class="col-6 text-right border-r">
+                                        <div class="col-6 text-right border-r" onclick="changeChart('atk', {{$ide}}, {{$p->userIdA}}, true)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -601,7 +601,7 @@
                                                     class="font-size-sm font-w600 text-uppercase text-muted">{{$p->nameA}}</div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6" onclick="changeChart('atk', {{$ide}}, {{$p->userIdB}}, false)">
                                             <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
                                                  data-class="animated fadeIn">
                                                 <div
@@ -612,16 +612,30 @@
                                             </div>
                                         </div>
                                     </div>
-                            @endforeach
+                                @endforeach
+                                <div class="row py-20">
+                                    <div class="col-6 text-right border-r">
+                                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                             data-class="animated fadeIn">
+                                            <canvas class="js-chartjs-pie chartjs-render-monitor" id="ours"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                             data-class="animated fadeIn">
+                                            <canvas class="js-chartjs-pie chartjs-render-monitor" id="theirs"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!-- <div class="row py-20">
-                    <div class="col-12">
-                        <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
-                            data-class="animated fadeIn">
-                            <canvas class="js-chartjs-pie chartjs-render-monitor" id="piebuff"></canvas>
+                                <!-- <div class="row py-20">
+                        <div class="col-12">
+                            <div class="js-appear-enabled animated fadeIn" data-toggle="appear"
+                                data-class="animated fadeIn">
+                                <canvas class="js-chartjs-pie chartjs-render-monitor" id="piebuff"></canvas>
+                            </div>
                         </div>
-                    </div>
-                </div> -->
+                    </div> -->
 
 
                                 <div class="row">
@@ -1083,6 +1097,61 @@
         </div>
     </div>
 @section('js_after')
+    <script>
+        const pieOwn = new Chart(document.getElementById('ours'), {
+            type: 'pie',
+            data:   {
+                labels: ["PATK/PDEF", "MATK/MDEF"],
+                datasets: [{
+                    data: [50, 50]
+                }]
+            }
+        });
+
+        const pieTheir = new Chart(document.getElementById('theirs'), {
+            type: 'pie',
+            data:   {
+                labels: ["PATK/PDEF", "MATK/MDEF"],
+                datasets: [{
+                    data: [50, 50]
+                }]
+            }
+        });
+        function changeChart(type, userId, matchId, ownGuild){
+            const chart = ownGuild ? pieOwn : pieTheir;
+
+            // Remote ec2-18-212-84-193.compute-1.amazonaws.com should have use .env you fuckers
+            console.log(`http://localhost:8000/log/spec/${type}/${matchId}/${userId}`);
+            fetch(`http://localhost:8000/log/spec/${type}/${matchId}/${userId}`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    const labels = [];
+                    const values = [];
+
+                    Object.keys(data).forEach((key, index) => {
+                        labels.push(key);
+                        values.push(data[key]);
+                    })
+
+                    // Resetting the data
+                    chart.data.labels.pop();
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.pop();
+                    });
+
+                    // Adding new data
+                    chart.data.labels = labels;
+                    chart.data.datasets[0].data = values;
+
+                    // Updating chart
+                    chart.update();
+                })
+                .catch((error) => console.log(error));
+        }
+    </script>
+
     <script>
         var ctx = document.getElementById('atksupp');
         var atkbuffchart = new Chart(ctx, {

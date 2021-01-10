@@ -31,37 +31,37 @@ class DashboardController extends Controller
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
                 'clientId'          => '658613502415470631',
                 'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
-                'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
-                // 'redirectUri'       => 'http://localhost/kureha-log/public'
+//                'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
+                 'redirectUri'       => 'http://localhost:8000'
 
             ]);
-            
+
             if (!isset($_GET['code'])) {
-      
+
                 // Step 1. Get authorization code
                 $options = [
                     'state' => 'OPTIONAL_CUSTOM_CONFIGURED_STATE',
                     'scope' => ['identify'] // array or string
                 ];
-                
+
                 $authUrl = $provider->getAuthorizationUrl($options);
                 $request->session()->put('oauth2state', $provider->getState());
                 return redirect()->away($authUrl);
-    
+
             } elseif (empty($_GET['state']) || ($_GET['state'] !== session('oauth2state'))) {
                 $request->session()->forget('oauth2state');
                 return response()->json(['Invalid State']);
-            
+
             } else {
-                
+
                 $token = $provider->getAccessToken('authorization_code', [
                     'code' => $_GET['code']
                 ]);
-               
+
                 try {
-            
+
                     $user = $provider->getResourceOwner($token);
-                    
+
                     $usersess = $user->getId();
                     $inarr = [];
                     $isAllowed = allowed::where('username',$usersess)->get();
@@ -71,28 +71,28 @@ class DashboardController extends Controller
                         }
                         $request->session()->put('usern', $usersess);
                         $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime','Desc')->get();
-        
+
                         // return response()->json($a);
                         return view('dashboard')->with('guild',$a);
                     }
                     else{
                         return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
-    
+
                     }
-    
-            
+
+
                 } catch (Exception $e) {
-            
+
                     // Failed to get user details
                     return response()->json(['Please Login to Continue']);
-            
+
                 }
             }
 
         }
 
         else{
-           
+
             $isAllowed = allowed::where('username',session('usern'))->get();
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -101,7 +101,7 @@ class DashboardController extends Controller
                 }
 
                 $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime','Desc')->get();
-    
+
                 // $request->session()->put('usern', $usersess);
                 // return response()->json($a);
                 return view('dashboard')->with('guild',$a);
@@ -112,7 +112,7 @@ class DashboardController extends Controller
             }
         }
 
-        
+
 
     }
 
@@ -134,7 +134,7 @@ class DashboardController extends Controller
         }
 
         else{
-            
+
             $inarr = [];
             $simped = [];
             $esimped = [];
@@ -182,7 +182,7 @@ class DashboardController extends Controller
                     array_push($recoverarrayA, $v->valueA);
                     array_push($recoverarrayB, $v->valueB);
                 }
-                
+
                 $p3 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Ally ATK Support')->orderBy('valueA','desc')->get();
                 foreach($p3 as $v){
                     array_push($atkbuffnamearrayA, $v->nameA . ' vs ' . $v->nameB);
@@ -216,7 +216,7 @@ class DashboardController extends Controller
                 $ienemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->get();
                 $iownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->get();
 
-                
+
                 $selfsimp = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->get();
                 $enemy = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->get();
 
@@ -227,53 +227,53 @@ class DashboardController extends Controller
                     $cskill = preg_grep("/(ATK UP by (.*)|DEF UP by (.*))/", $cse);
 
                     foreach($cskill as $crv){
-                        $csve = explode("'s", $crv);   
-                        array_push($simped, $csve[0]);          
+                        $csve = explode("'s", $crv);
+                        array_push($simped, $csve[0]);
                         // $simped[$counter]['name'] = $csve[0];
                         // $counter++;
                     }
-          
+
                 }
-                
+
                 foreach($iownkiss as $cs){
                     $cse = explode("\n", $cs->readableText);
                     $cskill = preg_grep("/(.*)has fainted./", $cse);
-                
+
                     foreach($cskill as $crv){
-                        $csve = explode("has", $crv);   
-                        array_push($kiss, $csve[0]);          
+                        $csve = explode("has", $crv);
+                        array_push($kiss, $csve[0]);
                         // $simped[$counter]['name'] = $csve[0];
                         // $counter++;
                     }
-          
+
                 }
 
                 foreach($ienemykiss as $cs){
                     $cse = explode("\n", $cs->readableText);
                     $cskill = preg_grep("/(.*)has fainted./", $cse);
-                
+
                     foreach($cskill as $crv){
-                        $csve = explode("has", $crv);   
-                        array_push($ekiss, $csve[0]);          
+                        $csve = explode("has", $crv);
+                        array_push($ekiss, $csve[0]);
                         // $simped[$counter]['name'] = $csve[0];
                         // $counter++;
                     }
-          
+
                 }
 
-              
+
 
                 foreach($enemy as $cs){
                     $cse = explode("\n", $cs->readableText);
                     $cskill = preg_grep("/(ATK UP by (.*)|DEF UP by (.*))/", $cse);
 
                     foreach($cskill as $crv){
-                        $csve = explode("'s", $crv);   
-                        array_push($esimped, $csve[0]);          
+                        $csve = explode("'s", $crv);
+                        array_push($esimped, $csve[0]);
                         // $simped[$counter]['name'] = $csve[0];
                         // $counter++;
                     }
-          
+
                 }
 
                 // usort($simped, function($a, $b) {
@@ -297,13 +297,13 @@ class DashboardController extends Controller
                 $kme = array_keys($kme);
                 $emostkiss = $kme[0];
 
-               
+
 
                 $esm = array_count_values($esimped);
                 arsort($esm);
                 $esm = array_keys($esm);
                 $emostsimped = $esm[0];
-            
+
                 foreach($p3 as $v3){
                     $guildAAbuff += $v3->valueA;
                     $guildBAbuff += $v3->valueB;
@@ -323,7 +323,7 @@ class DashboardController extends Controller
 
                 $ally = gvgmember::where('gvgDataId', $id)->get();
                 $enemy = gvgenemymember::where('gvgDataId', $id)->get();
-        
+
                 // return response()->json($a);
                 return view('log', compact('recovernameA','recoverarrayA','recoverarrayB','atkbuffnamearrayA','atkbuffvaluearrayA', 'atkbuffvaluearrayB','defbuffnamearrayA','defbuffvaluearrayA', 'defbuffvaluearrayB','atkdebuffnamearrayA','atkdebuffvaluearrayA', 'atkdebuffvaluearrayB','defdebuffnamearrayA','defdebuffvaluearrayA', 'defdebuffvaluearrayB'))->with('guild',$a)
                 ->with('shinma',$b)
@@ -363,9 +363,9 @@ class DashboardController extends Controller
         }
 
 
-    
 
-    
+
+
     }
 
     /**
@@ -437,13 +437,13 @@ class DashboardController extends Controller
                     foreach($specget as $cs){
                         $cse = explode("\n", $cs->readableText);
                         $cskill = preg_grep("/M.".$regex." (.*)/", $cse);
-                        
+
                         foreach($cskill as $crv){
                             $csve = explode("by", $crv);
                             $v = preg_replace('/[^0-9]/', '', $csve[1]);
                             $p2 += $v;
                         }
-              
+
                     }
 
                     foreach($specget as $cs){
@@ -452,12 +452,12 @@ class DashboardController extends Controller
 
                         foreach($cskill as $crv){
                             $csve = explode("by", $crv);
-                            $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                            $v = preg_replace('/[^0-9]/', '', $csve[1]);
                             $p1 += $v;
                         }
-              
+
                     }
-                
+
                     return response()->json([$key1=> $p1,$key2=>$p2]);
 
                 }
@@ -528,11 +528,11 @@ class DashboardController extends Controller
                             return response()->json(['match/grid not available']);
                         }
                     foreach($grid as $g){
-        
+
                         $thearr = explode("\n", $g->readableText);
                         if(preg_match('/combo.$/', $thearr[0])){
                             array_push($y, preg_replace('/activated.$/', '', $thearr[1]));
-                        } 
+                        }
                         else{
                             array_push($y, preg_replace('/activated.$/', '', $thearr[0]));
                         }
@@ -544,14 +544,14 @@ class DashboardController extends Controller
                         // $theq = preg_replace("/^Spear of Languor's/", '', $ys);
                         $query2 = $ys.'activated.';
                         $theq = explode("'s", $ys);
-                  
+
                         if(count($theq) > 3){
                             $regexq = $theq[0]."'s". $theq[1];
-                           
+
                         }
                         else{
                             $regexq = $theq[0];
-                            
+
                         }
                         // $regexq = $theq[0];
                         // print($regexq . '</br>');
@@ -598,7 +598,7 @@ class DashboardController extends Controller
                         }
 
 
-                        
+
 
                     }
                     // dd($img);return;
@@ -610,8 +610,8 @@ class DashboardController extends Controller
                     //     $finres[$i]['colosupp'] = $yb[$i];
 
                     // }
-                                
-                    if($grid[0]->isOwnGuild == 1){ 
+
+                    if($grid[0]->isOwnGuild == 1){
                         $guildenemy = $a[0]->guildDataNameB;
                     }
                     else{ $guildenemy = $a[0]->guildDataNameA;}
@@ -627,8 +627,8 @@ class DashboardController extends Controller
 
                     $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'like', '%HP recovered by%')->get();
-        
-                    
+
+
                     //recover
             //    $cn = 0;
                     if(isset($recover[0])){
@@ -707,13 +707,13 @@ class DashboardController extends Controller
                         foreach($patk as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/M.ATK UP by (.*)/", $cse);
-                            
+
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
                                 $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $matkvalue += $v;
                             }
-                  
+
                         }
 
                         foreach($patk as $cs){
@@ -722,10 +722,10 @@ class DashboardController extends Controller
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $patkvalue += $v;
                             }
-                  
+
                         }
                     }
 
@@ -738,10 +738,10 @@ class DashboardController extends Controller
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $mdefvalue += $v;
                             }
-                  
+
                         }
 
                         foreach($pdef as $cs){
@@ -750,10 +750,10 @@ class DashboardController extends Controller
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $pdefvalue += $v;
                             }
-                  
+
                         }
                     }
 
@@ -765,10 +765,10 @@ class DashboardController extends Controller
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $matkdvalue += $v;
                             }
-                  
+
                         }
 
                         foreach($patkd as $cs){
@@ -777,25 +777,25 @@ class DashboardController extends Controller
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $patkdvalue += $v;
                             }
-                  
+
                         }
                     }
 
                     if(isset($pdefd[0])){
-                       
+
                         foreach($pdefd as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/M.DEF DOWN by (.*)/", $cse);
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $mdefdvalue += $v;
                             }
-                  
+
                         }
 
                         foreach($pdefd as $cs){
@@ -804,20 +804,20 @@ class DashboardController extends Controller
 
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[1]);                
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                                 $pdefdvalue += $v;
                             }
-                  
+
                         }
                     }
-        
+
 
 
                     //eof patkbuff
 
 
 // dd($ybd,$ybe);
-                
+
 
                     // return response()->json($y);
                     return view('grid')
@@ -849,15 +849,15 @@ class DashboardController extends Controller
                     ->with('rs2rate',number_format($rs2rate))
                     ->with('sb3rate',number_format($sb3rate));
 
-        
+
 
                 }
                 else{
                     return response()->json(['Not Astellians']);
-    
+
                 }
             }
-    
+
     }
 
     public function getLog($id, Request $request){
@@ -866,7 +866,7 @@ class DashboardController extends Controller
             if(!isset($sess)){
                 return redirect()->route('index');
             }
-    
+
             else{
 
                 $inarr = [];
@@ -876,12 +876,12 @@ class DashboardController extends Controller
                         array_push($inarr,$d->guildId);
                     }
                     $a = gvgtop::where('gvgDataId', $id)->first();
-                   
+
                     $amiallowed = $a->guildDataIdA;
                     if(!in_array($amiallowed,$inarr)){
                         return response()->json(['You are not allowed to see this grid']);
                     }
-                    
+
                         ## Read value
                         $draw = $request->get('draw');
                         $start = $request->get("start");
@@ -912,10 +912,10 @@ class DashboardController extends Controller
                         ->take($rowperpage)
                         ->get();
 
-                        
+
 
                         $data_arr = array();
-                        
+
                         foreach($records as $record){
                         $id = $record->gvgHistoryId;
                         $actTime = $record->actTime;
@@ -944,7 +944,7 @@ class DashboardController extends Controller
                 }
                 else{
                     return response()->json(['Not Astellians']);
-    
+
                 }
             }
 
@@ -957,7 +957,7 @@ class DashboardController extends Controller
             if(!isset($sess)){
                 return redirect()->route('index');
             }
-    
+
             else{
                 $inarr = [];
                 $isAllowed = allowed::where('username',$sess)->get();
@@ -966,12 +966,12 @@ class DashboardController extends Controller
                         array_push($inarr,$d->guildId);
                     }
                     $a = gvgtop::where('gvgDataId', $id)->first();
-                   
+
                     $amiallowed = $a->guildDataIdA;
                     if(!in_array($amiallowed,$inarr)){
                         return response()->json(['You are not allowed to see this grid']);
                     }
-                    
+
                         ## Read value
                         $draw = $request->get('draw');
                         $start = $request->get("start");
@@ -986,7 +986,7 @@ class DashboardController extends Controller
                         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
                         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
                         $searchValue = $search_arr['value']; // Search value
-                        
+
                         $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->count();
                         $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->where('readableText', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->where('userId', $idm)->where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
                     ->count();
@@ -1003,10 +1003,10 @@ class DashboardController extends Controller
                             ->take($rowperpage)
                             ->get();
 
-                        
+
 
                         $data_arr = array();
-                        
+
                         foreach($records as $record){
                         $id = $record->gvgHistoryId;
                         $actTime = $record->actTime;
@@ -1035,7 +1035,7 @@ class DashboardController extends Controller
                 }
                 else{
                     return response()->json(['Not Astellians']);
-    
+
                 }
             }
 
