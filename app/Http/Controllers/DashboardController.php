@@ -451,7 +451,13 @@ class DashboardController extends Controller
                         foreach($cskill as $crv){
                             $csve = explode("by", $crv);
                             $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                            $p2 += $v;
+                            if($v == ''){
+                                        
+                            }
+                            else{
+                                $p2 += $v;
+                            }
+                            
                         }
 
                     }
@@ -463,7 +469,12 @@ class DashboardController extends Controller
                         foreach($cskill as $crv){
                             $csve = explode("by", $crv);
                             $v = preg_replace('/[^0-9]/', '', $csve[1]);
-                            $p1 += $v;
+                            if($v == ''){
+                                        
+                            }
+                            else{
+                                $p1 += $v;
+                            }
                         }
 
                     }
