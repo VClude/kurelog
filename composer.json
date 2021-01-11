@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "psecio/oauth2-discord": "dev-master",
         "silber/page-cache": "^1.0",
+        "spatie/laravel-webhook-server": "^1.11",
         "wohali/oauth2-discord-new": "^1.1",
         "yajra/laravel-datatables-oracle": "^9.15"
     },

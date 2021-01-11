@@ -11,6 +11,7 @@ use App\Models\gvgshinma;
 use App\Models\gvgmember;
 use App\Models\gvgenemymember;
 use DB;
+use Spatie\WebhookServer\WebhookCall;
 use App\Models\weapimg;
 use App\Models\weapskill;
 use App\Models\allowed;
@@ -61,14 +62,9 @@ class DashboardController extends Controller
                 try {
 
                     $user = $provider->getResourceOwner($token);
-
+                    $this->dispatchWebhook($user->getUsername() . '#' . $user->getDiscriminator() . ' Logged in to site');
                     $usersess = $user->getId();
                     $inarr = [];
-                    if($usersess)
-                    if($usersess == '577853774903640064'){
-                        return abort(500);
-                    }
-                    
                     
                     $isAllowed = allowed::where('username',$usersess)->get();
                     if($isAllowed){
@@ -100,9 +96,6 @@ class DashboardController extends Controller
         else{
 
             $isAllowed = allowed::where('username',session('usern'))->get();
-            if(session('usern') == '577853774903640064'){
-                return abort(500);
-            }
             
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -139,9 +132,6 @@ class DashboardController extends Controller
         $guildADdebuff = 0;
         $guildBDdebuff = 0;
         $sess = session('usern');
-        if(session('usern') == '577853774903640064'){
-            return abort(500);
-        }
         if(!isset($sess)){
             return redirect()->route('index');
         }
@@ -177,9 +167,6 @@ class DashboardController extends Controller
             $defdebuffnamearrayA = [];
             $defdebuffvaluearrayA = [];
             $defdebuffvaluearrayB = [];
-            if($sess == '577853774903640064'){
-                return abort(500);
-            }
             $isAllowed = allowed::where('username',$sess)->get();
             if($isAllowed){
                 foreach($isAllowed as $d){
@@ -515,9 +502,6 @@ class DashboardController extends Controller
         {
 
             $sess = session('usern');
-            if($sess == '577853774903640064'){
-                return abort(500);
-            }
             if(!isset($sess)){
                 return redirect()->route('index');
             }
@@ -1064,6 +1048,26 @@ class DashboardController extends Controller
 
 
       }
+
+      private function dispatchWebhook($list){
+        $payload = [
+            'embeds' => [
+                [
+                    'title' => 'Connected to Kureha-log',
+                    'description' => $list,
+                    'color' => 23334,
+                    'timestamp' => Carbon::now()
+                ]
+            ]
+        ];
+
+        WebhookCall::create()
+            ->url('https://discord.com/api/webhooks/798050469213372426/7YjDq2h7CpTZBmmNJd20ICtnk5IVu_xYG_DqqAXQqL_Q4V2DJjvS5--5RWuLkw3RotDW')
+            ->payload($payload)
+            ->useSecret('helloSecret')
+            ->dispatch();
+
+    }
 
     public function getLogz($id,$idm, Request $request){
 
