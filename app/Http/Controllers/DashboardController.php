@@ -546,7 +546,7 @@ class DashboardController extends Controller
                     $rs2rate = 0;
                     // $blog = TbBlog::find($id);
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
-                        where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->->where('readableText', 'not like', '%HP recovered%')->
+                        where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered%')->
                         orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
                         if(count($grid) == 0){
                             return response()->json(['match/grid not available']);
