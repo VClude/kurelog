@@ -528,6 +528,27 @@ class DashboardController extends Controller
                     $ybe = [];
                     $img = [];
                     $arrdebug = [];
+                    $highestatkbuff = '';
+                    $highestdefbuff = '';
+                    $highestatkdebuff = '';
+                    $highestdefdebuff = '';
+                    $highestdmg = '';
+                    $highestrecover = '';
+
+                    $highestatkbuffid = 0;
+                    $highestdefbuffid = 0;
+                    $highestatkdebuffid = 0;
+                    $highestdefdebuffid = 0;
+                    $highestdmgid = 0;
+                    $highestrecoverid = 0;
+
+                    $highestatkbuffvalue = 0;
+                    $highestdefbuffvalue = 0;
+                    $highestatkdebuffvalue = 0;
+                    $highestdefdebuffvalue = 0;
+                    $highestdmgvalue = 0;
+                    $highestrecovervalue = 0;
+
                     $patkvalue=0;
                     $matkvalue=0;
                     $pdefvalue=0;
@@ -689,6 +710,13 @@ class DashboardController extends Controller
                     //eof recover
                     // $querybasic = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
                     //patk buff
+                    $recoverc = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%HP Recovered by%')->get();
+                    $damagec = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%damage to%')->get();
+
 
                     $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
@@ -748,6 +776,66 @@ class DashboardController extends Controller
                         $rs2rate = $rs2 / $apm * 100;
                     }
 
+
+                    if(isset($damagec[0])){
+                        foreach($damagec as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/damage to (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("damage to", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[0]);
+                     
+                                    if($v == ''){
+                                        
+                                    }
+                                    else{
+                                        if($v > $highestdmgvalue){
+                                            $highestdmgvalue = $v;
+                                            $highestdmg = $cs->readableText;
+                                        }
+                                    }
+                                
+                       
+
+                             
+
+                            }
+
+                        }
+
+                    }
+
+                    if(isset($recoverc[0])){
+                        foreach($recoverc as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/HP recovered by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[0]);
+                     
+                                    if($v == ''){
+                                        
+                                    }
+                                    else{
+                                        if($v > $highestrecovervalue){
+                                            $highestrecovervalue = $v;
+                                            $highestrecover = $cs->readableText;
+
+                                        }
+                                    }
+                                
+                       
+
+                             
+
+                            }
+
+                        }
+
+                    }
+
                     if(isset($patk[0])){
                         $patkarr= [];
                         foreach($patk as $cs){
@@ -763,6 +851,11 @@ class DashboardController extends Controller
                                         
                                     }
                                     else{
+                                        if($v > $highestatkbuffvalue){
+                                            $highestatkbuffvalue = $v;
+                                            $highestatkbuff = $cs->readableText;
+
+                                        }
                                         $matkvalue += $v;
                                     }
                                 
@@ -785,6 +878,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestatkbuffvalue){
+                                        $highestatkbuffvalue = $v;
+                                        $highestatkbuff = $cs->readableText;
+
+                                    }
                                     $patkvalue += $v;
                                 }
 
@@ -808,6 +906,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestdefbuffvalue){
+                                        $highestdefbuffvalue = $v;
+                                        $highestdefbuff = $cs->readableText;
+
+                                    }
                                     $mdefvalue += $v;
                                 }
 
@@ -827,6 +930,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestdefbuffvalue){
+                                        $highestdefbuffvalue = $v;
+                                        $highestdefbuff = $cs->readableText;
+
+                                    }
                                     $pdefvalue += $v;
                                 }
 
@@ -850,6 +958,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestatkdebuffvalue){
+                                        $highestatkdebuffvalue = $v;
+                                        $highestatkdebuff = $cs->readableText;
+
+                                    }
                                     $matkdvalue += $v;
                                 }
 
@@ -869,6 +982,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestatkdebuffvalue){
+                                        $highestatkdebuffvalue = $v;
+                                        $highestatkdebuff = $cs->readableText;
+
+                                    }
                                     $patkdvalue += $v;
                                 }
 
@@ -891,6 +1009,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestdefdebuffvalue){
+                                        $highestdefdebuffvalue = $v;
+                                        $highestdefdebuff = $cs->readableText;
+
+                                    }
                                     $mdefdvalue += $v;
                                 }
 
@@ -910,6 +1033,11 @@ class DashboardController extends Controller
                                         
                                 }
                                 else{
+                                    if($v > $highestdefdebuffvalue){
+                                        $highestdefdebuffvalue = $v;
+                                        $highestdefdebuff = $cs->readableText;
+
+                                    }
                                     $pdefdvalue += $v;
                                 }
 
@@ -932,6 +1060,18 @@ class DashboardController extends Controller
                     ->with('gridlist',$y)
                     ->with('imglist',$img)
                     ->with('cololist',$yb)
+                    ->with('hdv',$highestdmgvalue)
+                    ->with('hrv',$highestrecovervalue)
+                    ->with('habv',$highestatkbuffvalue)
+                    ->with('hdbv',$highestdefbuffvalue)
+                    ->with('hadv',$highestatkdebuffvalue)
+                    ->with('hddv',$highestdefdebuffvalue)
+                    ->with('hd',$highestdmg)
+                    ->with('hr',$highestrecover)
+                    ->with('hab',$highestatkbuff)
+                    ->with('hdb',$highestdefbuff)
+                    ->with('had',$highestatkdebuff)
+                    ->with('hdd',$highestdefdebuff)
                     ->with('username',$grid[0]->userName)
                     ->with('guildenemy',$guildenemy)
                     ->with('uid',$userid)

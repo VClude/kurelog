@@ -169,7 +169,7 @@
                   </div>
                   <div class="py-15 px-20 clearfix border-black-op-b">
                       
-                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$sb2rate}}%</div>
+                  <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$sb2rate}}%</div>
                       <div class="font-size-sm font-w600 text-uppercase text-info-light">Support Boon (II) Activation Rate</div>
                   </div>
                   <div class="py-15 px-20 clearfix border-black-op-b">
@@ -189,7 +189,7 @@
                   </div>
                   <div class="py-15 px-20 clearfix border-black-op-b">
                       
-                  <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$rs2rate}}%</div>
+                  <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{$rs2rate}}%</div>
                       <div class="font-size-sm font-w600 text-uppercase text-info-light">Recovery Support (II) Activation Rate</div>
                       
                   </div>
@@ -207,6 +207,84 @@
 <!-- END Page Content -->
 
 </main>
+
+
+<div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
+                        <div class="content text-center">
+                            <div class="pt-50 pb-20">
+                                <h1 class="font-w700 text-white mb-10">Milestone Battle Log</h1>
+                                <h2 class="h4 font-w400 text-white-op">{{$username}} Battle log Milestone</h2>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
+        <!-- Row #4 -->
+        <div class="col-md-12">
+            <div class="block block-transparent bg-primary-dark">
+                <div class="block-content block-content-full">
+                <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{number_format($hdv)}}</div>
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light">Highest Single weapon Damage</div>
+                      </div>
+                      <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light" style="white-space: pre-wrap !important;">{{$hd}}</div>
+                      </div>
+                      <div class="py-15 px-20 clearfix border-black-op-b">
+                          
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{number_format($hrv)}}</div>
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light">Highest Single weapon Recover</div>
+                      </div>
+                      <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light" style="white-space: pre-wrap !important;">{{$hr}}</div>
+                      </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{number_format($habv)}}</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Highest Single weapon ATK Buff</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light" style="white-space: pre-wrap !important;">{{$hab}}</div>
+                      </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{number_format($hdbv)}}</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Highest Single weapon DEF Buff</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light" style="white-space: pre-wrap !important;">{{$hdb}}</div>
+                      </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{number_format($hadv)}}</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Highest Single weapon ATK Debuff</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light" style="white-space: pre-wrap !important;">{{$had}}</div>
+                      </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                      <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">{{number_format($hddv)}}</div>
+                      <div class="font-size-sm font-w600 text-uppercase text-info-light">Highest Single weapon DEF Debuff</div>
+                  </div>
+                  <div class="py-15 px-20 clearfix border-black-op-b">
+                      
+                          <div class="font-size-sm font-w600 text-uppercase text-info-light" style="white-space: pre-wrap !important;">{{$hdd}}</div>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END Row #4 -->
+    </div>
+
+
 
 <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
                         <div class="content text-center">
