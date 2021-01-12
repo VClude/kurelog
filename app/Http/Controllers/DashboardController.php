@@ -810,10 +810,10 @@ class DashboardController extends Controller
                         foreach($recoverc as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/HP recovered by (.*)/", $cse);
-
+                            // dd($cskill);
                             foreach($cskill as $crv){
                                 $csve = explode("by", $crv);
-                                $v = preg_replace('/[^0-9]/', '', $csve[0]);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
                      
                                     if($v == ''){
                                         
