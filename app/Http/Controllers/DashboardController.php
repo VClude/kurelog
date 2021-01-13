@@ -620,15 +620,6 @@ class DashboardController extends Controller
 
 
                         }
-                        if(count($theq) == 2){
-                            $regexq = $theq[0];
-                            $iq = weapimg::where('weapname', 'like',$regexq.'%')->count();
-                            if($iq > 1){
-                                $regexq = $regexq = $theq[0]."'s". $theq[1];
-                            }
-
-
-                        }
                         else{
                             $regexq = $theq[0];
 
