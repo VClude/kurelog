@@ -565,22 +565,39 @@ class DashboardController extends Controller
                     $sb2rate = 0;
                     $sb3rate = 0;
                     $rs2rate = 0;
+                    $gridctr = 0;
                     // $blog = TbBlog::find($id);
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                         where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
-                        orderBy('gvgHistoryId','asc')->LIMIT(20)->get();
+                        orderBy('gvgHistoryId','asc')->LIMIT(30)->get();
                         if(count($grid) == 0){
                             return response()->json(['match/grid not available']);
                         }
                     foreach($grid as $g){
 
-                        $thearr = explode("\n", $g->readableText);
-                        if(preg_match('/combo.$/', $thearr[0])){
-                            array_push($y, preg_replace('/activated.$/', '', $thearr[1]));
+
+                        if($gridctr != 20){
+                            $thearr = explode("\n", $g->readableText);
+                            if(preg_match('/combo.$/', $thearr[0])){
+                                $strt = preg_replace('/activated.$/', '', $thearr[1]);
+                                if(!in_array($strt,$y)){
+                                    array_push($y, $strt);
+                                    $gridctr++;
+                                }
+                                
+                            }
+                            else{
+                                $strt = preg_replace('/activated.$/', '', $thearr[0]);
+                                if(!in_array($strt,$y)){
+                                    array_push($y, $strt);
+                                    $gridctr++;
+
+                                }
+                                
+                            }
+
                         }
-                        else{
-                            array_push($y, preg_replace('/activated.$/', '', $thearr[0]));
-                        }
+
                         // .*\.ccf$
                     }
                     foreach($y as $ys){
@@ -595,6 +612,15 @@ class DashboardController extends Controller
 
                         }
                         if(count($theq) == 3){
+                            $regexq = $theq[0];
+                            $iq = weapimg::where('weapname', 'like',$regexq.'%')->count();
+                            if($iq > 1){
+                                $regexq = $regexq = $theq[0]."'s". $theq[1];
+                            }
+
+
+                        }
+                        if(count($theq) == 2){
                             $regexq = $theq[0];
                             $iq = weapimg::where('weapname', 'like',$regexq.'%')->count();
                             if($iq > 1){
