@@ -12,6 +12,7 @@ use App\Models\gvgmember;
 use App\Models\gvgenemymember;
 use Carbon\Carbon;
 use DB;
+use Config;
 use Spatie\WebhookServer\WebhookCall;
 use App\Models\weapimg;
 use App\Models\weapskill;
@@ -31,9 +32,9 @@ class DashboardController extends Controller
         if (!session('usern')) {
 
             $provider = new \Wohali\OAuth2\Client\Provider\Discord([
-                'clientId'          => '658613502415470631',
-                'clientSecret'      => 'D3XIPQD8dTHOm6scdmWS9pLkoW7fubtW',
-               'redirectUri'       => 'http://ec2-18-212-84-193.compute-1.amazonaws.com'
+                'clientId'          => Config::get('app.disc-client-id'),
+                'clientSecret'      => Config::get('app.disc-client-secret'),
+                'redirectUri'       => Config::get('app.disc-client-uri')
                 //  'redirectUri'       => 'http://localhost/kureha-log/public'
 
             ]);
@@ -61,9 +62,9 @@ class DashboardController extends Controller
                 ]);
 
                 try {
-
+                    $indev = Config::get('app.debug') ? ' (Development Mode)' : '';
                     $user = $provider->getResourceOwner($token);
-                    $this->dispatchWebhook($user->getUsername() . '#' . $user->getDiscriminator() . ' Logged in to site');
+                    $this->dispatchWebhook($user->getUsername() . '#' . $user->getDiscriminator() . ' Logged in to site ' . $indev);
                     $usersess = $user->getId();
                     $inarr = [];
                     
@@ -1229,7 +1230,7 @@ class DashboardController extends Controller
         ];
 
         WebhookCall::create()
-            ->url('https://discord.com/api/webhooks/798050469213372426/7YjDq2h7CpTZBmmNJd20ICtnk5IVu_xYG_DqqAXQqL_Q4V2DJjvS5--5RWuLkw3RotDW')
+            ->url(Config::get('app.disc-webhook'))
             ->payload($payload)
             ->useSecret('helloSecret')
             ->dispatch();

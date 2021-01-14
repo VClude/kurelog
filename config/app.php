@@ -123,6 +123,11 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'disc-client-id' => env('DISCID',''),
+    'disc-client-secret' => env('DISCSECRET',''),
+    'disc-client-uri' => env('DISCURI',''),
+    'disc-webhook' => env('DISCWEBHOOK',''),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
