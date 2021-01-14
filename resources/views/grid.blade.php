@@ -208,72 +208,7 @@
         <!-- END Row #4 -->
     </div>
 
-    <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
-        <!-- Row #4 -->
-        <div class="col-md-12">
-            <div class="block block-themed block-mode-loading-inverse block-transparent bg-image w-100">
-            <div class="block-header">
-                    <h3 class="block-title">
-                        Weapon <small>Analyzer</small>
-                    </h3>
-                </div>
-                <div class="block-content block-content-full">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="http://localhost/kureha-log/public/assets/img/weapSR/CardS0335.png">
-                        </div>
-                        <div class="col-md-10">
-                            <div class="py-15 px-20 clearfix border-black-op-b">
-                                <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo"
-                                    data-speed="1000" data-to="260">Orblivion Staff</div>
-                                <div class="font-size-sm font-w600 text-uppercase text-info-light">Blessed Gospel (III)
-                                    Lv.15</div>
-                                <div class="font-size-sm font-w600 text-uppercase text-info-light">Recovery Support (II)
-                                    Lv.15</div>
-                                    
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">-</div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                        <div class="py-15 px-20 clearfix border-black-op-b">
-                          
-                          <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">5 times</div>
-                              <div class="font-size-sm font-w600 text-uppercase text-info-light">This weapon used in match</div>
-                          </div>
-
-                          <div class="py-15 px-20 clearfix border-black-op-b">
-                          
-                          <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">3/5 Times / 60%</div>
-                              <div class="font-size-sm font-w600 text-uppercase text-info-light">This weapon Does 2 Target</div>
-                          </div>
-
-                          <div class="py-15 px-20 clearfix border-black-op-b">
-                          
-                          <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="260">24,600</div>
-                              <div class="font-size-sm font-w600 text-uppercase text-info-light">Average Heals from this staff</div>
-                          </div>
-
-                          <div class="py-15 px-20 clearfix border-black-op-b">
-
-                            <canvas class="js-chartjs-lines chartjs-render-monitor" id="ujicoba"></canvas>
-                          
-                          </div>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-        <!-- END Row #4 -->
-    </div>
+   
 
 </div>
 <!-- END Page Content -->
@@ -441,33 +376,33 @@
 
     $(document).ready(function(){
 
-        var ctx = document.getElementById('ujicoba');
-        var atkbuffchart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [1,2,3,4,5],
-                datasets: [{
-                    label: "Orblivion Staff Recover",
-                    fill: !0,
-                    backgroundColor: "rgba(156,204,101,.25)",
-                    borderColor: "rgba(156,204,101,1)",
-                    pointBackgroundColor: "rgba(156,204,101,1)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(66,165,245,1)",
-                data: [19343,26546,45432,18695,24586]
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+        // var ctx = document.getElementById('ujicoba');
+        // var atkbuffchart = new Chart(ctx, {
+        //     type: 'line',
+        //     data: {
+        //         labels: [1,2,3,4,5],
+        //         datasets: [{
+        //             label: "Orblivion Staff Recover",
+        //             fill: !0,
+        //             backgroundColor: "rgba(156,204,101,.25)",
+        //             borderColor: "rgba(156,204,101,1)",
+        //             pointBackgroundColor: "rgba(156,204,101,1)",
+        //             pointBorderColor: "#fff",
+        //             pointHoverBackgroundColor: "#fff",
+        //             pointHoverBorderColor: "rgba(66,165,245,1)",
+        //         data: [19343,26546,45432,18695,24586]
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             yAxes: [{
+        //                 ticks: {
+        //                     beginAtZero: true
+        //                 }
+        //             }]
+        //         }
+        //     }
+        // });
 
         // $.noConflict();
 // DataTable
