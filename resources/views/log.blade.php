@@ -26,7 +26,7 @@
                                 <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear"
                                      data-class="animated fadeInLeft">
                                     <div class="font-size-h3 font-w600 text-info"><img
-                                            src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeA}}.png"> </img>{{ $g->guildDataNameA }}
+                                            src="http://kurelog.madjavacoder.me/media/photos/{{$g->guildDataCountryCodeA}}.png"> </img>{{ $g->guildDataNameA }}
                                     </div>
 
                                 </div>
@@ -35,7 +35,7 @@
                                 <div class="js-appear-enabled animated fadeInRight" data-toggle="appear"
                                      data-class="animated fadeInRight">
                                     <div class="font-size-h3 font-w600 text-success"><img
-                                            src="http://ec2-18-212-84-193.compute-1.amazonaws.com/media/photos/{{$g->guildDataCountryCodeB}}.png"> </img>{{ $g->guildDataNameB }}
+                                            src="http://kurelog.madjavacoder.me/media/photos/{{$g->guildDataCountryCodeB}}.png"> </img>{{ $g->guildDataNameB }}
                                     </div>
 
                                 </div>
