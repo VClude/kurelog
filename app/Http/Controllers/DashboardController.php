@@ -500,6 +500,634 @@ class DashboardController extends Controller
         }
     }
 
+    public function statSpecWeap($userid,$idmatch,$specs, Request $request)
+        {
+
+            if(!isset($specs) || !isset($userid) || !isset($idmatch)){
+                return response()->json(['spec not found']);
+            }
+            $q = '';
+            $p1=0;
+            $p2=0;
+            $sess = session('usern');
+            if(!isset($sess)){
+                return redirect()->route('index');
+            }
+            else{
+                $regexp = '';
+                $weapskill = '';
+                $weapdesc = '';
+                $weaptype = '';
+                $weapurl = '';
+                $ismulti = false;
+                $multicount = 0;
+                $valavg = 0;
+                $valsum = 0;
+                $reccontrib = 0;
+                $dmgcontrib = 0;
+                $atkbcontrib = 0;
+                $defbcontrib = 0;
+                $atkdcontrib = 0;
+                $defdcontrib = 0;
+
+            $inarr = [];
+            $valuearr = [];
+            $atkarr = [];
+            $defarr = [];
+
+            $tsarr = [];
+            $isAllowed = allowed::where('username',$sess)->get();
+            if($isAllowed){
+                foreach($isAllowed as $d){
+                    array_push($inarr,$d->guildId);
+                }
+                $a = gvgtop::where('gvgDataId', $idmatch)->get();
+
+                if(count($a) == 0){
+                    return response()->json(['match/grid not available']);
+                }
+                $amiallowed = $a[0]->guildDataIdA;
+                if(!in_array($amiallowed,$inarr)){
+                    return response()->json(['You are not allowed to see this grid']);
+                }
+
+                $thequery = gvglog::where('gvgDataId', $idmatch)->where('userId', $userid)->where('readableText','like','%' . $specs . '%')->orderBy('gvgHistoryId','asc');
+                $getquery = $thequery->get();
+                $weaponcount = $thequery->count();
+                $theq = explode("'s", $specs);
+
+                if(count($theq) > 3){
+                    $regexq = $theq[0]."'s". $theq[1];
+
+                }
+                if(count($theq) == 3){
+                    $regexq = $theq[0];
+                    $iq = weapimg::where('weapname', 'like',$regexq.'%')->count();
+                    if($iq > 1){
+                        $regexq = $regexq = $theq[0]."'s". $theq[1];
+                    }
+
+
+                }
+                else{
+                    $regexq = $theq[0];
+
+                }
+                // $regexq = $theq[0];
+                // print($regexq . '</br>');
+                $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
+                
+
+                if($imgquery){
+                    $ws = weapskill::where('weapskillid',$imgquery->weapskillid)->first();
+                    if($ws){
+                        $weapskill = $ws->weapskillname;
+                        $weapdesc = $ws->weapdesc;
+
+
+                    }
+                        $weaptype = $imgquery->weaptype != null ? $imgquery->weaptype : 'unknown';
+                        $weapurl = $imgquery->weapurl != null ? $imgquery->weapurl : 'unknown';
+
+                }
+                if(!$imgquery){
+                    $weapskill = 'not found';
+                    $weapdesc = 'not found';
+                    $weaptype = 'not found';
+
+                }
+
+                // switch($weaptype){
+                //     case 'Tome':
+                //         $whatto = ''
+                // }
+
+                $multigacha=explode('1 to 2 allies', $weapdesc);
+                $multigachag=explode('2 allies', $weapdesc);
+                $multigachagt=explode('of 2 enemies', $weapdesc);
+                $multigachavg=explode('1 to 2 enemies', $weapdesc);
+                $singlevg=explode('1 enemy', $weapdesc);
+                $singlevgs=explode('1 ally', $weapdesc);
+
+                
+                if(isset($multigachag[1]) && !isset($multigacha[1]) || isset($multigachagt[1]) && !isset($multigacha[1])){
+                    $ismulti = 2;
+                }
+                if(isset($singlevg[1]) || isset($singlevgs[1])){
+                    $ismulti = 0;
+                }
+                    
+                if(isset($multigacha[1]) || isset($multigachavg[1])){
+                    $ismulti = 1;
+                    // dd($valuearr);
+                    // dd($multicount, $weaponcount);
+                }
+
+                foreach($getquery as $cs){
+                    $cse = explode("\n", $cs->readableText);
+                    array_push($tsarr, $cs->actTime);
+
+                    $valrecover = 0;
+                    $valrecover2 = 0;
+                    $valrecover3 = 0;
+                    if($weaptype == 'Staff'){
+                        $cskill = preg_grep("/HP recovered by (.*)/", $cse);
+                        foreach($cskill as $crv){
+                            $csve = explode("HP recovered by", $crv);
+                            $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                           $valrecover += $v;
+                        }
+                        array_push($valuearr,$valrecover);
+                        if(count($cskill) == 2){
+                            $multicount++;
+                        }
+                    
+
+                    
+                    }
+                    else if(in_array($weaptype,['Polearm','Hammer'])){
+                        $cskill = preg_grep("/damage to 2 (.*)/", $cse);
+                        if(count($cskill) == 1){
+                            $multicount++;
+                        }
+                        $cskill2 = preg_grep("/damage to (.*)/", $cse);
+
+                        foreach($cskill2 as $crv){
+                            $csve = explode("damage to", $crv);
+                            $v = preg_replace('/[^0-9]/', '', $csve[0]);
+                            array_push($valuearr,$v);
+
+
+                            // if($csve[1] == " 2 target(s)."){
+                            //     // array_push($valuearr,strval($v * 2));
+
+                            // }
+                            // else{
+                            //     array_push($valuearr,$v);
+
+                            // }
+
+                        }
+                       
+                    }
+
+                    else if(in_array($weaptype,['Bow','Sword','Artifact'])){
+                        $cskill2 = preg_grep("/damage to (.*)/", $cse);
+
+                        foreach($cskill2 as $crv){
+                            $csve = explode("damage to", $crv);
+                            $v = preg_replace('/[^0-9]/', '', $csve[0]);
+                            array_push($valuearr,$v);
+
+
+                            // if($csve[1] == " 2 target(s)."){
+                            //     // array_push($valuearr,strval($v * 2));
+
+                            // }
+                            // else{
+                            //     array_push($valuearr,$v);
+
+                            // }
+
+                        }
+                       
+                    }
+                    else if($weaptype == 'Tome'){
+                        
+                        
+                        $patkdown = explode("P.ATK", $weapdesc);
+                        $matkdown = explode("M.ATK", $weapdesc);
+                        $pdefdown = explode("P.DEF", $weapdesc);
+                        $mdefdown = explode("M.DEF", $weapdesc);
+
+                        $ispatk = isset($patkdown[1]);
+                        $ismatk = isset($matkdown[1]);
+                        $ispdef = isset($pdefdown[1]);
+                        $ismdef = isset($mdefdown[1]);
+
+                        if(!$ispatk && !$ismatk && !$ispdef && $ismdef){
+                            // $cskill = preg_grep("/[^M.]ATK DOWN by (.*)/", $cse);
+                            $cskill = preg_grep("/M.DEF DOWN by (.*)/", $cse);
+
+
+                            foreach($cskill as $crv){
+                                $csve = explode("M.DEF DOWN by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($defarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if(!$ispatk && !$ismatk && $ispdef && !$ismdef){
+                            $cskill = preg_grep("/[^M.]DEF DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF DOWN by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($defarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+                        
+                        if(!$ispatk && $ismatk && !$ispdef && !$ismdef){
+                            $cskill = preg_grep("/M.ATK DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("M.ATK DOWN by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($atkarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if($ispatk && !$ismatk && !$ispdef && !$ismdef){
+                            $cskill = preg_grep("/[^M.]ATK DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("ATK DOWN by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($atkarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if($ispatk && $ismatk && !$ispdef && !$ismdef){
+                            $cskill = preg_grep("/ATK DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("ATK DOWN by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                $valrecover += $v;
+                            }
+                            array_push($atkarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+
+                        if(!$ispatk && !$ismatk && $ispdef && $ismdef){
+                            $cskill = preg_grep("/DEF DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF DOWN by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($defarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+
+                        if(!$ispatk && $ismatk && !$ispdef && $ismdef){
+                            $cskill = preg_grep("/M.DEF DOWN by (.*)|M.ATK DOWN by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF DOWN by", $crv);
+                                $csve2 = explode("ATK DOWN by", $crv);
+
+                                if(isset($csve[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                    $valrecover += $v;
+                                    $valrecover3 += $v;
+                                }
+                               
+                                if(isset($csve2[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve2[1]);
+                                    $valrecover2 += $v;
+                                    $valrecover3 += $v;
+                                }
+                            }
+                                array_push($defarr,$valrecover2);
+                                array_push($atkarr,$valrecover);
+                                array_push($valuearr,$valrecover3);
+
+
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if($ispatk && !$ismatk && $ispdef && !$ismdef){
+                           
+
+                            $cskill = preg_grep("/[^M.]DEF DOWN by (.*)|[^M.]ATK DOWN by (.*)/", $cse);
+                        
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF DOWN by", $crv);
+                                $csve2 = explode("ATK DOWN by", $crv);
+
+                                if(isset($csve[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                    $valrecover += $v;
+                                    $valrecover3 += $v;
+                                }
+                               
+                                if(isset($csve2[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve2[1]);
+                                    $valrecover2 += $v;
+                                    $valrecover3 += $v;
+                                }
+
+                            }
+                            array_push($defarr,$valrecover2);
+                                array_push($atkarr,$valrecover);
+                                array_push($valuearr,$valrecover3);
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+                    
+                    }
+
+                    else if($weaptype == 'Instrument'){
+                        
+                        
+                        $patkdown = explode("P.ATK", $weapdesc);
+                        $matkdown = explode("M.ATK", $weapdesc);
+                        $pdefdown = explode("P.DEF", $weapdesc);
+                        $mdefdown = explode("M.DEF", $weapdesc);
+
+                        $ispatk = isset($patkdown[1]);
+                        $ismatk = isset($matkdown[1]);
+                        $ispdef = isset($pdefdown[1]);
+                        $ismdef = isset($mdefdown[1]);
+
+                        if(!$ispatk && !$ismatk && !$ispdef && $ismdef){
+                            // $cskill = preg_grep("/[^M.]ATK DOWN by (.*)/", $cse);
+                            $cskill = preg_grep("/M.DEF UP by (.*)/", $cse);
+
+
+                            foreach($cskill as $crv){
+                                $csve = explode("M.DEF UP by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($defarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if(!$ispatk && !$ismatk && $ispdef && !$ismdef){
+                            $cskill = preg_grep("/[^M.]DEF UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF UP by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($defarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+                        
+                        if(!$ispatk && $ismatk && !$ispdef && !$ismdef){
+                            $cskill = preg_grep("/M.ATK UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("M.ATK UP by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($atkarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if($ispatk && !$ismatk && !$ispdef && !$ismdef){
+                            $cskill = preg_grep("/[^M.]ATK UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("ATK UP by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($atkarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 2){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if($ispatk && $ismatk && !$ispdef && !$ismdef){
+                            $cskill = preg_grep("/ATK UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("ATK UP by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                $valrecover += $v;
+                            }
+                            array_push($atkarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+
+                        if(!$ispatk && !$ismatk && $ispdef && $ismdef){
+                            $cskill = preg_grep("/DEF UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF UP by", $crv);
+                                $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                               $valrecover += $v;
+                            }
+                            array_push($defarr,$valrecover);
+                            array_push($valuearr,$valrecover);
+
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+
+                        if(!$ispatk && $ismatk && !$ispdef && $ismdef){
+                            $cskill = preg_grep("/M.DEF UP by (.*)|M.ATK UP by (.*)/", $cse);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF UP by", $crv);
+                                $csve2 = explode("ATK UP by", $crv);
+
+                                if(isset($csve[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                    $valrecover += $v;
+                                    $valrecover3 += $v;
+                                }
+                               
+                                if(isset($csve2[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve2[1]);
+                                    $valrecover2 += $v;
+                                    $valrecover3 += $v;
+                                }
+                            }
+                                array_push($defarr,$valrecover2);
+                                array_push($atkarr,$valrecover);
+                                array_push($valuearr,$valrecover3);
+
+
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+                        if($ispatk && !$ismatk && $ispdef && !$ismdef){
+                           
+
+                            $cskill = preg_grep("/[^M.]DEF UP by (.*)|[^M.]ATK UP by (.*)/", $cse);
+                        
+                            foreach($cskill as $crv){
+                                $csve = explode("DEF UP by", $crv);
+                                $csve2 = explode("ATK UP by", $crv);
+
+                                if(isset($csve[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve[1]);
+                                    $valrecover += $v;
+                                    $valrecover3 += $v;
+                                }
+                               
+                                if(isset($csve2[1])){
+                                    $v = preg_replace('/[^0-9]/', '', $csve2[1]);
+                                    $valrecover2 += $v;
+                                    $valrecover3 += $v;
+                                }
+
+                            }
+                            array_push($defarr,$valrecover2);
+                                array_push($atkarr,$valrecover);
+                                array_push($valuearr,$valrecover3);
+                            if(count($cskill) == 4){
+                                $multicount++;
+                            }
+
+                        }
+
+                    
+                    }
+                            // $cskill2 = implode("",$cskill);
+                    
+
+                }
+
+                if($weaptype == 'Staff'){
+
+                    $valavg = array_sum($valuearr) / $weaponcount;
+                    $reccontrib = array_sum($valuearr);
+                }
+
+                if(in_array($weaptype, ['Sword','Bow','Polearm','Hammer','Artifact'])){
+
+                    $valavg = array_sum($valuearr) / $weaponcount;
+                    $dmgcontrib = array_sum($valuearr);
+                }
+                
+
+                if($weaptype == 'Tome'){
+                                     
+                    if(!empty($defarr)){
+                        $defdcontrib = array_sum($defarr);
+                        $valavg = array_sum($defarr) / $weaponcount;
+                    }
+
+                    if(!empty($atkarr)){
+                        $atkdcontrib = array_sum($atkarr);
+                        $valavg = array_sum($atkarr) / $weaponcount;
+                    }
+                    
+                }
+
+
+                
+                if($weaptype == 'Instrument'){
+                                     
+                    if(!empty($defarr)){
+                        $defbcontrib = array_sum($defarr);
+                        $valavg = array_sum($defarr) / $weaponcount;
+                    }
+
+                    if(!empty($atkarr)){
+                        $atkbcontrib = array_sum($atkarr);
+                        $valavg = array_sum($atkarr) / $weaponcount;
+                    }
+                    
+                }
+
+                return response()->json([
+                'url' => $weapurl, 
+                'ismulti' => $ismulti,
+                'weaponcount'=>$weaponcount, 
+                'multicount'=>$multicount,
+                'valavg' => number_format($valavg),
+                'dmgcontrib' => number_format($dmgcontrib),
+                'reccontrib' => number_format($reccontrib),
+                'atkbcontrib' => number_format($atkbcontrib),
+                'defbcontrib' => number_format($defbcontrib),
+                'atkdcontrib' => number_format($atkdcontrib),
+                'defdcontrib' => number_format($defdcontrib),
+                'valuearr'=>$valuearr,
+                'atkarr'=>$atkarr,
+                'defarr'=>$defarr,
+                'tsarr'=>$tsarr ]);
+            }
+            else{
+                return response()->json(['You are not allowed']);
+
+            }
+
+        }
+    }
+
     public function showGrid($userid, $idmatch, Request $request)
         {
 
@@ -529,6 +1157,7 @@ class DashboardController extends Controller
                     $ybe = [];
                     $img = [];
                     $arrdebug = [];
+                    $weaptype =[];
                     $highestatkbuff = '';
                     $highestdefbuff = '';
                     $highestatkdebuff = '';
@@ -559,6 +1188,7 @@ class DashboardController extends Controller
                     $pdefdvalue=0;
                     $mdefdvalue=0;
                     $recovervalue=0;
+                    $damagevalue=0;
                     $dc1rate = 0;
                     $sb1rate = 0;
                     $rs1rate = 0;
@@ -637,12 +1267,15 @@ class DashboardController extends Controller
                                 array_push($ybe,$ws->weapdesc);
     
                             }
+                            array_push($weaptype,$imgquery->weaptype);
                             array_push($img,$imgquery->weapurl);
                         }
                         if(!$imgquery){
                             array_push($img,'not found');
                             array_push($ybd,'not found');
                             array_push($ybe,'not found');
+                            array_push($weaptype,'not found');
+
                         }
 
                         $colosupport = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
@@ -695,10 +1328,15 @@ class DashboardController extends Controller
 
                     $thequery2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
                     $apm2 = $thequery2->count();
-
+                   
                     $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'like', '%HP recovered by%')->get();
-
+                    $recovercount = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('readableText', 'like', '%HP recovered by%')
+                    ->where('readableText', 'not like', '%revive%')
+                    ->where('readableText', 'not like', '%guildship%')
+                    ->where('readableText', 'not like', '%10 mastery earned.%')
+                    ->where('readableText', 'not like', '%summon skill%')->count();
 
                     //recover
             //    $cn = 0;
@@ -723,6 +1361,10 @@ class DashboardController extends Controller
                             // print($cskill2 . '</br>');
                         }
                     }
+
+
+
+                  
 // dd($arrdebug);return;
 
                     //eof recover
@@ -812,6 +1454,7 @@ class DashboardController extends Controller
                                             $highestdmgvalue = $v;
                                             $highestdmg = $cs->readableText;
                                         }
+                                        $damagevalue += $v;
                                     }
                                 
                        
@@ -1071,7 +1714,8 @@ class DashboardController extends Controller
 
 
 // dd($ybd,$ybe);
-
+                    $weaptypearr = array_count_values($weaptype);
+                    $averagerecover = $recovercount > 0 ? number_format(ceil($recovervalue / $recovercount)) : 0;
 
                     // return response()->json($y);
                     return view('grid')
@@ -1098,6 +1742,9 @@ class DashboardController extends Controller
                     ->with('apm2',$apm2)
                     ->with('ybd',$ybd)
                     ->with('ybe',$ybe)
+                    ->with('weaptype',$weaptypearr)
+                    ->with('avgrecover',$averagerecover)
+                    ->with('damage',number_format($damagevalue))
                     ->with('recover',number_format($recovervalue))
                     ->with('patkbuff',number_format($patkvalue))
                     ->with('matkbuff',number_format($matkvalue))

@@ -38,9 +38,10 @@
                 @endphp
                 
                 @foreach ($imglist as $im)
-                    <a href="{{route('weapspec.define',[$uid,$ide,$gridlist[$b] ? $gridlist[$b] : 0])}}"><img src="{{ asset($im) }}" data-toggle="tooltip" data-placement="bottom"  data-html="true"
+                    <!-- <a href="{{route('weapspec.define',[$uid,$ide,$gridlist[$b] ? $gridlist[$b] : 0])}}"> -->
+                    <img onclick='weapSpec({{$uid}}, {{$ide}}, "{{$gridlist[$b] ? $gridlist[$b] : 0}}", "{{$ybe[$b]}}", "{{$cololist[$b]}}")' src="{{ asset($im) }}" data-toggle="tooltip" data-placement="bottom"  data-html="true"
                     title="Colo Skill : <br> @if(isset($gridlist[$b])){{ $gridlist[$b] }} @else'Not found' @endif <br><br> Skill Desc : <br> {{ $ybe[$b] }} <br><br>   Colo Support : <br> @if(isset($cololist[$b])){{ $cololist[$b] }} @else'Not found' @endif "></img>
-                    </a>
+                    <!-- </a> -->
                 @php
                     $b++;
                 @endphp
@@ -73,6 +74,11 @@
                         <div class="font-size-sm font-w600 text-uppercase text-danger-light">Total Recover</div>
                     </div>
                     <div class="py-15 px-20 clearfix border-black-op-b">
+
+                        <div class="font-size-h3 font-w600 text-danger"><span data-toggle="countTo" data-speed="1000" data-to="980" class="js-count-to-enabled">{{$avgrecover}}</span></div>
+                        <div class="font-size-sm font-w600 text-uppercase text-danger-light">Average Recover</div>
+                    </div>
+                    <div class="py-15 px-20 clearfix border-black-op-b">
                       
                         <div class="font-size-h3 font-w600 text-warning js-count-to-enabled" data-toggle="countTo" data-speed="1000" data-to="38">{{$patkbuff}}</div>
                         <div class="font-size-sm font-w600 text-uppercase text-warning-light">Overall P.ATK buff</div>
@@ -87,6 +93,204 @@
         </div>
         <!-- END Row #3 -->
     </div>
+<div class="row gutters-tiny js-appear-enabled animated fadeIn" id="accordion2" role="tablist"
+    aria-multiselectable="true" data-toggle="appear">
+    <!-- Row #4 -->
+    <div class="col-md-12">
+        <div class="block block-themed block-mode-loading-inverse block-transparent bg-image w-100">
+            <!-- <a data-toggle="collapse" data-parent="#accordion2"
+                           href="#accordion2_q1" aria-expanded="false" aria-controls="accordion2_q1">
+                            -->
+            <div class="block-header" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_q1"
+                aria-expanded="false" aria-controls="accordion2_q1">
+                <h3 class="block-title">
+                    Weapon <small>Analyzer</small>
+                </h3>
+            </div>
+            <!-- </a> -->
+
+            <div class="block-content block-content-full collapse" id="accordion2_q1" role="tabpanel"
+                aria-labelledby="accordion2_h1">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img id="weimg" src="">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="py-15 px-20 clearfix border-black-op-b">
+                            <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo"
+                                data-speed="1000" data-to="260" id="wename"></div>
+                            <div class="font-size-sm font-w600 text-uppercase text-info-light" id="wedesc">
+                            </div>
+                            <div class="font-size-sm font-w600 text-uppercase text-info-light" id="wesupp">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">-</div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260" id="wecount"></div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">This weapon used
+                                        in match</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260" id="wetypz"></div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">Target Type
+                                        weapon</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260" id="werate"></div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">This weapon Does
+                                        2 Target</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260" id="weavg"></div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">Average Value
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260"><span id="wecontrib"></span> /
+                                        {{$damage}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">Damage Contribution
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260"><span id="werc"></span> /
+                                        {{$recover}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">Recover
+                                        Contribution</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260"><span id="weabc"></span>
+                                        / {{number_format(str_replace( ',', '', $patkbuff) + str_replace( ',', '', $matkbuff))}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">ATK Buff
+                                        Contribution</div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260"><span id="weadc"></span>
+                                        / {{number_format(str_replace( ',', '', $patkdebuff) + str_replace( ',', '', $matkdebuff))}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">ATK Debuff
+                                        Contribution</div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260"><span id="wedbc"></span>
+                                        / {{number_format(str_replace( ',', '', $pdefbuff) + str_replace( ',', '', $mdefbuff))}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">Def Buff
+                                        Contribution</div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                    <div class="font-size-h3 font-w600 text-warning js-count-to-enabled"
+                                        data-toggle="countTo" data-speed="1000" data-to="260"><span id="weddc"></span>
+                                        / {{number_format(str_replace( ',', '', $pdefdebuff) + str_replace( ',', '', $mdefdebuff))}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-info-light">DEF Debuff
+                                        Contribution</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="py-15 px-20 clearfix border-black-op-b">
+
+                            <canvas class="js-chartjs-lines chartjs-render-monitor" id="ujicoba"></canvas>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- END Row #4 -->
+</div>
 
     <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
         <!-- Row #4 -->
@@ -208,7 +412,7 @@
         <!-- END Row #4 -->
     </div>
 
-   
+    
 
 </div>
 <!-- END Page Content -->
@@ -374,36 +578,12 @@
    <script>
 
 
+
+
     $(document).ready(function(){
 
-        // var ctx = document.getElementById('ujicoba');
-        // var atkbuffchart = new Chart(ctx, {
-        //     type: 'line',
-        //     data: {
-        //         labels: [1,2,3,4,5],
-        //         datasets: [{
-        //             label: "Orblivion Staff Recover",
-        //             fill: !0,
-        //             backgroundColor: "rgba(156,204,101,.25)",
-        //             borderColor: "rgba(156,204,101,1)",
-        //             pointBackgroundColor: "rgba(156,204,101,1)",
-        //             pointBorderColor: "#fff",
-        //             pointHoverBackgroundColor: "#fff",
-        //             pointHoverBorderColor: "rgba(66,165,245,1)",
-        //         data: [19343,26546,45432,18695,24586]
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             yAxes: [{
-        //                 ticks: {
-        //                     beginAtZero: true
-        //                 }
-        //             }]
-        //         }
-        //     }
-        // });
 
+        
         // $.noConflict();
 // DataTable
 $('#btlog').DataTable({
@@ -421,9 +601,79 @@ $('#btlog').DataTable({
 });
 
 });
+</script>
 
+@section('js_after')
+<script>
+
+const yabber = new Chart(document.getElementById('ujicoba'), {
+                    type: 'bar',
+                    data: {
+                        labels: [1],
+                        datasets: [{
+                            label: "Detail Value",
+                            fill: !0,
+                            backgroundColor: "rgba(255,255,255,.25)",
+                            borderColor: "rgba(255,255,255,1)",
+                            pointBackgroundColor: "rgba(255,255,255,1)",
+                            pointBorderColor: "#fff",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "rgba(255,255,255,1)",
+                        data: [0]
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+function weapSpec(userId, matchId, textSearch, textDesc, textSupp){
+            const yabbe = yabber;
+            console.log(`{{ route('weapspec.define') }}/${userId}/${matchId}/${textSearch}`);
+            fetch(`{{ route('weapspec.define') }}/${userId}/${matchId}/${textSearch}`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    // console.log(wat);
+                    document.getElementById("weimg").src = 'http://localhost/kureha-log/public/' + data.url;
+                    document.getElementById("wename").innerHTML = textSearch;
+                    document.getElementById("wedesc").innerHTML = textDesc;
+                    document.getElementById("wetypz").innerHTML = data.ismulti == 0 ? 'Single Target' : (data.ismulti == 1 ? '1.5 Target' : (data.ismulti == 2 ? '2 Target' : 'Unknown'));
+
+                    document.getElementById("wesupp").innerHTML = textSupp;
+                    document.getElementById("weavg").innerHTML = data.valavg;
+                    document.getElementById("weadc").innerHTML = data.atkdcontrib;
+                    document.getElementById("weddc").innerHTML = data.defdcontrib;
+                    document.getElementById("weabc").innerHTML = data.atkbcontrib;
+                    document.getElementById("wedbc").innerHTML = data.defbcontrib;
+                    document.getElementById("werc").innerHTML = data.reccontrib;
+                    document.getElementById("wecontrib").innerHTML = data.dmgcontrib;
+
+                    document.getElementById("wecount").innerHTML = data.weaponcount + ' Times';
+                    document.getElementById("werate").innerHTML =data.ismulti == 0 ? '-' : (data.ismulti == 1 ?  data.multicount + '/' + data.weaponcount + ' Times' : (data.ismulti == 2 ? 'Always 2 Target' : 'Unknown'));
+
+                    yabbe.data.labels = data.tsarr;
+                    yabbe.data.datasets[0].data = data.valuearr;
+                    yabbe.data.datasets[0].backgroundColor= "rgba(156,204,101,1)";
+                    yabbe.data.datasets[0].hoverBackgroundColor= "rgba(156,204,101,.5)";
+                    // Updating chart
+                    yabbe.update();
+                    $('.collapse').collapse();
+
+                })
+                .catch((error) => console.log(error));
+        }
 
        </script>
+       @endsection
     </div>
     <!-- END Page Content -->
 @endsection
