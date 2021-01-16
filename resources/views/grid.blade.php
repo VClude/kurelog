@@ -666,6 +666,9 @@ function weapSpec(userId, matchId, textSearch, textDesc, textSupp){
                     yabbe.data.datasets[0].hoverBackgroundColor= "rgba(156,204,101,.5)";
                     // Updating chart
                     yabbe.update();
+                    document.getElementById("weabc").scrollIntoView({
+                        behavior: 'smooth'
+                    });
                     $('.collapse').collapse();
 
                 })
