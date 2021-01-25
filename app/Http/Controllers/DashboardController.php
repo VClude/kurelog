@@ -217,13 +217,13 @@ class DashboardController extends Controller
                     $shinma1 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[0]->name.'%')->orderBy('actTime')->get();
                     $shinma2 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[1]->name.'%')->orderBy('actTime')->get();
                     $shinma1start = $shinma1[0]->actTime;
-                    $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime')->last()->actTime;
+                    $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime','DESC')->first()->actTime;
                     $shinma1selftotal = $b[0]->guildACount;
                     $shinma1enemytotal = $b[0]->guildBCount;
                     $shinma1selfctr = 0;
                     $shinma1enemyctr = 0;
                     $shinma2start = $shinma2[0]->actTime;
-                    $shinma2end = isset($shinma2[1]) ? $shinma2[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime')->last()->actTime;
+                    $shinma2end = isset($shinma2[1]) ? $shinma2[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime','DESC')->first()->actTime;
                     $shinma2selftotal = $b[1]->guildACount;
                     $shinma2enemytotal = $b[1]->guildBCount;
                     $shinma2selfctr = 0;
