@@ -281,7 +281,7 @@ class DashboardController extends Controller
                             //     'weapName' => $strt,
                             //     'weapType' => $wt
                             // ];
-                                if(in_array(strtolower($wt), $shinma1weapon)){
+                                if(in_array(strtolower($wt), $shinma1weapon) || $wt == 'Not recognized'){
                                     if($g->isOwnGuild == 0){
                                         if($shinma1enemyctr != $shinma1enemytotal){
                                             array_push($shinma1contribarrEnemy, $g->userName);
@@ -354,7 +354,7 @@ class DashboardController extends Controller
                             //     'weapType' => $wt
                             // ];
 
-                                if(in_array(strtolower($wt), $shinma2weapon)){
+                                if(in_array(strtolower($wt), $shinma2weapon) || $wt == 'Not recognized'){
                                     if($g->isOwnGuild == 0){
                                         if($shinma2enemyctr != $shinma2enemytotal){
                                             array_push($shinma2contribarrEnemy, $g->userName);
@@ -377,7 +377,7 @@ class DashboardController extends Controller
                                 }
                     }
 
-
+                    // dd($shinma1contribarrEnemy);
                     $shinma1contribarrEnemy = array_count_values($shinma1contribarrEnemy);
                     arsort($shinma1contribarrEnemy);
                     $s1enemyK = array_keys($shinma1contribarrEnemy);
