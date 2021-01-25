@@ -146,6 +146,12 @@ class DashboardController extends Controller
             $kiss = [];
             $ekiss = [];
 
+            $shinma1contribarrSelf = [];
+            $shinma1contribarrEnemy = [];
+            $shinma2contribarrSelf = [];
+            $shinma2contribarrEnemy = [];
+
+
             $lifeforcenameA = [];
             $lifeforcearrayA = [];
             $lifeforcearrayB = [];
@@ -183,6 +189,170 @@ class DashboardController extends Controller
                     return response()->json(['You are not allowed to see this log']);
                 }
                 $b = gvgshinma::where('gvgDataId', $id)->leftJoin('gvgshinmadetails', 'gvgshinmas.artMstId', '=', 'gvgshinmadetails.artMstId')->get();
+                
+                    $s1w = explode("effectiveness of ", $b[0]->description);
+                    $shinma1weapon = explode(", ", $s1w[1]);
+                    $shinma1weapon[2] = preg_replace('/\band \b/i', '', $shinma1weapon[2]);
+                    $shinma1weapon[2] = preg_replace('/\bskills\b/i', '', $shinma1weapon[2]);
+                    $shinma1weapon[2] = preg_replace('/\s/', '', $shinma1weapon[2]);
+                    $shinma1weapon[2] = preg_replace('/\./', '', $shinma1weapon[2]);
+                    if(in_array('heavy',$shinma1weapon)){
+                        $shinma1weapon[0] = 'hammer';
+                        $shinma1weapon[1] = 'bow';
+
+                    }
+
+                    $s2w = explode("effectiveness of ", $b[1]->description);
+                    $shinma2weapon = explode(", ", $s2w[1]);
+                    $shinma2weapon[2] = preg_replace('/\band \b/i', '', $shinma2weapon[2]);
+                    $shinma2weapon[2] = preg_replace('/\bskills\b/i', '', $shinma2weapon[2]);
+                    $shinma2weapon[2] = preg_replace('/\s/', '', $shinma2weapon[2]);
+                    $shinma2weapon[2] = preg_replace('/\./', '', $shinma2weapon[2]);
+                    if(in_array('heavy',$shinma2weapon)){
+                        $shinma2weapon[0] = 'hammer';
+                        $shinma2weapon[1] = 'bow';
+
+                    }
+                    $shinma1 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[0]->name.'%')->orderBy('actTime')->get();
+                    $shinma2 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[1]->name.'%')->orderBy('actTime')->get();
+                    $shinma1start = $shinma1[0]->actTime;
+                    $shinma1end = $shinma1[1]->actTime;
+                    $shinma2start = $shinma2[0]->actTime;
+                    $shinma2end = $shinma2[1]->actTime;
+
+                    $shinma1SelfContrib = gvglog::where('gvgDataId', $id)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->where('readableText', 'not like', '%Preparing to summon%')->where('readableText', 'not like', '%lifeforce%')->whereBetween('actTime', [$shinma1start, $shinma1end])->get();
+                    
+                    $shinma2SelfContrib = gvglog::where('gvgDataId', $id)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->where('readableText', 'not like', '%Preparing to summon%')->where('readableText', 'not like', '%lifeforce%')->whereBetween('actTime', [$shinma2start, $shinma2end])->get();
+                    foreach($shinma1SelfContrib as $g){
+
+                        $thearr = explode("\n", $g->readableText);
+                        if(preg_match('/combo.$/', $thearr[0])){
+                            $strt = preg_replace('/activated.$/', '', $thearr[1]);
+                        }
+                        else{
+                            $strt = preg_replace('/activated.$/', '', $thearr[0]);
+                        }
+
+                        $theq = explode("'s", $strt);
+    
+                            if(count($theq) > 3){
+                                $regexq = $theq[0]."'s". $theq[1];
+    
+                            }
+                            if(count($theq) == 3){
+                                $regexq = $theq[0];
+                                $iq = weapimg::where('weapname', 'like',$regexq.'%')->count();
+                                if($iq > 1){
+                                    $regexq = $regexq = $theq[0]."'s". $theq[1];
+                                }
+    
+    
+                            }
+                            else{
+                                $regexq = $theq[0];
+    
+                            }
+                            // $regexq = $theq[0];
+                            // print($regexq . '</br>');
+                            $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
+                            
+    
+                            if($imgquery){
+                                $wt = $imgquery->weaptype;
+                            }
+                            if(!$imgquery){
+                                $wt = 'Not recognized';
+    
+                            }
+
+                            // $attr = [
+                            //     'userId' => $g->userId,
+                            //     'userName' => $g->userName,
+                            //     'weapName' => $strt,
+                            //     'weapType' => $wt
+                            // ];
+                                if(in_array(strtolower($wt), $shinma1weapon)){
+                                    $g->isOwnGuild == 0 ? array_push($shinma1contribarrEnemy, $g->userName) : array_push($shinma1contribarrSelf, $g->userName);
+                                }
+                    }
+
+                    foreach($shinma2SelfContrib as $g){
+
+                        $thearr = explode("\n", $g->readableText);
+                        if(preg_match('/combo.$/', $thearr[0])){
+                            $strt = preg_replace('/activated.$/', '', $thearr[1]);
+                        }
+                        else{
+                            $strt = preg_replace('/activated.$/', '', $thearr[0]);
+                        }
+
+                        $theq = explode("'s", $strt);
+    
+                            if(count($theq) > 3){
+                                $regexq = $theq[0]."'s". $theq[1];
+    
+                            }
+                            if(count($theq) == 3){
+                                $regexq = $theq[0];
+                                $iq = weapimg::where('weapname', 'like',$regexq.'%')->count();
+                                if($iq > 1){
+                                    $regexq = $regexq = $theq[0]."'s". $theq[1];
+                                }
+    
+    
+                            }
+                            else{
+                                $regexq = $theq[0];
+    
+                            }
+                            // $regexq = $theq[0];
+                            // print($regexq . '</br>');
+                            $imgquery = weapimg::where('weapname', 'like',$regexq.'%')->first();
+                            
+    
+                            if($imgquery){
+                                $wt = $imgquery->weaptype;
+                            }
+                            if(!$imgquery){
+                                $wt = 'Not recognized';
+    
+                            }
+
+                            // $attr = [
+                            //     'userId' => $g->userId,
+                            //     'userName' => $g->userName,
+                            //     'weapName' => $strt,
+                            //     'weapType' => $wt
+                            // ];
+                                if(in_array(strtolower($wt), $shinma2weapon)){
+                                    $g->isOwnGuild == 0 ? array_push($shinma2contribarrEnemy, $g->userName) : array_push($shinma2contribarrSelf, $g->userName);
+                                }
+                    }
+
+
+                    $shinma1contribarrEnemy = array_count_values($shinma1contribarrEnemy);
+                    arsort($shinma1contribarrEnemy);
+                    $s1enemyK = array_keys($shinma1contribarrEnemy);
+                    $s1enemyV = array_values($shinma1contribarrEnemy);
+
+                    $shinma1contribarrSelf = array_count_values($shinma1contribarrSelf);
+                    arsort($shinma1contribarrSelf);
+                    $s1selfK = array_keys($shinma1contribarrSelf);
+                    $s1selfV = array_values($shinma1contribarrSelf);
+
+                    $shinma2contribarrEnemy = array_count_values($shinma2contribarrEnemy);
+                    arsort($shinma2contribarrEnemy);
+                    $s2enemyK = array_keys($shinma2contribarrEnemy);
+                    $s2enemyV = array_values($shinma2contribarrEnemy);
+
+                    $shinma2contribarrSelf = array_count_values($shinma2contribarrSelf);
+                    arsort($shinma2contribarrSelf);
+                    $s2selfK = array_keys($shinma2contribarrSelf);
+                    $s2selfV = array_values($shinma2contribarrSelf);
+
+          
                 $p1 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Lifeforce')->orderBy('valueA','desc')->get();
                 foreach($p1 as $v){
                     array_push($lifeforcenameA, $v->nameA . ' vs ' . $v->nameB);
@@ -354,6 +524,14 @@ class DashboardController extends Controller
                 ->with('ally',$ally)
                 ->with('enemy',$enemy)
                 ->with('nml',$nml)
+                ->with('s1enemyK',$s1enemyK)
+                ->with('s1enemyV',$s1enemyV)
+                ->with('s1selfK',$s1selfK)
+                ->with('s1selfV',$s1selfV)
+                ->with('s2enemyK',$s2enemyK)
+                ->with('s2enemyV',$s2enemyV)
+                ->with('s2selfK',$s2selfK)
+                ->with('s2selfV',$s2selfV)
                 ->with('enemykiss',$enemykiss)
                 ->with('ownkiss',$ownkiss)
                 ->with('mostkiss',$mostkiss)
@@ -625,7 +803,7 @@ class DashboardController extends Controller
 
                 foreach($getquery as $cs){
                     $cse = explode("\n", $cs->readableText);
-                    array_push($tsarr, date('Y-m-d H:i', strtotime($cs->actTime)));
+                    array_push($tsarr, date('H:i', strtotime($cs->actTime)));
 
                     $valrecover = 0;
                     $valrecover2 = 0;

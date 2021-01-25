@@ -331,7 +331,14 @@
             <!-- END Row #4 -->
         </div>
 
-
+        <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
+            <div class="content text-center">
+                <div class="pt-50 pb-20">
+                    <h1 class="font-w700 text-white mb-10">Player Grid</h1>
+                    <h2 class="h4 font-w400 text-white-op">Player Grid Category</h2>
+                </div>
+            </div>
+        </div>
 
         <div class="row row-deck gutters-tiny" id="accordion2" role="tablist" aria-multiselectable="true">
             <div class="col-md-6">
@@ -396,35 +403,136 @@
             </div>
         </div>
 
+
+        <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
+            <div class="content text-center">
+                <div class="pt-50 pb-20">
+                    <h1 class="font-w700 text-white mb-10">Shinma</h1>
+                    <h2 class="h4 font-w400 text-white-op">Shinma War Results</h2>
+                </div>
+            </div>
+        </div>
+
         <div class="row row-deck gutters-tiny">
 
-            @foreach ($shinma as $s)
+
                 <div class="col-md-6">
                     <div class="block block-rounded">
                         <div class="block-header block-header-default">
-                            <h3 class="block-title">{{$s->name}}</h3>
+                            <h3 class="block-title">{{$shinma[0]->name}}</h3>
                         </div>
                         <div class="block-content">
                             <div class="row text-center">
                                 <div class="col-md-4">
-                                    <h3 style="color:green">{{$s->guildACount}}</h3>
+                                    <h3 style="color:green">{{$shinma[0]->guildACount}}</h3>
                                 </div>
                                 <div class="col-md-4">
                                     <h3>Vs</h3>
                                 </div>
                                 <div class="col-md-4">
-                                    <h3 style="color:red">{{$s->guildBCount}}</h3>
+                                    <h3 style="color:red">{{$shinma[0]->guildBCount}}</h3>
                                 </div>
                             </div>
                         </div>
 
-                        <p class="font-size-md text-black mb-5 ml-20">{{$s->description}}</p>
+                        <p class="font-size-md text-black mb-5 ml-20">{{$shinma[0]->description}}</p>
+
+                        <div class="block-content block-content-full">
+                        <div class="text-left">
+                            <h3>Shinma War Results</h3>
+                        </div>
+                        <div class="row py-20">
+                       
+                        
+                            <div class="col-6 text-right border-r">
+                                <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
+                                    data-class="animated fadeIn">
+                                    @for ($i = 0; $i < count($s1selfK); $i++)
+                                    <div class="font-size-h3 font-w600 text-info">{{$s1selfV[$i]}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">{{$s1selfK[$i]}}</div> 
+                                    @endfor
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
+                                    data-class="animated fadeIn">
+                                    @for ($i = 0; $i < count($s1enemyK); $i++)
+                                    <div class="font-size-h3 font-w600 text-success">{{$s1enemyV[$i]}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">{{$s1enemyK[$i]}}</div> 
+                                    @endfor
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
                     </div>
+                    
                 </div>
-            @endforeach
+    
+
+
+
+
+                <div class="col-md-6">
+                    <div class="block block-rounded">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title">{{$shinma[1]->name}}</h3>
+                        </div>
+                        <div class="block-content">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <h3 style="color:green">{{$shinma[1]->guildACount}}</h3>
+                                </div>
+                                <div class="col-md-4">
+                                    <h3>Vs</h3>
+                                </div>
+                                <div class="col-md-4">
+                                    <h3 style="color:red">{{$shinma[1]->guildBCount}}</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="font-size-md text-black mb-5 ml-20">{{$shinma[1]->description}}</p>
+                        <div class="block-content block-content-full">
+                        <div class="text-left">
+                            <h3>Shinma War Results</h3>
+                        </div>
+                        <div class="row py-20">
+                       
+                        
+                            <div class="col-6 text-right border-r">
+                                <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
+                                    data-class="animated fadeIn">
+                                    @for ($i = 0; $i < count($s2selfK); $i++)
+                                    <div class="font-size-h3 font-w600 text-info">{{$s2selfV[$i]}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">{{$s2selfK[$i]}}</div> 
+                                    @endfor
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="js-appear-enabled animated fadeIn yabbe" data-toggle="appear"
+                                    data-class="animated fadeIn">
+                                    @for ($i = 0; $i < count($s2enemyK); $i++)
+                                    <div class="font-size-h3 font-w600 text-success">{{$s2enemyV[$i]}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">{{$s2enemyK[$i]}}</div> 
+                                    @endfor
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+     
+                    </div>
+              
+                </div>
+
 
 
         </div>
+
 
 
         <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
