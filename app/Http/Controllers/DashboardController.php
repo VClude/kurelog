@@ -282,8 +282,22 @@ class DashboardController extends Controller
                             //     'weapType' => $wt
                             // ];
                                 if(in_array(strtolower($wt), $shinma1weapon)){
-                                    $g->isOwnGuild == 0 ? array_push($shinma1contribarrEnemy, $g->userName) : array_push($shinma1contribarrSelf, $g->userName);
-                                    $g->isOwnGuild == 0 ? $shinma1enemyctr++ :  $shinma1selfctr++;
+                                    if($g->isOwnGuild == 0){
+                                        if($shinma1enemyctr != $shinma1enemytotal){
+                                            array_push($shinma1contribarrEnemy, $g->userName);
+                                            $shinma1enemyctr++;
+                                        }
+
+                                    }
+
+                                    else{
+                                        if($shinma1selfctr != $shinma1selftotal){
+                                            array_push($shinma1contribarrSelf, $g->userName);
+                                            $shinma1selfctr++;
+
+                                        }
+                                    }
+ 
                                 }
 
                                 if($shinma1enemyctr == $shinma1enemytotal && $shinma1selfctr == $shinma1selftotal ){
@@ -341,16 +355,21 @@ class DashboardController extends Controller
                             // ];
 
                                 if(in_array(strtolower($wt), $shinma2weapon)){
-                                    $g->isOwnGuild == 0 
-                                    
-                                    ? 
-                                    
-                                    array_push($shinma2contribarrEnemy, $g->userName) 
-                                    
-                                    : 
-                                    
-                                    array_push($shinma2contribarrSelf, $g->userName);
-                                    $g->isOwnGuild == 0 ? $shinma2enemyctr++ :  $shinma2selfctr++;
+                                    if($g->isOwnGuild == 0){
+                                        if($shinma2enemyctr != $shinma2enemytotal){
+                                            array_push($shinma2contribarrEnemy, $g->userName);
+                                            $shinma2enemyctr++;
+                                        }
+
+                                    }
+
+                                    else{
+                                        if($shinma2selfctr != $shinma2selftotal){
+                                            array_push($shinma2contribarrSelf, $g->userName);
+                                            $shinma2selfctr++;
+
+                                        }
+                                    }
                                 }
 
                                 if($shinma2enemyctr == $shinma2enemytotal && $shinma2selfctr == $shinma2selftotal){
