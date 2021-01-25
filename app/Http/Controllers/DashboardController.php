@@ -216,9 +216,9 @@ class DashboardController extends Controller
                     $shinma1 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[0]->name.'%')->orderBy('actTime')->get();
                     $shinma2 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[1]->name.'%')->orderBy('actTime')->get();
                     $shinma1start = $shinma1[0]->actTime;
-                    $shinma1end = $shinma1[1]->actTime;
+                    $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : $shinma1start;
                     $shinma2start = $shinma2[0]->actTime;
-                    $shinma2end = $shinma2[1]->actTime;
+                    $shinma2end = isset($shinma2[1]) ? $shinma2[1]->actTime : $shinma2start;
 
                     $shinma1SelfContrib = gvglog::where('gvgDataId', $id)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                     where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->where('readableText', 'not like', '%Preparing to summon%')->where('readableText', 'not like', '%lifeforce%')->whereBetween('actTime', [$shinma1start, $shinma1end])->get();
