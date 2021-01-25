@@ -1130,7 +1130,7 @@
 
                             <div class="card-body">
                                 <div class="float-right text-muted small"
-                                     style="padding-right:20px !important;">{{$n->actTime}}</div>
+                                     style="padding-right:20px !important;">{{date('H:i', strtotime($n->actTime))}}</div>
                                 <h4 class="card-title text-muted"
                                     style="padding-left:20px !important;">{{$n->userName}}</h4>
                                 <p class="card-text"
@@ -1181,7 +1181,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="float-right text-muted small"
-                                         style="padding-right:20px !important;">{{$n->actTime}}</div>
+                                    style="padding-right:20px !important;">{{date('H:i', strtotime($n->actTime))}}</div>
                                     <h4 class="card-title text-muted"
                                         style="padding-left:20px !important;">{{$n->userName}}</h4>
                                     <p class="card-text"

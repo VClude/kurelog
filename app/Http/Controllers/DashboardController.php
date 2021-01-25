@@ -213,13 +213,21 @@ class DashboardController extends Controller
                         $shinma2weapon[1] = 'bow';
 
                     }
+                    
                     $shinma1 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[0]->name.'%')->orderBy('actTime')->get();
                     $shinma2 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[1]->name.'%')->orderBy('actTime')->get();
                     $shinma1start = $shinma1[0]->actTime;
-                    $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : $shinma1start;
+                    $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime')->last()->actTime;
+                    $shinma1selftotal = $b[0]->guildACount;
+                    $shinma1enemytotal = $b[0]->guildBCount;
+                    $shinma1selfctr = 0;
+                    $shinma1enemyctr = 0;
                     $shinma2start = $shinma2[0]->actTime;
-                    $shinma2end = isset($shinma2[1]) ? $shinma2[1]->actTime : $shinma2start;
-
+                    $shinma2end = isset($shinma2[1]) ? $shinma2[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime')->last()->actTime;
+                    $shinma2selftotal = $b[1]->guildACount;
+                    $shinma2enemytotal = $b[1]->guildBCount;
+                    $shinma2selfctr = 0;
+                    $shinma2enemyctr = 0;
                     $shinma1SelfContrib = gvglog::where('gvgDataId', $id)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                     where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->where('readableText', 'not like', '%Preparing to summon%')->where('readableText', 'not like', '%lifeforce%')->whereBetween('actTime', [$shinma1start, $shinma1end])->get();
                     
@@ -275,6 +283,11 @@ class DashboardController extends Controller
                             // ];
                                 if(in_array(strtolower($wt), $shinma1weapon)){
                                     $g->isOwnGuild == 0 ? array_push($shinma1contribarrEnemy, $g->userName) : array_push($shinma1contribarrSelf, $g->userName);
+                                    $g->isOwnGuild == 0 ? $shinma1enemyctr++ :  $shinma1selfctr++;
+                                }
+
+                                if($shinma1enemyctr == $shinma1enemytotal && $shinma2enemyctr == $shinma2enemytotal ){
+                                    break;
                                 }
                     }
 
@@ -328,6 +341,11 @@ class DashboardController extends Controller
                             // ];
                                 if(in_array(strtolower($wt), $shinma2weapon)){
                                     $g->isOwnGuild == 0 ? array_push($shinma2contribarrEnemy, $g->userName) : array_push($shinma2contribarrSelf, $g->userName);
+                                    $g->isOwnGuild == 0 ? $shinma2enemyctr++ :  $shinma2selfctr++;
+                                }
+
+                                if($shinma1enemyctr == $shinma1enemytotal && $shinma2enemyctr == $shinma2enemytotal ){
+                                    break;
                                 }
                     }
 
