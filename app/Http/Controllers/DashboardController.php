@@ -625,7 +625,7 @@ class DashboardController extends Controller
 
                 foreach($getquery as $cs){
                     $cse = explode("\n", $cs->readableText);
-                    array_push($tsarr, $cs->actTime);
+                    array_push($tsarr, date('Y-m-d H:i', strtotime($cs->actTime)));
 
                     $valrecover = 0;
                     $valrecover2 = 0;
@@ -1831,7 +1831,7 @@ class DashboardController extends Controller
 
                         foreach($records as $record){
                         $id = $record->gvgHistoryId;
-                        $actTime = $record->actTime;
+                        $actTime = date('Y-m-d H:i', strtotime($record->actTime));
                         $username = $record->userName;
                         $isenemy = $record->isOwnGuild;
                         $text = $record->readableText;
@@ -1942,7 +1942,7 @@ class DashboardController extends Controller
 
                         foreach($records as $record){
                         $id = $record->gvgHistoryId;
-                        $actTime = $record->actTime;
+                        $actTime = date('Y-m-d H:i', strtotime($record->actTime));
                         $username = $record->userName;
                         $isenemy = $record->isOwnGuild;
                         $text = $record->readableText;
