@@ -286,7 +286,7 @@ class DashboardController extends Controller
                                     $g->isOwnGuild == 0 ? $shinma1enemyctr++ :  $shinma1selfctr++;
                                 }
 
-                                if($shinma1enemyctr == $shinma1enemytotal && $shinma2enemyctr == $shinma2enemytotal ){
+                                if($shinma1enemyctr == $shinma1enemytotal && $shinma1selfctr == $shinma1selftotal ){
                                     break;
                                 }
                     }
@@ -339,12 +339,21 @@ class DashboardController extends Controller
                             //     'weapName' => $strt,
                             //     'weapType' => $wt
                             // ];
+
                                 if(in_array(strtolower($wt), $shinma2weapon)){
-                                    $g->isOwnGuild == 0 ? array_push($shinma2contribarrEnemy, $g->userName) : array_push($shinma2contribarrSelf, $g->userName);
+                                    $g->isOwnGuild == 0 
+                                    
+                                    ? 
+                                    
+                                    array_push($shinma2contribarrEnemy, $g->userName) 
+                                    
+                                    : 
+                                    
+                                    array_push($shinma2contribarrSelf, $g->userName);
                                     $g->isOwnGuild == 0 ? $shinma2enemyctr++ :  $shinma2selfctr++;
                                 }
 
-                                if($shinma1enemyctr == $shinma1enemytotal && $shinma2enemyctr == $shinma2enemytotal ){
+                                if($shinma2enemyctr == $shinma2enemytotal && $shinma2selfctr == $shinma2selftotal){
                                     break;
                                 }
                     }
