@@ -67,7 +67,13 @@ class DashboardController extends Controller
                     $this->dispatchWebhook($user->getUsername() . '#' . $user->getDiscriminator() . ' Logged in to site ' . $indev);
                     $usersess = $user->getId();
                     $inarr = [];
-                    
+                    $checkdemo = allowed::where('username',$usersess)->where('guildId','54')->count();
+                    if($checkdemo == 0){
+                        $givedemo = new allowed;
+                        $givedemo->username = $user->getId();
+                        $givedemo->guildId = '54';
+                        $givedemo->save();
+                    }
                     $isAllowed = allowed::where('username',$usersess)->get();
                     if($isAllowed){
                         foreach($isAllowed as $d){
