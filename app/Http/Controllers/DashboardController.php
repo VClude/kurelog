@@ -222,7 +222,7 @@ class DashboardController extends Controller
                     $shinma1enemytotal = $b[0]->guildBCount;
                     $shinma1selfctr = 0;
                     $shinma1enemyctr = 0;
-                    $shinma2start = $shinma2[0]->actTime;
+                    $shinma2start = isset($shinma2[0]) ? $shinma2[0]->actTime : 999999999999;
                     $shinma2end = isset($shinma2[1]) ? $shinma2[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime','DESC')->first()->actTime;
                     $shinma2selftotal = $b[1]->guildACount;
                     $shinma2enemytotal = $b[1]->guildBCount;
