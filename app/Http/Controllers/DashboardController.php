@@ -1434,6 +1434,7 @@ class DashboardController extends Controller
                         if(count($grid) == 0){
                             return response()->json(['match/grid not available']);
                         }
+                    $limitgrid = $idmatch == '1475559' ? 100 : 20;
                     foreach($grid as $g){
 
 
