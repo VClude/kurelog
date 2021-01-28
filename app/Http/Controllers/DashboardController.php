@@ -1438,7 +1438,7 @@ class DashboardController extends Controller
                     foreach($grid as $g){
 
 
-                        if($gridctr != 20){
+                        if($gridctr != $limitgrid){
                             $thearr = explode("\n", $g->readableText);
                             if(preg_match('/combo.$/', $thearr[0])){
                                 $strt = preg_replace('/activated.$/', '', $thearr[1]);
