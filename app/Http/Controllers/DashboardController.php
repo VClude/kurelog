@@ -1358,6 +1358,44 @@ class DashboardController extends Controller
         }
     }
 
+
+
+
+    public function getBuffSimp($userid, $idmatch){
+        $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('readableText', 'like', '%ATK UP by%')
+                    ->orwhere('readableText', 'like', '%DEF UP by%')
+                    ->where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->get();
+     
+
+                    if(isset($patk[0])){
+                        $patkarr= [];
+                        $patkb = [];
+                        foreach($patk as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/(ATK UP by (.*)|DEF UP by (.*))/", $cse);
+                            array_push($patkarr, $cskill);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("'s", $crv);
+                                
+                                array_push($patkb, $csve[0]);
+
+                       
+
+                             
+
+                            }
+
+                        }
+
+                    }
+                   
+
+                    return($patkb);
+    }
+    
     public function showGrid($userid, $idmatch, Request $request)
         {
 
@@ -1949,6 +1987,12 @@ class DashboardController extends Controller
                     $weaptypearr = array_count_values($weaptype);
                     $averagerecover = $recovercount > 0 ? number_format(ceil($recovervalue / $recovercount)) : 0;
 
+                    $toget = $this->getBuffSimp($userid, $idmatch);
+                    $patkb = array_count_values($toget);
+                    arsort($patkb);
+                    $patkbK = array_keys($patkb);
+                    $patkbV = array_values($patkb);
+                   
                     // return response()->json($y);
                     return view('grid')
                     ->with('gridlist',$y)
@@ -1974,6 +2018,8 @@ class DashboardController extends Controller
                     ->with('apm2',$apm2)
                     ->with('ybd',$ybd)
                     ->with('ybe',$ybe)
+                    ->with('BSK',$patkbK)
+                    ->with('BSV',$patkbV)
                     ->with('weaptype',$weaptypearr)
                     ->with('avgrecover',$averagerecover)
                     ->with('damage',number_format($damagevalue))
