@@ -1395,6 +1395,42 @@ class DashboardController extends Controller
 
                     return($patkb);
     }
+
+
+    public function getDebuffSimp($userid, $idmatch){
+        $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('readableText', 'like', '%ATK DOWN by%')
+                    ->orwhere('readableText', 'like', '%DEF DOWN by%')
+                    ->where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->get();
+     
+
+                    if(isset($patk[0])){
+                        $patkarr= [];
+                        $patkb = [];
+                        foreach($patk as $cs){
+                            $cse = explode("\n", $cs->readableText);
+                            $cskill = preg_grep("/(ATK DOWN by (.*)|DEF DOWN by (.*))/", $cse);
+                            array_push($patkarr, $cskill);
+
+                            foreach($cskill as $crv){
+                                $csve = explode("'s", $crv);
+                                
+                                array_push($patkb, $csve[0]);
+
+                       
+
+                             
+
+                            }
+
+                        }
+
+                    }
+                   
+
+                    return($patkb);
+    }
     
     public function showGrid($userid, $idmatch, Request $request)
         {
@@ -1992,6 +2028,13 @@ class DashboardController extends Controller
                     arsort($patkb);
                     $patkbK = array_keys($patkb);
                     $patkbV = array_values($patkb);
+
+
+                    $dtoget = $this->getDebuffSimp($userid, $idmatch);
+                    $dpatkb = array_count_values($dtoget);
+                    arsort($dpatkb);
+                    $dpatkbK = array_keys($dpatkb);
+                    $dpatkbV = array_values($dpatkb);
                    
                     // return response()->json($y);
                     return view('grid')
@@ -2020,6 +2063,8 @@ class DashboardController extends Controller
                     ->with('ybe',$ybe)
                     ->with('BSK',$patkbK)
                     ->with('BSV',$patkbV)
+                    ->with('DSK',$dpatkbK)
+                    ->with('DSV',$dpatkbV)
                     ->with('weaptype',$weaptypearr)
                     ->with('avgrecover',$averagerecover)
                     ->with('damage',number_format($damagevalue))

@@ -448,6 +448,41 @@
         <!-- END Row #4 -->
     </div>
 
+
+    <div class="row">
+    <div class="col-md-12 block block-themed block-mode-loading-inverse block-transparent bg-image w-100">
+    <div class="block-header " >
+                <h3 class="block-title">
+                    Debuff <small>Target</small>
+                </h3>
+            </div>
+            </div>
+    </div>
+    <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
+
+        <!-- Row #4 -->
+        <div class="col-md-12">
+            <div class="block block-transparent bg-primary-dark">
+                <div class="block-content block-content-full">
+                
+                <div class="py-15 px-20 clearfix border-black-op-b">
+
+                @for ($i = 0; $i < count($DSK); $i++)
+                        <div class="font-size-h3 font-w600 text-warning">{{$DSV[$i]}} times Debuffing {{$DSK[$i]}}</div>
+                        </br>
+
+                @endfor
+            
+                      
+                      
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END Row #4 -->
+    </div>
+
 </div>
 <!-- END Page Content -->
 
