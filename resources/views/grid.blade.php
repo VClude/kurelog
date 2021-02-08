@@ -466,7 +466,7 @@
                 <div class="block-content block-content-full">
                 
                 <div class="py-15 px-20 clearfix border-black-op-b">
-                @if (isEmpty($DSK))
+                @if (empty($DSK))
                 <div class="font-size-h3 font-w600 text-warning">This Player didnt do debuff</div>
 
                 @endif
