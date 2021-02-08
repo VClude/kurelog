@@ -1368,10 +1368,10 @@ class DashboardController extends Controller
                     ->where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->get();
      
-
+                    $patkarr= [];
+                    $patkb = [];
                     if(isset($patk[0])){
-                        $patkarr= [];
-                        $patkb = [];
+
                         foreach($patk as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/(ATK UP by (.*)|DEF UP by (.*))/", $cse);
@@ -1403,11 +1403,10 @@ class DashboardController extends Controller
                     ->orwhere('readableText', 'like', '%DEF DOWN by%')
                     ->where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->get();
-     
+                    $patkarr= [];
+                    $patkb = [];
 
                     if(isset($patk[0])){
-                        $patkarr= [];
-                        $patkb = [];
                         foreach($patk as $cs){
                             $cse = explode("\n", $cs->readableText);
                             $cskill = preg_grep("/(ATK DOWN by (.*)|DEF DOWN by (.*))/", $cse);
