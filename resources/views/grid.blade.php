@@ -466,6 +466,10 @@
                 <div class="block-content block-content-full">
                 
                 <div class="py-15 px-20 clearfix border-black-op-b">
+                @if (isEmpty($DSK))
+                <div class="font-size-h3 font-w600 text-warning">This Player didnt do debuff</div>
+
+                @endif
 
                 @for ($i = 0; $i < count($DSK); $i++)
                         <div class="font-size-h3 font-w600 text-warning">{{$DSV[$i]}} times Debuffing {{$DSK[$i]}}</div>
