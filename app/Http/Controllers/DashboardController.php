@@ -2153,7 +2153,9 @@ class DashboardController extends Controller
 
                         foreach($records as $record){
                         $id = $record->gvgHistoryId;
-                        $actTime = date('Y-m-d H:i', strtotime($record->actTime));
+                        // $actTime = date('Y-m-d H:i', strtotime($record->actTime));
+                        $actTime = $record->actTime;
+
                         $username = $record->userName;
                         $isenemy = $record->isOwnGuild;
                         $text = $record->readableText;
@@ -2252,7 +2254,10 @@ class DashboardController extends Controller
                             ->where('userId', $idm)
                             // ->where('gvglogs.userName', 'like', '%' .$searchValue . '%')
                             //   ->orWhere('gvgDataId', $id)
-                            ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                            ->where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                            ->orwhere('gvgDataId', $id)
+                            ->where('userId', $idm)
+                            ->Where('gvglogs.userName', 'like', '%' .$searchValue . '%')
                             ->select('gvglogs.*')
                             ->skip($start)
                             ->take($rowperpage)
@@ -2264,7 +2269,7 @@ class DashboardController extends Controller
 
                         foreach($records as $record){
                         $id = $record->gvgHistoryId;
-                        $actTime = date('Y-m-d H:i', strtotime($record->actTime));
+                        $actTime = $record->actTime;
                         $username = $record->userName;
                         $isenemy = $record->isOwnGuild;
                         $text = $record->readableText;
