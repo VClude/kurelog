@@ -222,7 +222,7 @@ class DashboardController extends Controller
                     
                     $shinma1 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[0]->name.'%')->orderBy('actTime')->get();
                     $shinma2 = gvgnmlog::where('gvgDataId', $id)->where('readableText','like','%'.$b[1]->name.'%')->orderBy('actTime')->get();
-                    $shinma1start = $shinma1[0]->actTime;
+                    $shinma1start = isset($shinma1[0]) ? $shinma1[0]->actTime : 999999999999;
                     $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime','DESC')->first()->actTime;
                     $shinma1selftotal = $b[0]->guildACount;
                     $shinma1enemytotal = $b[0]->guildBCount;
