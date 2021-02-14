@@ -444,17 +444,17 @@ class DashboardController extends Controller
                     array_push($defdebuffvaluearrayB, $v->valueB);
                 }
                 $p7 = gvgmvp::where('gvgDataId', $id)->where('typeMvp','Combo')->orderBy('valueA','desc')->get();
-                $enemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->count();
-                $ownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->count();
-                $crit = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%critical hit%')->count();
-                $crite = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%critical hit%')->count();
+                $enemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->groupBy('gvgHistoryId')->count();
+                $ownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->groupBy('gvgHistoryId')->count();
+                $crit = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%critical hit%')->groupBy('gvgHistoryId')->count();
+                $crite = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%critical hit%')->groupBy('gvgHistoryId')->count();
 
-                $ienemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->get();
-                $iownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->get();
+                $ienemykiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%has fainted.%')->groupBy('gvgHistoryId')->get();
+                $iownkiss = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%has fainted.%')->groupBy('gvgHistoryId')->get();
 
 
-                $selfsimp = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->get();
-                $enemy = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->get();
+                $selfsimp = gvglog::where('gvgDataId', $id)->where('isOwnGuild',1)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->groupBy('gvgHistoryId')->get();
+                $enemy = gvglog::where('gvgDataId', $id)->where('isOwnGuild',0)->where('readableText', 'like' ,'%ATK UP%')->where('readableText', 'like' ,'%DEF UP%')->groupBy('gvgHistoryId')->get();
 
                 $nml = gvgnmlog::where('gvgDataId', $id)->orderBy('gvgHistoryId','asc')->get();
                 // $counter = 0;
@@ -675,7 +675,7 @@ class DashboardController extends Controller
                     return response()->json(['You are not allowed to see this grid']);
                 }
 
-                $specget = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', $q)->get();
+                $specget = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'like', $q)->groupBy('gvgHistoryId')->get();
                 if(isset($specget[0])){
 
                     foreach($specget as $cs){
@@ -1365,7 +1365,7 @@ class DashboardController extends Controller
         $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'like', '%ATK UP by%')
                     ->orwhere('readableText', 'like', '%DEF UP by%')
-                    ->where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('userId',$userid)->where('gvgDataId',$idmatch)->groupBy('gvgHistoryId')
                     ->get();
      
                     $patkarr= [];
@@ -1401,7 +1401,7 @@ class DashboardController extends Controller
         $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'like', '%ATK DOWN by%')
                     ->orwhere('readableText', 'like', '%DEF DOWN by%')
-                    ->where('userId',$userid)->where('gvgDataId',$idmatch)
+                    ->where('userId',$userid)->where('gvgDataId',$idmatch)->groupBy('gvgHistoryId')
                     ->get();
                     $patkarr= [];
                     $patkb = [];
@@ -1504,7 +1504,7 @@ class DashboardController extends Controller
                     $limitgrid = $idmatch == '1475559' ? 100 : 20;
                     $grid = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                         where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
-                        orderBy('gvgHistoryId','asc')->LIMIT(100)->get();
+                        orderBy('gvgHistoryId','asc')->LIMIT(100)->groupBy('gvgHistoryId')->get();
                         if(count($grid) == 0){
                             return response()->json(['match/grid not available']);
                         }
@@ -1628,10 +1628,10 @@ class DashboardController extends Controller
                     ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
                     ->where('readableText', 'not like', '%summon skill%')->
-                    where('readableText', 'not like', '%switched with%');
+                    where('readableText', 'not like', '%switched with%')->groupBy('gvgHistoryId');
                     $apm = $thequery->count();
 
-                    $thequery2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch);
+                    $thequery2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->groupBy('gvgHistoryId');
                     $apm2 = $thequery2->count();
                    
                     $recover = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
@@ -1641,7 +1641,7 @@ class DashboardController extends Controller
                     ->where('readableText', 'not like', '%revive%')
                     ->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->groupBy('gvgHistoryId')->count();
 
                     //recover
             //    $cn = 0;
@@ -1677,47 +1677,47 @@ class DashboardController extends Controller
                     //patk buff
                     $recoverc = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%HP Recovered by%')->get();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%HP Recovered by%')->groupBy('gvgHistoryId')->get();
                     $damagec = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%damage to%')->get();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%damage to%')->groupBy('gvgHistoryId')->get();
 
 
                     $patk = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%ATK UP by%')->get();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%ATK UP by%')->groupBy('gvgHistoryId')->get();
                     $pdef = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%DEF UP by%')->get();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%DEF UP by%')->groupBy('gvgHistoryId')->get();
                     $patkd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%ATK DOWN by%')->get();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%ATK DOWN by%')->groupBy('gvgHistoryId')->get();
                     $pdefd = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%DEF DOWN by%')->get();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%DEF DOWN by%')->groupBy('gvgHistoryId')->get();
                     $rs1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (I)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (I)%')->groupBy('gvgHistoryId')->count();
                     $dc1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Dauntless Courage (I)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Dauntless Courage (I)%')->groupBy('gvgHistoryId')->count();
                     $sb1 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Support Boon (I)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Support Boon (I)%')->groupBy('gvgHistoryId')->count();
                     $rs2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (II)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Recovery Support (II)%')->groupBy('gvgHistoryId')->count();
                     $dc2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
                     ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Dauntless Courage (II)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Dauntless Courage (II)%')->groupBy('gvgHistoryId')->count();
                     $sb2 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Support Boon (II)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Support Boon (II)%')->groupBy('gvgHistoryId')->count();
                     $sb3 = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
-                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Assistance Support (III)%')->count();
+                    ->where('readableText', 'not like', '%summon skill%')->where('readableText', 'like', '%Assistance Support (III)%')->groupBy('gvgHistoryId')->count();
 
                     if($dc1>0){
                         $dc1rate = $dc1 / $apm * 100;
@@ -2132,8 +2132,8 @@ class DashboardController extends Controller
                         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
                         $searchValue = $search_arr['value']; // Search value
 
-                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->count();
-                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userName', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->groupBy('gvgHistoryId')->count();
+                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userName', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')->groupBy('gvglogs.gvgHistoryId')
                         ->count();
 
                         // Fetch records
@@ -2144,7 +2144,7 @@ class DashboardController extends Controller
                           ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
                         ->select('gvglogs.*')
                         ->skip($start)
-                        ->take($rowperpage)
+                        ->take($rowperpage)->groupBy('gvglogs.gvgHistoryId')
                         ->get();
 
 
@@ -2244,8 +2244,8 @@ class DashboardController extends Controller
                         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
                         $searchValue = $search_arr['value']; // Search value
 
-                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->count();
-                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->where('readableText', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->where('userId', $idm)->where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+                        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->groupBy('gvgHistoryId')->count();
+                        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userId', $idm)->where('readableText', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->where('userId', $idm)->where('gvglogs.readableText', 'like', '%' .$searchValue . '%')->groupBy('gvglogs.gvgHistoryId')
                     ->count();
 
                     // Fetch records
@@ -2258,6 +2258,7 @@ class DashboardController extends Controller
                             ->select('gvglogs.*')
                             ->skip($start)
                             ->take($rowperpage)
+                            ->groupBy('gvglogs.gvgHistoryId')
                             ->get();
 
 
