@@ -2279,7 +2279,6 @@ class DashboardController extends Controller
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
                             ->take($rowperpage)
-                            ->orderBy('point','DESC')
                             ->get();
                             
                           }
@@ -2293,7 +2292,6 @@ class DashboardController extends Controller
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
                             ->take($rowperpage)
-                            ->orderBy('point','DESC')
                             ->get();
                           }
                           else{
@@ -2306,7 +2304,6 @@ class DashboardController extends Controller
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
                             ->take($rowperpage)
-                            ->orderBy('point','DESC')
                             ->get();
                 
                           }
