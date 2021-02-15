@@ -2283,8 +2283,8 @@ class DashboardController extends Controller
                             
                           }
                           else if($txt > 0 && $txt <= 13){
-                            $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $txt)->count();
-                            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $txt)->where('guildName', 'like', '%' .$searchValue . '%')
+                            $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $tx)->count();
+                            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $tx)->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
                             $records = gcrank::orderBy("point","desc")
                             ->select('gcranks.*')
