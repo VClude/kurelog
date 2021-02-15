@@ -2273,7 +2273,7 @@ class DashboardController extends Controller
                         if($txt == "all"){
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy($columnName,$columnSortOrder)
+                            $records = gcrank::orderBy("point","desc")
                             ->select('gcranks.*')
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
@@ -2285,7 +2285,7 @@ class DashboardController extends Controller
                           else if($txt > 0 && $txt <= 13){
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $txt)->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy($columnName,$columnSortOrder)
+                            $records = gcrank::orderBy("point","desc")
                             ->select('gcranks.*')
                             ->where('gcranks.gvgTimeType', $tx)
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
@@ -2297,7 +2297,7 @@ class DashboardController extends Controller
                           else{
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy($columnName,$columnSortOrder)
+                            $records = gcrank::orderBy("point","desc")
                             ->select('gcranks.*')
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
@@ -2311,8 +2311,8 @@ class DashboardController extends Controller
 
 
                         $data_arr = array();
-
                         foreach($records as $record){
+              
                         $id = $record->id;
                         $guildName = $record->guildName;
                         $guildLevel = $record->guildLevel;
@@ -2366,6 +2366,7 @@ class DashboardController extends Controller
                         }
 
                         $data_arr[] = array(
+                            "rank"=>$id,
                             "guildName" => $guildName,
                             "guildLevel" => $guildLevel,
                             "point" => number_format($point),

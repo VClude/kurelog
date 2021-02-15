@@ -32,6 +32,7 @@
     <table class="table table-bordered yajra-datatable">
         <thead>
             <tr>
+                <th>Rank (Server)</th>
                 <th>Guild Name</th>
                 <th>Level</th>
                 <th>Lifeforce Total</th>
@@ -62,15 +63,17 @@
 
             processing: true,
             serverSide: true,
+            orderable: false,
             ajax: "{{route('get.gc', $ide)}}",
             columns: [
-                {data: 'guildName', name: 'Guild Name'},
-                {data: 'guildLevel', name: 'Level'},
-                {data: 'point', name: 'Lifeforce Total'},
-                {data: 'winPoint', name: 'Win'},
-                {data: 'losePoint', name: 'Lose'},
-                {data: 'sourceCount', name: 'Total Battle'},
-                {data: 'gvgTimeType', name: 'TS'},
+                {data: 'rank', name: 'Rank', orderable:false},
+                {data: 'guildName', name: 'Guild Name', orderable:false},
+                {data: 'guildLevel', name: 'Level', orderable:false},
+                {data: 'point', name: 'Lifeforce Total', orderable:false},
+                {data: 'winPoint', name: 'Win', orderable:false},
+                {data: 'losePoint', name: 'Lose', orderable:false},
+                {data: 'sourceCount', name: 'Total Battle', orderable:false},
+                {data: 'gvgTimeType', name: 'TS', orderable:false},
             ]
         });
 
