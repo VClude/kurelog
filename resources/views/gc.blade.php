@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+<head>
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@flickr" />
 <meta name="twitter:title" content="Suspicious link" />
 <meta name="twitter:description" content="this link will give you corona" />
 <meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/0078/7038/2195/products/CoronaExtraLagerBottle_1x710ml_1024x1024.jpg?v=1606545539" />
-<head>
+
     <title>GC 7 Rank</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
