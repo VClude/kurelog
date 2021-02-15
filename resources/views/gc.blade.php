@@ -2,11 +2,11 @@
 <html>
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@flickr" />
-<meta name="twitter:title" content="Small Island Developing States Photo Submission" />
-<meta name="twitter:description" content="View the album on Flickr." />
-<meta name="twitter:image" content="https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg" />
+<meta name="twitter:title" content="Suspicious link" />
+<meta name="twitter:description" content="this link will give you corona" />
+<meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/0078/7038/2195/products/CoronaExtraLagerBottle_1x710ml_1024x1024.jpg?v=1606545539" />
 <head>
-    <title>GC 7 Rank</title>
+    <title>GC 7 Rank (auto update on 06:00 ,12:00, 18:00, 22:30 GMT +7)</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
