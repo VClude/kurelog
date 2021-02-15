@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\gvgtop;
 use App\Models\gvgmvp;
 use App\Models\gvglog;
+use App\Models\gcrank;
 use App\Models\gvgnmlog;
 use App\Models\gvgshinma;
 use App\Models\gvgmember;
@@ -2187,6 +2188,20 @@ class DashboardController extends Controller
 
 
       }
+
+      private function gcr(){
+          return view('gc');
+      }
+
+      public function getGcRank(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = gcrank::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
+    }
 
       private function dispatchWebhook($list){
         $payload = [

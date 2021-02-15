@@ -15,12 +15,12 @@ class CreateGcranksTable extends Migration
     {
         Schema::create('gcranks', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('guildName');
+            $table->string('guildName',512);
             $table->integer('guildLevel');
             $table->integer('point');
             $table->integer('winPoint');
-            $table->boolean('sourceCount');
-            $table->longText('rankingInBattleTerm');
+            $table->integer('sourceCount');
+            $table->integer('rankingInBattleTerm');
             $table->integer('gvgTimeType');   
         });
     }

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('index');
 Route::group(['middleware' => 'page-cache'], function(){
+    Route::get('/gc', 'App\Http\Controllers\DashboardController@gcr')->name('show.gc');
+    Route::get('/gc/list', 'App\Http\Controllers\DashboardController@getGcRank')->name('get.gc');
     Route::get('/log/{id}', 'App\Http\Controllers\DashboardController@log')->name('show.log');
     Route::get('/log/getlog/{id}','App\Http\Controllers\DashboardController@getLog')->name('show.getlog');
     Route::get('/log/getlog2/{id}/{idm}','App\Http\Controllers\DashboardController@getLogz')->name('show.getlog2');
