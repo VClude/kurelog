@@ -33,6 +33,7 @@
         <thead>
             <tr>
                 <th>Rank (Server)</th>
+                <th>Rank (TS)</th>
                 <th>Guild Name</th>
                 <th>Level</th>
                 <th>Lifeforce Total</th>
@@ -66,14 +67,15 @@
             orderable: false,
             ajax: "{{route('get.gc', $ide)}}",
             columns: [
-                {data: 'rank', name: 'Rank', orderable:false},
-                {data: 'guildName', name: 'Guild Name', orderable:false},
-                {data: 'guildLevel', name: 'Level', orderable:false},
-                {data: 'point', name: 'Lifeforce Total', orderable:false},
-                {data: 'winPoint', name: 'Win', orderable:false},
-                {data: 'losePoint', name: 'Lose', orderable:false},
-                {data: 'sourceCount', name: 'Total Battle', orderable:false},
-                {data: 'gvgTimeType', name: 'TS', orderable:false},
+                {data: 'rank', name: 'Rank', sortable:false},
+                {data: 'tsrank', name: 'TS Rank', sortable:false},
+                {data: 'guildName', name: 'Guild Name', sortable:false},
+                {data: 'guildLevel', name: 'Level', sortable:false},
+                {data: 'point', name: 'Lifeforce Total', sortable:false},
+                {data: 'winPoint', name: 'Win', sortable:false},
+                {data: 'losePoint', name: 'Lose', sortable:false},
+                {data: 'sourceCount', name: 'Total Battle', sortable:false},
+                {data: 'gvgTimeType', name: 'TS', sortable:false},
             ]
         });
 

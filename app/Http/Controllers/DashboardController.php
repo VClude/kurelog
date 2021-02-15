@@ -2274,7 +2274,7 @@ class DashboardController extends Controller
                             $totalRecords = gcrank::select('count(*) as allcount')->count();
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy("point","desc")
+                            $records = gcrank::orderBy('point','DESC')
                             ->select('gcranks.*')
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
@@ -2286,7 +2286,7 @@ class DashboardController extends Controller
                             $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $tx)->count();
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $tx)->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy("point","desc")
+                            $records = gcrank::orderBy('point','DESC')
                             ->select('gcranks.*')
                             ->where('gcranks.gvgTimeType', $tx)
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
@@ -2299,7 +2299,7 @@ class DashboardController extends Controller
 
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy("point","desc")
+                            $records = gcrank::orderBy('point','DESC')
                             ->select('gcranks.*')
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
@@ -2320,7 +2320,7 @@ class DashboardController extends Controller
                         $point = $record->point;
                         $winPoint = $record->winPoint;
                         $sourceCount = $record->sourceCount;
-                        $rankingInBattleForm = $record->rankingInBattleTerm;
+                        $rankingInBattleTerm = $record->rankingInBattleTerm;
                         switch($record->gvgTimeType){
                             case(1):
                                 $TS = 1;
@@ -2374,6 +2374,7 @@ class DashboardController extends Controller
                             "winPoint" => $winPoint,
                             "losePoint" => $sourceCount - $winPoint,
                             "sourceCount" => $sourceCount,
+                            "tsrank" => $rankingInBattleTerm,
                             "gvgTimeType" => $TS
                         );
                         }
