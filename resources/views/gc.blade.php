@@ -11,16 +11,33 @@
     
 <div class="container mt-5">
     <h2 class="mb-4">GC 7 Rank</h2>
+    <label for="ts">Select TS:</label>
+   
+        <select name="ts" id="ts">
+        <option value="all" {{ $ide == 'all' ? 'selected' : '' }}>All</option>
+        <option value="1" {{ $ide == 1 ? 'selected' : '' }}>1</option>
+        <option value="2" {{ $ide == 2 ? 'selected' : '' }}>2</option>
+        <option value="3" {{ $ide == 3 ? 'selected' : '' }}>3</option>
+        <option value="4" {{ $ide == 4 ? 'selected' : '' }}>4</option>
+        <option value="5" {{ $ide == 5 ? 'selected' : '' }}>5</option>
+        <option value="6" {{ $ide == 6 ? 'selected' : '' }}>6</option>
+        <option value="7" {{ $ide == 7 ? 'selected' : '' }}>7</option>
+        <option value="8" {{ $ide == 8 ? 'selected' : '' }}>8</option>
+        <option value="9" {{ $ide == 9 ? 'selected' : '' }}>9</option>
+        <option value="10" {{ $ide == 10 ? 'selected' : '' }}>10</option>
+        <option value="11" {{ $ide == 11 ? 'selected' : '' }}>11</option>
+        <option value="12" {{ $ide == 12 ? 'selected' : '' }}>12</option>
+        <option value="13" {{ $ide == 13 ? 'selected' : '' }}>13</option>
+        </select> 
     <table class="table table-bordered yajra-datatable">
         <thead>
             <tr>
-                <th>No</th>
-                <th>guildName</th>
-                <th>guildLevel</th>
-                <th>point</th>
-                <th>winPoint</th>
-                <th>sourceCount</th>
-                <th>rankingInBattleTerm</th>
+                <th>Guild Name</th>
+                <th>Level</th>
+                <th>Lifeforce Total</th>
+                <th>Win</th>
+                <th>Lose</th>
+                <th>Total Battle</th>
                 <th>TS</th>
 
             </tr>
@@ -39,30 +56,30 @@
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript">
-  $(function () {
+    $(document).ready(function () {
     
-    var table = $('.yajra-datatable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('get.gc') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'guildName', name: 'guildName'},
-            {data: 'guildLevel', name: 'guildLevel'},
-            {data: 'point', name: 'point'},
-            {data: 'winPoint', name: 'winPoint'},
-            {data: 'sourceCount', name: 'sourceCount'},
-            {data: 'rankingInBattleTerm', name: 'rankingInBattleTerm'},
-            {data: 'gvgTimeType', name: 'gvgTimeType'},
-            {
-                data: 'action', 
-                name: 'action', 
-                orderable: true, 
-                searchable: true
-            },
-        ]
+        $('.table').DataTable({
+
+            processing: true,
+            serverSide: true,
+            ajax: "{{route('get.gc', $ide)}}",
+            columns: [
+                {data: 'guildName', name: 'Guild Name'},
+                {data: 'guildLevel', name: 'Level'},
+                {data: 'point', name: 'Lifeforce Total'},
+                {data: 'winPoint', name: 'Win'},
+                {data: 'losePoint', name: 'Lose'},
+                {data: 'sourceCount', name: 'Total Battle'},
+                {data: 'gvgTimeType', name: 'TS'},
+            ]
+        });
+
+        
+            document.getElementById('ts').addEventListener('change', function (e) {
+                window.location.href = "{{route('show.gc')}}/"+e.target.value;
+        });
+
     });
-    
-  });
+
 </script>
 </html>

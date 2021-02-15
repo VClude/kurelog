@@ -2189,19 +2189,205 @@ class DashboardController extends Controller
 
       }
 
-      private function gcr(){
-          return view('gc');
+      public function gcView($txt = "all"){
+          if($txt == "all"){
+            return view('gc')->with('ide',$txt);
+          }
+          else if($txt > 0 && $txt <= 13){
+            return view('gc')->with('ide',$txt);
+          }
+          else{
+            return view('gc')->with('ide',"all");
+
+          }
+          
+          
       }
 
-      public function getGcRank(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = gcrank::latest()->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->make(true);
-        }
-    }
+      public function getGcRank($txt, Request $request){
+
+                        $draw = $request->get('draw');
+                        $start = $request->get("start");
+                        $rowperpage = $request->get("length"); // Rows display per page
+
+                        $columnIndex_arr = $request->get('order');
+                        $columnName_arr = $request->get('columns');
+                        $order_arr = $request->get('order');
+                        $search_arr = $request->get('search');
+
+                        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+                        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+                        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+                        $searchValue = $search_arr['value']; // Search value
+
+                        $totalRecords = gcrank::select('count(*) as allcount')->count();
+                        
+                        switch($txt){
+                            case("all"):
+                                $tx = "all";
+                                break;
+                            case(1):
+                                $tx = 1;
+                                break;
+                            case(2):
+                                $tx = 2;
+                                break;
+                            case(3):
+                                $tx = 4;
+                                break;
+                            case(4):
+                                $tx = 8;
+                                break;
+                            case(5):
+                                $tx = 16;
+                                break;
+                            case(6):
+                                $tx = 32;
+                                break;
+                            case(7):
+                                $tx = 64;
+                                break;
+                            case(8):
+                                $tx = 128;
+                                break;
+                            case(9):
+                                $tx = 256;
+                                break;
+                            case(10):
+                                $tx = 512;
+                                break;
+                            case(11):
+                                $tx = 1024;
+                                break;
+                            case(12):
+                                $tx = 2048;
+                                break;
+                            case(13):
+                                $tx = 4096;
+                                break;
+                            default:
+                                $tx = "all";
+                                break;
+                        }
+                        // Fetch records
+                        if($txt == "all"){
+                            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
+                            ->count();
+                            $records = gcrank::orderBy($columnName,$columnSortOrder)
+                            ->select('gcranks.*')
+                            ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
+                            ->skip($start)
+                            ->take($rowperpage)
+                            ->orderBy('point','DESC')
+                            ->get();
+                            
+                          }
+                          else if($txt > 0 && $txt <= 13){
+                            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $txt)->where('guildName', 'like', '%' .$searchValue . '%')
+                            ->count();
+                            $records = gcrank::orderBy($columnName,$columnSortOrder)
+                            ->select('gcranks.*')
+                            ->where('gcranks.gvgTimeType', $tx)
+                            ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
+                            ->skip($start)
+                            ->take($rowperpage)
+                            ->orderBy('point','DESC')
+                            ->get();
+                          }
+                          else{
+                            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
+                            ->count();
+                            $records = gcrank::orderBy($columnName,$columnSortOrder)
+                            ->select('gcranks.*')
+                            ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
+                            ->skip($start)
+                            ->take($rowperpage)
+                            ->orderBy('point','DESC')
+                            ->get();
+                
+                          }
+                        
+
+
+
+                        $data_arr = array();
+
+                        foreach($records as $record){
+                        $id = $record->id;
+                        $guildName = $record->guildName;
+                        $guildLevel = $record->guildLevel;
+                        $point = $record->point;
+                        $winPoint = $record->winPoint;
+                        $sourceCount = $record->sourceCount;
+                        $rankingInBattleForm = $record->rankingInBattleTerm;
+                        switch($record->gvgTimeType){
+                            case(1):
+                                $TS = 1;
+                                break;
+                            case(2):
+                                $TS = 2;
+                                break;
+                            case(4):
+                                $TS = 3;
+                                break;
+                            case(8):
+                                $TS = 4;
+                                break;
+                            case(16):
+                                $TS = 5;
+                                break;
+                            case(32):
+                                $TS = 6;
+                                break;
+                            case(64):
+                                $TS = 7;
+                                break;
+                            case(128):
+                                $TS = 8;
+                                break;
+                            case(256):
+                                $TS = 9;
+                                break;
+                            case(512):
+                                $TS = 10;
+                                break;
+                            case(1024):
+                                $TS = 11;
+                                break;
+                            case(2048):
+                                $TS = 12;
+                                break;
+                            case(4096):
+                                $TS = 13;
+                                break;
+                            default:
+                                $TS = "unknown";
+                                break;
+                        }
+
+                        $data_arr[] = array(
+                            "guildName" => $guildName,
+                            "guildLevel" => $guildLevel,
+                            "point" => number_format($point),
+                            "winPoint" => $winPoint,
+                            "losePoint" => $sourceCount - $winPoint,
+                            "sourceCount" => $sourceCount,
+                            "gvgTimeType" => $TS
+                        );
+                        }
+
+                        $response = array(
+                        "draw" => intval($draw),
+                        "iTotalRecords" => $totalRecords,
+                        "iTotalDisplayRecords" => $totalRecordswithFilter,
+                        "aaData" => $data_arr
+                        );
+
+                        return json_encode($response);
+
+
+
+      }
 
       private function dispatchWebhook($list){
         $payload = [
