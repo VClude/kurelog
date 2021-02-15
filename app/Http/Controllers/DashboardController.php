@@ -2220,7 +2220,7 @@ class DashboardController extends Controller
                         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
                         $searchValue = $search_arr['value']; // Search value
 
-                        $totalRecords = gcrank::select('count(*) as allcount')->count();
+                        
                         
                         switch($txt){
                             case("all"):
@@ -2271,6 +2271,7 @@ class DashboardController extends Controller
                         }
                         // Fetch records
                         if($txt == "all"){
+                            $totalRecords = gcrank::select('count(*) as allcount')->count();
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
                             $records = gcrank::orderBy("point","desc")
@@ -2283,6 +2284,7 @@ class DashboardController extends Controller
                             
                           }
                           else if($txt > 0 && $txt <= 13){
+                            $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $txt)->count();
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $txt)->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
                             $records = gcrank::orderBy("point","desc")
@@ -2295,6 +2297,8 @@ class DashboardController extends Controller
                             ->get();
                           }
                           else{
+                            $totalRecords = gcrank::select('count(*) as allcount')->count();
+
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
                             $records = gcrank::orderBy("point","desc")
