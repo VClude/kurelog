@@ -614,6 +614,37 @@ class DashboardController extends Controller
 
     }
 
+    public function logGridOnly($id, Request $request)
+    {
+
+        $sess = session('usern');
+        if(!isset($sess)){
+            return redirect()->route('index');
+        }
+
+        else{
+
+
+                $ally = gvgmember::where('gvgDataId', $id)->get();
+                $enemy = gvgenemymember::where('gvgDataId', $id)->get();
+
+                // return response()->json($a);
+                return view('logb')
+                ->with('ally',$ally)
+                ->with('enemy',$enemy)
+                ->with('ide',$id);
+                
+                
+            }
+
+        }
+
+
+
+
+
+    
+
     /**
      * Show the form for creating a new resource.
      *
