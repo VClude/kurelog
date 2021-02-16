@@ -7,6 +7,7 @@ use App\Models\gvgtop;
 use App\Models\gvgmvp;
 use App\Models\gvglog;
 use App\Models\gcrank;
+use App\Models\gcranktime;
 use App\Models\gvgnmlog;
 use App\Models\gvgshinma;
 use App\Models\gvgmember;
@@ -2190,14 +2191,15 @@ class DashboardController extends Controller
       }
 
       public function gcView($txt = "all"){
+          $lastupdate = gcranktime::first();
           if($txt == "all"){
-            return view('gc')->with('ide',$txt);
+            return view('gc')->with('ide',$txt)->with('lu',$lastupdate->lastUpdate);
           }
           else if($txt > 0 && $txt <= 13){
-            return view('gc')->with('ide',$txt);
+            return view('gc')->with('ide',$txt)->with('lu',$lastupdate->lastUpdate);
           }
           else{
-            return view('gc')->with('ide',"all");
+            return view('gc')->with('ide',"all")->with('lu',$lastupdate->lastUpdate);
 
           }
           

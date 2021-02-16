@@ -16,7 +16,7 @@
 <body>
     
 <div class="container mt-5">
-    <h2 class="mb-4">GC 7 Rank  (auto update on 06:00 ,12:00, 18:00, 22:30 GMT +7)</h2>
+    <h2 class="mb-4">GC 7 Rank  (Last Update : {{$lu}} GMT +7)</h2>
     <label for="ts">Select TS:</label>
    
         <select name="ts" id="ts">
