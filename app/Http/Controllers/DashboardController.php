@@ -2052,6 +2052,7 @@ class DashboardController extends Controller
 
 
 // dd($ybd,$ybe);
+                    dd($weaptype);
                     $weaptypearr = array_count_values($weaptype);
                     $averagerecover = $recovercount > 0 ? number_format(ceil($recovervalue / $recovercount)) : 0;
 
