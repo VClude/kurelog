@@ -5,13 +5,6 @@
     <div class="content">
 
 
-        </hr>
-
-
-
-
-
-
         <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
             <div class="content text-center">
                 <div class="pt-50 pb-20">
@@ -141,7 +134,7 @@
 
     </div>
 
-
+@endsection
 @section('js_after')
 <script>
 
