@@ -16,7 +16,9 @@
 <body>
     
 <div class="container mt-5">
-    <h2 class="mb-4">GC 7 Rank  (Last Update : {{$lu}} GMT +7)</h2>
+    <h2 class="mb-4">GC 7 Rank  (Last Update : {{$lu}} UTC)</h2>
+<h3>Reset Time : 05:00 UTC</h3>
+<p>Update on : 15:30 UTC / 22:30 GMT+7, 23:00 UTC / 06:00 GMT +7, 05:00 UTC / 12:00 GMT +7</p>
     <label for="ts">Select TS:</label>
    
         <select name="ts" id="ts">
