@@ -1605,7 +1605,8 @@ class DashboardController extends Controller
                                 array_push($ybe,$ws->weapdesc);
     
                             }
-                            array_push($weaptype,$imgquery->weaptype);
+                            $wty = is_null($imgquery->weaptype) ? "Artifact" : $imgquery->weaptype;
+                            array_push($weaptype,$wty);
                             array_push($img,$imgquery->weapurl);
                         }
                         if(!$imgquery){
@@ -2052,7 +2053,7 @@ class DashboardController extends Controller
 
 
 // dd($ybd,$ybe);
-                    dd($weaptype);
+                    
                     $weaptypearr = array_count_values($weaptype);
                     $averagerecover = $recovercount > 0 ? number_format(ceil($recovervalue / $recovercount)) : 0;
 
