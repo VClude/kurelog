@@ -2309,7 +2309,7 @@ class DashboardController extends Controller
                             $totalRecords = gcrank::select('count(*) as allcount')->count();
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy('postpoint','DESC')
+                            $records = gcrank::orderBy($columnName,$columnSortOrder)
                             ->select('gcranks.*')
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
@@ -2321,7 +2321,7 @@ class DashboardController extends Controller
                             $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $tx)->count();
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $tx)->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy('postpoint','DESC')
+                            $records = gcrank::orderBy($columnName,$columnSortOrder)
                             ->select('gcranks.*')
                             ->where('gcranks.gvgTimeType', $tx)
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
@@ -2334,7 +2334,7 @@ class DashboardController extends Controller
 
                             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' .$searchValue . '%')
                             ->count();
-                            $records = gcrank::orderBy('postpoint','DESC')
+                            $records = gcrank::orderBy($columnName,$columnSortOrder)
                             ->select('gcranks.*')
                             ->where('gcranks.guildName', 'like', '%' .$searchValue . '%')
                             ->skip($start)
@@ -2404,7 +2404,7 @@ class DashboardController extends Controller
                         $gain = $postpoint == 0 ? 0 : $postpoint - $point;
 
                         $data_arr[] = array(
-                            "rank"=>$id,
+                            "id"=>$id,
                             "guildName" => $guildName,
                             "guildLevel" => $guildLevel,
                             "point" => number_format($point),
