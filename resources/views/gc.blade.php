@@ -44,7 +44,8 @@
                 <th>Rank (TS)</th>
                 <th>Guild Name</th>
                 <th>Level</th>
-                <th>Lifeforce Total</th>
+                <th>Lifeforce Total (Before)</th>
+                <th>Lifeforce Total (After)</th>
                 <th>Win</th>
                 <th>Lose</th>
                 <th>Total Battle</th>
@@ -79,7 +80,8 @@
                 {data: 'tsrank', name: 'TS Rank', sortable:false},
                 {data: 'guildName', name: 'Guild Name', sortable:false},
                 {data: 'guildLevel', name: 'Level', sortable:false},
-                {data: 'point', name: 'Lifeforce Total', sortable:false},
+                {data: 'point', name: 'Lifeforce Before', sortable:false},
+                {data: 'postpoint', name: 'Lifeforce After', sortable:false},
                 {data: 'winPoint', name: 'Win', sortable:false},
                 {data: 'losePoint', name: 'Lose', sortable:false},
                 {data: 'sourceCount', name: 'Total Battle', sortable:false},

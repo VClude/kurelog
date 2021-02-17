@@ -2353,6 +2353,7 @@ class DashboardController extends Controller
                         $guildName = $record->guildName;
                         $guildLevel = $record->guildLevel;
                         $point = $record->point;
+                        $postpoint = $record->postpoint;
                         $winPoint = $record->winPoint;
                         $sourceCount = $record->sourceCount;
                         $rankingInBattleTerm = $record->rankingInBattleTerm;
@@ -2406,6 +2407,7 @@ class DashboardController extends Controller
                             "guildName" => $guildName,
                             "guildLevel" => $guildLevel,
                             "point" => number_format($point),
+                            "postpoint" => number_format($postpoint),
                             "winPoint" => $winPoint,
                             "losePoint" => $sourceCount - $winPoint,
                             "sourceCount" => $sourceCount,
