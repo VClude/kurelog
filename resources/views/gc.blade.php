@@ -46,6 +46,7 @@
                 <th>Level</th>
                 <th>Lifeforce Total (Before)</th>
                 <th>Lifeforce Total (After)</th>
+                <th>Lifeforce Gain</th>
                 <th>Win</th>
                 <th>Lose</th>
                 <th>Total Battle</th>
@@ -82,6 +83,7 @@
                 {data: 'guildLevel', name: 'Level', sortable:false},
                 {data: 'point', name: 'Lifeforce Before', sortable:false},
                 {data: 'postpoint', name: 'Lifeforce After', sortable:false},
+                {data: 'gain', name: 'Lifeforce Gain', sortable:false},
                 {data: 'winPoint', name: 'Win', sortable:false},
                 {data: 'losePoint', name: 'Lose', sortable:false},
                 {data: 'sourceCount', name: 'Total Battle', sortable:false},

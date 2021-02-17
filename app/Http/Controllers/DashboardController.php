@@ -2401,6 +2401,7 @@ class DashboardController extends Controller
                                 $TS = "unknown";
                                 break;
                         }
+                        $gain = $postpoint == 0 ? 0 : $postpoint - $point;
 
                         $data_arr[] = array(
                             "rank"=>$id,
@@ -2408,6 +2409,7 @@ class DashboardController extends Controller
                             "guildLevel" => $guildLevel,
                             "point" => number_format($point),
                             "postpoint" => number_format($postpoint),
+                            "gain" => number_format($gain),
                             "winPoint" => $winPoint,
                             "losePoint" => $sourceCount - $winPoint,
                             "sourceCount" => $sourceCount,
