@@ -2450,10 +2450,10 @@ class DashboardController extends Controller
         
         
 
-            $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('postpoint', '!=', 0)->count();
-            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('postpoint', '!=', 0)
+            $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)->count();
+            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->count();
-            $records = gcrank::orderBy('postpoint','DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('postpoint', '!=', 0)
+            $records = gcrank::orderBy('postpoint','DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)
