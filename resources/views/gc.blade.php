@@ -63,6 +63,7 @@
 
         <div class="row">
             <div class="col-md-6">
+            <h1> Final Asia Prediction </h1>
                     <table class="table table-bordered yajra-datatable" id="tbl2">
                     <thead>
                         <tr>
