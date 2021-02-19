@@ -156,6 +156,9 @@
             processing: true,
             serverSide: true,
             orderable: true,
+            searching: false,
+            lengthChange: false,
+            pageLength: 50,
             ajax: "{{route('get.finala')}}",
             columns: [
                 {
