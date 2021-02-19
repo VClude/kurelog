@@ -2431,6 +2431,71 @@ class DashboardController extends Controller
 
       }
 
+      public function getGcFinalA(Request $request){
+
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        
+        
+
+            $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('postpoint', '!=', 0)->count();
+            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('postpoint', '!=', 0)
+            ->count();
+            $records = gcrank::orderBy('postpoint','DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('postpoint', '!=', 0)
+            ->select('gcranks.*')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+            
+     
+
+
+
+        $data_arr = array();
+        $ctr = 1;
+        foreach($records as $record){
+            $guildName = $record->guildName;
+            if($ctr % 2 == 1){
+                $guildA = $guildName;
+            }
+            else{
+                $guildB = $guildName;
+                $data_arr[] = array(
+                    "guildNameA" => $guildA,
+                    "versus" => "vs",
+                    "guildNameB" => $guildB
+                );
+            }
+
+
+        $ctr++;
+        }
+
+        $response = array(
+        "draw" => intval($draw),
+        "iTotalRecords" => $totalRecords,
+        "iTotalDisplayRecords" => $totalRecordswithFilter,
+        "aaData" => $data_arr
+        );
+
+        return json_encode($response);
+
+
+
+}
+
       private function dispatchWebhook($list){
         $payload = [
             'embeds' => [
