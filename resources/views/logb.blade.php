@@ -37,9 +37,16 @@
                                     <div class="block-content">
                                         <a href="{{ route('show.grid', [$a->userId, $ide]) }}"
                                            class="btn btn-xs btn-info modalMd" target="_blank">
-                                            <div class="font-size-md text-black mb-5">Click to See {{$a->name}}Grid
+                                            <div class="font-size-md text-black mb-5">Intip {{$a->name}} Grid
                                             </div>
                                         </a>
+
+                                        <a href="{{ route('show.profile', $a->userId) }}"
+                                           class="btn btn-xs btn-info modalMd" target="_blank">
+                                            <div class="font-size-md text-black mb-5">Intip {{$a->name}} Profile
+                                            </div>
+                                        </a>
+
 
                                     </div>
                                 </div>

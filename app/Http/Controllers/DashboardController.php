@@ -634,6 +634,85 @@ class DashboardController extends Controller
 
         }
 
+        public function showProfile($id, Request $request)
+        {
+    
+           
+            if(!isset($id)){
+                return response()->json(['id empty']);
+            }
+
+            if(!is_numeric($id)){
+                return response()->json(['id must be number']);
+            }
+
+            else{
+                $client = new \GuzzleHttp\Client();
+
+                $res = $client->request('GET', 'http://127.0.0.1:105/getuser2/' . $id);
+
+                $restwo = $client->request('GET', 'http://127.0.0.1:105/getuser/' . $id);
+                
+                $resp = json_decode($res->getBody());
+                $resp2 = json_decode($restwo->getBody());
+                $dat = $resp->payload->userData;
+                $dat2 = $resp2->payload;
+                $created = Carbon::createFromTimestamp($dat->createdTime)->toDateTimeString(); 
+                $name = $dat->name;
+                $level = $dat->level;
+                $gold = $dat->money;
+                $maxcost = $dat->deckCost;
+                $latestset = $dat->currentTotalPower;
+                $set = $dat->gvgTotalPower;
+                $staminamax = $dat->staminaMax;
+                $stamina = $dat->stamina;
+
+                //stats
+                $hpbonus = $dat->hpCharacterBonus;
+                $matkbonus = $dat->magicAttackCharacterBonus;
+                $patkbonus = $dat->attackCharacterBonus;
+                $mdefbonus = $dat->magicDefenceCharacterBonus;
+                $pdefbonus = $dat->defenceCharacterBonus;
+
+                //personal
+                $guild = $dat2->guildName;
+                $hp = $dat2->maxHp;
+                $patk = $dat2->attackTotalPower;
+                $matk = $dat2->magicAttackTotalPower;
+                $pdef = $dat2->defenceTotalPower;
+                $mdef = $dat2->magicDefenceTotalPower;
+
+                return view('intip')
+                ->with('created',$created)
+                ->with('name',$name)
+                ->with('level',$level)
+                ->with('gold',$gold)
+                ->with('maxcost',$maxcost)
+                ->with('latestset',$latestset)
+                ->with('set',$set)
+                ->with('staminamax',$staminamax)
+                ->with('stamina',$stamina)
+                ->with('hpbonus',$hpbonus)
+                ->with('matkbonus',$matkbonus)
+                ->with('patkbonus',$patkbonus)
+                ->with('mdefbonus',$mdefbonus)
+                ->with('pdefbonus',$pdefbonus)
+                ->with('guild',$guild)
+                ->with('hp',$hp)
+                ->with('matk',$matk)
+                ->with('patk',$patk)
+                ->with('mdef',$mdef)
+                ->with('pdef',$pdef);
+                
+    
+            }
+    
+                    
+                    
+                
+    
+            }
+
 
 
 
