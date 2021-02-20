@@ -686,10 +686,10 @@ class DashboardController extends Controller
                 ->with('created',$created)
                 ->with('name',$name)
                 ->with('level',$level)
-                ->with('gold',$gold)
+                ->with('gold',number_format($gold))
                 ->with('maxcost',$maxcost)
-                ->with('latestset',$latestset)
-                ->with('set',$set)
+                ->with('latestset',number_format($latestset))
+                ->with('set',number_format($set))
                 ->with('staminamax',$staminamax)
                 ->with('stamina',$stamina)
                 ->with('hpbonus',$hpbonus)
@@ -698,11 +698,11 @@ class DashboardController extends Controller
                 ->with('mdefbonus',$mdefbonus)
                 ->with('pdefbonus',$pdefbonus)
                 ->with('guild',$guild)
-                ->with('hp',$hp)
-                ->with('matk',$matk)
-                ->with('patk',$patk)
-                ->with('mdef',$mdef)
-                ->with('pdef',$pdef);
+                ->with('hp',number_format($hp))
+                ->with('matk',number_format($matk))
+                ->with('patk',number_format($patk))
+                ->with('mdef',number_format($mdef))
+                ->with('pdef',number_format($pdef));
                 
     
             }
