@@ -652,6 +652,14 @@ class DashboardController extends Controller
                 $res = $client->request('GET', 'http://127.0.0.1:105/getuser2/' . $id);
 
                 $restwo = $client->request('GET', 'http://127.0.0.1:105/getuser/' . $id);
+
+                if($res->getBody()->status != "200"){
+                    return response()->json(['DATA INVALID']);
+                }
+
+                if($restwo->getBody()->status != "200"){
+                    return response()->json(['DATA INVALID']);
+                }
                 
                 $resp = json_decode($res->getBody());
                 $resp2 = json_decode($restwo->getBody());
