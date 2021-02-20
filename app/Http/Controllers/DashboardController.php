@@ -651,10 +651,17 @@ class DashboardController extends Controller
             $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
       
             $resp = json_decode($res->getBody());
-            
-            dd($resp);
+            if($resp->status != 200){
+                return response()->json(['DATA INVALID']);
+            }
+
+            if($resp->payload == null){
+                return response()->json(['DATA INVALID']);
+            }
+            $dat = $resp->payload->guildMemberList;
+
             $data_arr = array();
-            foreach($resp as $data){
+            foreach($dat as $data){
                 $name = $data->userData->name;
                 $userId = $data->userData->userId;
                 $data_arr[] = array(
