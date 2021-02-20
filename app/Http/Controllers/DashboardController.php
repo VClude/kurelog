@@ -670,7 +670,7 @@ class DashboardController extends Controller
                         );
             }
                 // return response()->json($a);
-                dd($data_arr);
+              
                 return view('logc')
                 ->with('member',$data_arr);
                 
