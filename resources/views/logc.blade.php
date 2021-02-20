@@ -64,51 +64,6 @@
 
 
 
-        <a data-toggle="collapse" href="#blcollapse" role="button" aria-expanded="false" aria-controls="blcollapse">
-            <div class="bg-pattern bg-black-op-25"
-                 style="background-image: url('assets/media/various/bg-pattern.png');">
-                <div class="content text-center">
-                    <div class="pt-50 pb-20">
-                        <h1 class="font-w700 text-white mb-10">Battle Logs</h1>
-                        <h2 class="h4 font-w400 text-white-op">Click here to Show</h2>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <div class="collapse row" id="blcollapse">
-
-            <div class="col-md-12 mt-5">
-
-
-                <table id="btlog" class="table table-bordered data-table" style="width:100% !important;">
-
-                    <thead>
-
-                    <tr>
-                        <th style="width:5% !important; background-color:white !important;">id</th>
-
-                        <th style="width:20% !important; background-color:white !important;">Time</th>
-
-                        <th style="width:20% !important; background-color:white !important;">userName</th>
-
-                        <th style="width:5% !important; background-color:white !important;">ownGuild</th>
-
-                        <th style="width:50% !important;    background-color:white !important;">Action</th>
-
-                    </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
 
 
     </div>
@@ -122,19 +77,7 @@
 
         // $.noConflict();
 // DataTable
-        $('#btlog').DataTable({
 
-            processing: true,
-            serverSide: true,
-            ajax: "{{route('show.getlogd',$ide)}}",
-            columns: [
-                {data: 'id'},
-                {data: 'actTime'},
-                {data: 'username'},
-                {data: 'isenemy'},
-                {data: 'text'}
-            ]
-        });
 
     });
 
