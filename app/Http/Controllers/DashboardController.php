@@ -681,7 +681,7 @@ class DashboardController extends Controller
                 $matk = $dat2->magicAttackTotalPower;
                 $pdef = $dat2->defenceTotalPower;
                 $mdef = $dat2->magicDefenceTotalPower;
-
+                dd($dat,$dat2);
                 return view('intip')
                 ->with('created',$created)
                 ->with('name',$name)
