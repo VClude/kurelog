@@ -110,7 +110,7 @@
                     data: 'guildId',
                     name: 'Guild Profile',
                     render: function ( data, type, full, meta ) {
-                    return "<a href='{{route('show.guild')}}'" + data + "> Show Guild</a>";    },
+                    return "<a href='{{route('show.guild')}}'" + data.guildId + "> Show Guild</a>";    },
                     sortable: false
                 },
                 {
