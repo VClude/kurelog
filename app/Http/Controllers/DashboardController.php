@@ -634,6 +634,43 @@ class DashboardController extends Controller
 
         }
 
+        public function logProfileOnly($id, Request $request)
+    {
+
+        if(!isset($id)){
+            return response()->json(['id empty']);
+        }
+
+        if(!is_numeric($id)){
+            return response()->json(['id must be number']);
+        }
+
+        else{
+            $client = new \GuzzleHttp\Client();
+
+            $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
+      
+
+            
+            $resp = json_decode($res->getBody()->payload->guildMemberList);
+            $data_arr = array();
+            foreach($resp as $data){
+                $name = $data->userData->name;
+                $userId = $data->userData->userId;
+                $data_arr[] = array(
+                            "name"=>$name,
+                            "userId" => $userId,
+                        );
+            }
+                // return response()->json($a);
+                return view('logc')
+                ->with('member',$data_arr);
+                
+                
+        }
+
+        }
+
         public function showProfile($id, Request $request)
         {
     
@@ -2576,6 +2613,7 @@ class DashboardController extends Controller
                         $id = $record->id;
                         $guildName = $record->guildName;
                         $guildLevel = $record->guildLevel;
+                        $guildId = $record->guildDataId;
                         $point = $record->point;
                         $postpoint = $record->postpoint;
                         $winPoint = $record->winPoint;
@@ -2631,6 +2669,7 @@ class DashboardController extends Controller
                             "id"=>$id,
                             "guildName" => $guildName,
                             "guildLevel" => $guildLevel,
+                            "guildId" => $guildId,
                             "point" => number_format($point),
                             "postpoint" => number_format($postpoint),
                             "gain" => number_format($gain),
