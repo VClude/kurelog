@@ -109,7 +109,9 @@
                 {
                     data: 'guildId',
                     name: 'Guild Profile',
-                   
+                    render: function ( data, type, full, meta ) {
+                        console.log(data,type,full,meta);
+                    return "<a href='{{route('show.guild')}}'" + data + "> Show Guild</a>";    },
                     sortable: false
                 },
                 {
