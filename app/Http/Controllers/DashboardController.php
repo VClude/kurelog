@@ -634,7 +634,7 @@ class DashboardController extends Controller
 
         }
 
-        public function logProfileOnly($id, Request $request)
+        public function logProfileOnly($id = "", Request $request)
     {
 
         if(!isset($id)){
@@ -2613,7 +2613,7 @@ class DashboardController extends Controller
                         $id = $record->id;
                         $guildName = $record->guildName;
                         $guildLevel = $record->guildLevel;
-                        $guildId = $record->guildDataId;
+                        $guildId = $record->guildId;
                         $point = $record->point;
                         $postpoint = $record->postpoint;
                         $winPoint = $record->winPoint;
