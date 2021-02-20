@@ -712,7 +712,7 @@ class DashboardController extends Controller
                         $CJ = "Unknown";
                         break;
                 }
-                switch($dat2->gvgJobMstId){
+                switch($dat->gvgJobMstId){
                     case(1):
                         $CJ2 = "Minstrel";
                         break;
