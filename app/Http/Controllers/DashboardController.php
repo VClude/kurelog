@@ -2293,6 +2293,78 @@ class DashboardController extends Controller
 
       }
 
+      public function getLogD($id, Request $request){
+
+           
+
+
+        ## Read value
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        $totalRecords = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->count();
+        $totalRecordswithFilter = gvglog::select('count(*) as allcount')->where('gvgDataId', $id)->where('userName', 'like', '%' .$searchValue . '%')->orWhere('gvgDataId', $id)->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+        ->count();
+
+        // Fetch records
+        $records = gvglog::orderBy($columnName,$columnSortOrder)
+        ->where('gvgDataId', $id)
+        ->where('gvglogs.userName', 'like', '%' .$searchValue . '%')
+          ->orWhere('gvgDataId', $id)
+          ->Where('gvglogs.readableText', 'like', '%' .$searchValue . '%')
+        ->select('gvglogs.*')
+        ->skip($start)
+        ->take($rowperpage)
+        ->get();
+
+
+
+        $data_arr = array();
+
+        foreach($records as $record){
+        $id = $record->gvgHistoryId;
+        // $actTime = date('Y-m-d H:i', strtotime($record->actTime));
+        $actTime = $record->actTime;
+
+        $username = $record->userName;
+        $isenemy = $record->isOwnGuild;
+        $text = $record->readableText;
+
+        $data_arr[] = array(
+            "id" => $id,
+            "actTime" => $actTime,
+            "username" => $username,
+            "isenemy" => ($isenemy)?'Ally':'Enemy',
+            "text" => $text,
+        );
+        }
+
+        $response = array(
+        "draw" => intval($draw),
+        "iTotalRecords" => $totalRecords,
+        "iTotalDisplayRecords" => $totalRecordswithFilter,
+        "aaData" => $data_arr
+        );
+
+        return json_encode($response);
+
+
+
+
+
+}
+
       public function gcView($txt = "all"){
           $lastupdate = gcranktime::first();
           if($txt == "all"){

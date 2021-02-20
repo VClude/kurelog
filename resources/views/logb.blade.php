@@ -159,7 +159,7 @@
 
             processing: true,
             serverSide: true,
-            ajax: "{{route('show.getlog',$ide)}}",
+            ajax: "{{route('show.getlogd',$ide)}}",
             columns: [
                 {data: 'id'},
                 {data: 'actTime'},

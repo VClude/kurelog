@@ -24,6 +24,7 @@ Route::group(['middleware' => 'page-cache'], function(){
     Route::get('/loggrid/{id}', 'App\Http\Controllers\DashboardController@logGridOnly')->name('show.gridonly');
     Route::get('/profile/{id}', 'App\Http\Controllers\DashboardController@showProfile')->name('show.profile');
     Route::get('/log/getlog/{id}','App\Http\Controllers\DashboardController@getLog')->name('show.getlog');
+    Route::get('/log/getlogd/{id}','App\Http\Controllers\DashboardController@getLogD')->name('show.getlogd');
     Route::get('/log/getlog2/{id}/{idm}','App\Http\Controllers\DashboardController@getLogz')->name('show.getlog2');
     Route::get('/log/spec/{spec?}/{userid?}/{idmatch?}','App\Http\Controllers\DashboardController@statSpec')->name('spec.define');
     Route::get('/log/weapspec/{userid?}/{idmatch?}/{spec?}','App\Http\Controllers\DashboardController@statSpecWeap')->name('weapspec.define');
