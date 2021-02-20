@@ -681,7 +681,67 @@ class DashboardController extends Controller
                 $matk = $dat2->magicAttackTotalPower;
                 $pdef = $dat2->defenceTotalPower;
                 $mdef = $dat2->magicDefenceTotalPower;
-                dd($dat,$dat2);
+
+                switch($dat->currentJobMstId){
+                    case(1):
+                        $CJ = "Minstrel";
+                        break;
+                    case(2):
+                        $CJ = "Sorcerer";
+                        break;
+                    case(3):
+                        $CJ = "Mage";
+                        break;
+                    case(4):
+                        $CJ = "Cleric";
+                        break;
+                    case(5):
+                        $CJ = "Breaker";
+                        break;
+                    case(6):
+                        $CJ = "Crusher";
+                        break;
+                    case(7):
+                        $CJ = "Gunner";
+                        break;
+                    case(8):
+                        $CJ = "Paladin";
+                        break;
+
+                    default:
+                        $CJ = "Unknown";
+                        break;
+                }
+                switch($dat2->gvgJobMstId){
+                    case(1):
+                        $CJ2 = "Minstrel";
+                        break;
+                    case(2):
+                        $CJ2 = "Sorcerer";
+                        break;
+                    case(3):
+                        $CJ2 = "Mage";
+                        break;
+                    case(4):
+                        $CJ2 = "Cleric";
+                        break;
+                    case(5):
+                        $CJ2 = "Breaker";
+                        break;
+                    case(6):
+                        $CJ2 = "Crusher";
+                        break;
+                    case(7):
+                        $CJ2 = "Gunner";
+                        break;
+                    case(8):
+                        $CJ2 = "Paladin";
+                        break;
+
+                    default:
+                        $CJ2 = "Unknown";
+                        break;
+                }
                 return view('intip')
                 ->with('created',$created)
                 ->with('name',$name)
@@ -702,7 +762,9 @@ class DashboardController extends Controller
                 ->with('matk',number_format($matk))
                 ->with('patk',number_format($patk))
                 ->with('mdef',number_format($mdef))
-                ->with('pdef',number_format($pdef));
+                ->with('pdef',number_format($pdef))
+                ->with('CJ',$CJ)
+                ->with('CJ2',$CJ2);
                 
     
             }
