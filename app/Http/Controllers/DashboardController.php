@@ -617,12 +617,7 @@ class DashboardController extends Controller
     public function logGridOnly($id, Request $request)
     {
 
-        $sess = session('usern');
-        if(!isset($sess)){
-            return redirect()->route('index');
-        }
-
-        else{
+       
 
 
                 $ally = gvgmember::where('gvgDataId', $id)->get();
@@ -635,7 +630,7 @@ class DashboardController extends Controller
                 ->with('ide',$id);
                 
                 
-            }
+            
 
         }
 
