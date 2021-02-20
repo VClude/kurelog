@@ -652,18 +652,29 @@ class DashboardController extends Controller
                 $res = $client->request('GET', 'http://127.0.0.1:105/getuser2/' . $id);
 
                 $restwo = $client->request('GET', 'http://127.0.0.1:105/getuser/' . $id);
-                echo $res->getBody();
-                dd($res->getBody());
-                if($res->getBody()->status != "200"){
-                    return response()->json(['DATA INVALID']);
-                }
 
-                if($restwo->getBody()->status != "200"){
-                    return response()->json(['DATA INVALID']);
-                }
+
                 
                 $resp = json_decode($res->getBody());
                 $resp2 = json_decode($restwo->getBody());
+                if($resp->status != 200){
+                    return response()->json(['DATA INVALID']);
+                }
+
+                if($resp2->status != 200){
+                    return response()->json(['DATA INVALID']);
+                }
+                if($resp->status != 200){
+                    return response()->json(['DATA INVALID']);
+                }
+
+                if($resp->payload->userData == null){
+                    return response()->json(['DATA INVALID']);
+                }
+
+                if($resp2->payload == null){
+                    return response()->json(['DATA INVALID']);
+                }
                 $dat = $resp->payload->userData;
                 $dat2 = $resp2->payload;
                 $created = Carbon::createFromTimestamp($dat->createdTime)->toDateTimeString(); 
