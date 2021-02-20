@@ -651,7 +651,7 @@ class DashboardController extends Controller
             $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
       
             $resp = json_decode($res->getBody());
-            echo($resp);
+            
             dd($resp);
             $data_arr = array();
             foreach($resp as $data){
