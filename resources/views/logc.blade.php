@@ -32,13 +32,13 @@
                             @foreach ($member as $a)
                                 <div class="block block-rounded">
                                     <div class="block-header block-header-default">
-                                        <h3 class="block-title">{{$a->name}}</h3>
+                                        <h3 class="block-title">{{$a['name']}}</h3>
                                     </div>
                                     <div class="block-content">
 
-                                        <a href="{{ route('show.profile', $a->userId) }}"
+                                        <a href="{{ route('show.profile', $a['userId']) }}"
                                            class="btn btn-xs btn-info modalMd" target="_blank">
-                                            <div class="font-size-md text-black mb-5">Intip {{$a->name}} Profile
+                                            <div class="font-size-md text-black mb-5">Intip {{$a['name']}} Profile
                                             </div>
                                         </a>
 
