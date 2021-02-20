@@ -1649,10 +1649,7 @@ class DashboardController extends Controller
 
                     // }
 
-                    if($grid[0]->isOwnGuild == 1){
-                        $guildenemy = $a[0]->guildDataNameB;
-                    }
-                    else{ $guildenemy = $a[0]->guildDataNameA;}
+
                     $thequery = gvglog::where('userId',$userid)->where('gvgDataId',$idmatch)
                     ->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')
                     ->where('readableText', 'not like', '%10 mastery earned.%')
@@ -2083,7 +2080,6 @@ class DashboardController extends Controller
                     ->with('had',$highestatkdebuff)
                     ->with('hdd',$highestdefdebuff)
                     ->with('username',$grid[0]->userName)
-                    ->with('guildenemy',$guildenemy)
                     ->with('uid',$userid)
                     ->with('ide',$idmatch)
                     ->with('apm',$apm)
