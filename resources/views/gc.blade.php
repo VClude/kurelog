@@ -46,7 +46,6 @@
                     <th>Rank (Server)</th>
                     <th>Rank (TS)</th>
                     <th>Guild Name</th>
-                    <th>Show Guild</th>
                     <th>Lifeforce Total (Before)</th>
                     <th>Lifeforce Total (After)</th>
                     <th>Lifeforce Gain</th>
@@ -107,16 +106,12 @@
                     sortable: false
                 },
                 {
-                    data: 'guildId',
-                    name: 'Guild Profile',
-                    render: function ( data, type, full, meta ) {
-                        console.log(data,type,full,meta);
-                    return "<a href='{{route('show.guild')}}'" + data + "> Show Guild</a>";    },
-                    sortable: false
-                },
-                {
                     data: 'guildName',
                     name: 'Guild Name',
+                    render: function ( data, type, full, meta ) {
+                        console.log(data,type,full,meta);
+                    return "<a href='{{route('show.guild')}}'/" + full.guildId + ">" + full.guildName + "</a>";    
+                },
                     sortable: false
                 },
                 {
