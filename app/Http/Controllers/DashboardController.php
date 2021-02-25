@@ -1668,25 +1668,25 @@ class DashboardController extends Controller
     public function showGrid($userid, $idmatch, Request $request)
         {
 
-            // $sess = session('usern');
-            // if(!isset($sess)){
-            //     return redirect()->route('index');
-            // }
-            // else{
-            // $inarr = [];
-            // $isAllowed = allowed::where('username',$sess)->get();
-            // if($isAllowed){
-            //     foreach($isAllowed as $d){
-            //         array_push($inarr,$d->guildId);
-            //     }
-            //     $a = gvgtop::where('gvgDataId', $idmatch)->get();
-            //     if(count($a) == 0){
-            //         return response()->json(['match/grid not available']);
-            //     }
-            //     $amiallowed = $a[0]->guildDataIdA;
-            //     if(!in_array($amiallowed,$inarr)){
-            //         return response()->json(['You are not allowed to see this grid']);
-            //     }
+            $sess = session('usern');
+            if(!isset($sess)){
+                return redirect()->route('index');
+            }
+            else{
+            $inarr = [];
+            $isAllowed = allowed::where('username',$sess)->get();
+            if($isAllowed){
+                foreach($isAllowed as $d){
+                    array_push($inarr,$d->guildId);
+                }
+                $a = gvgtop::where('gvgDataId', $idmatch)->get();
+                if(count($a) == 0){
+                    return response()->json(['match/grid not available']);
+                }
+                $amiallowed = $a[0]->guildDataIdA;
+                if(!in_array($amiallowed,$inarr)){
+                    return response()->json(['You are not allowed to see this grid']);
+                }
 
                     $y = [];
                     $yb =[];
@@ -2318,12 +2318,12 @@ class DashboardController extends Controller
 
 
 
-            //     }
-            //     else{
-            //         return response()->json(['Not Astellians']);
+                }
+                else{
+                    return response()->json(['Not Astellians']);
 
-            //     }
-            // }
+                }
+            }
 
     }
 
@@ -2789,7 +2789,24 @@ class DashboardController extends Controller
 
     public function getLogz($id,$idm, Request $request){
 
- 
+        $sess = session('usern');
+        if(!isset($sess)){
+            return redirect()->route('index');
+        }
+
+        else{
+            $inarr = [];
+            $isAllowed = allowed::where('username',$sess)->get();
+            if($isAllowed){
+                foreach($isAllowed as $d){
+                    array_push($inarr,$d->guildId);
+                }
+                $a = gvgtop::where('gvgDataId', $id)->first();
+
+                $amiallowed = $a->guildDataIdA;
+                if(!in_array($amiallowed,$inarr)){
+                    return response()->json(['You are not allowed to see this grid']);
+                }
 
                         ## Read value
                         $draw = $request->get('draw');
@@ -2851,7 +2868,12 @@ class DashboardController extends Controller
 
                         return json_encode($response);
 
-           
+                    }
+                    else{
+                        return response()->json(['Not Astellians']);
+    
+                    }
+                }
             
 
 
