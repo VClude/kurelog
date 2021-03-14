@@ -81,6 +81,7 @@ class DashboardController extends Controller
                             array_push($inarr, $d->guildId);
                         }
                         $request->session()->put('usern', $usersess);
+                        $request->session()->put('theuser', $user->getUsername() . '#' . $user->getDiscriminator());
                         $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
 
                         // return response()->json($a);
@@ -596,9 +597,13 @@ class DashboardController extends Controller
     {
 
         $sess = session('usern');
+        $theuser = null == session('theuser') ? session('theuser') : 'someone';
+
         if (!isset($sess)) {
             return redirect()->route('index');
         } else {
+
+            $this->dispatchWebhook($theuser . ' ACCESSING GUILD DATA ID : ' . $id);
             $isAllowed = wled::where('uesrname', $sess)->first();
             if ($isAllowed) {
                 if (!isset($id)) {
@@ -652,9 +657,13 @@ class DashboardController extends Controller
     {
 
         $sess = session('usern');
+        $theuser = null == session('theuser') ? session('theuser') : 'someone';
+
         if (!isset($sess)) {
             return redirect()->route('index');
         } else {
+
+            $this->dispatchWebhook($theuser . ' ACCESSING PLAYER PROFILE ID : ' . $id);
             $isAllowed = wled::where('uesrname', $sess)->first();
             if ($isAllowed) {
                 if (!isset($id)) {
