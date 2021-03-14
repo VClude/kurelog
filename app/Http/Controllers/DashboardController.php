@@ -659,7 +659,10 @@ class DashboardController extends Controller
     {
 
         $sess = session('usern');
-        $theuser = null == session('theuser') ? session('theuser') : 'someone';
+        $theuser = session('theuser');
+        if (!isset($theuser)) {
+            $theuser = "someone ";
+        }
 
         if (!isset($sess)) {
             return redirect()->route('index');
