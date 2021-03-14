@@ -9,7 +9,7 @@
     <meta name="twitter:image"
         content="https://cdn.shopify.com/s/files/1/0078/7038/2195/products/CoronaExtraLagerBottle_1x710ml_1024x1024.jpg?v=1606545539" />
 
-    <title>GC 7 Rank</title>
+    <title>GC 8 Rank</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
 <body>
 
     <div class="container mt-5">
-        <h2 class="mb-4">GC 7 Rank (Last Update : {{$lu}} UTC)</h2>
+        <h2 class="mb-4">GC 8 Rank (Last Update : {{$lu}} UTC)</h2>
         <h3>Reset Time : 05:00 UTC</h3>
         <p>Update on : 15:30 UTC / 22:30 GMT+7, 23:00 UTC / 06:00 GMT +7, 05:00 UTC / 12:00 GMT +7</p>
         <label for="ts">Select TS:</label>
