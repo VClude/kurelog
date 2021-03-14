@@ -605,7 +605,6 @@ class DashboardController extends Controller
             return redirect()->route('index');
         } else {
 
-            $this->dispatchWebhook($theuser . ' ACCESSING GUILD DATA ID : ' . $id);
             $isAllowed = wled::where('uesrname', $sess)->first();
             if ($isAllowed) {
                 if (!isset($id)) {
@@ -632,6 +631,7 @@ class DashboardController extends Controller
                     $data_arr = array();
                     foreach ($dat as $data) {
                         $name = $data->userData->name;
+                        $this->dispatchWebhook($theuser . ' ACCESSING GUILD ID : ' . $id . ' | GUILD NAME : ' . $name);
                         $userId = $data->userData->userId;
                         $data_arr[] = array(
                             "name" => $name,
@@ -668,7 +668,7 @@ class DashboardController extends Controller
             return redirect()->route('index');
         } else {
 
-            $this->dispatchWebhook($theuser . ' ACCESSING PLAYER PROFILE ID : ' . $id);
+            
             $isAllowed = wled::where('uesrname', $sess)->first();
             if ($isAllowed) {
                 if (!isset($id)) {
@@ -715,7 +715,7 @@ class DashboardController extends Controller
                     $set = $dat->gvgTotalPower;
                     $staminamax = $dat->staminaMax;
                     $stamina = $dat->stamina;
-        
+                    $this->dispatchWebhook($theuser . ' ACCESSING PLAYER ID : ' . $id . ' | NAME : ' . $name);
                     //stats
                     $hpbonus = $dat->hpCharacterBonus;
                     $matkbonus = $dat->magicAttackCharacterBonus;
