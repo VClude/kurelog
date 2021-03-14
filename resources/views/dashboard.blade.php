@@ -12,7 +12,18 @@
                         </div>
                     </div>
 
+                    <a href="{{ route('show.gc', 'all') }}">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-xl-12">
+                <div class="block">
+                    <div class="block-content">
+                    <h1>GC 8 Rank Data</h1>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
         @foreach ($guild as $g)
         <a href="{{ route('show.log', $g->gvgDataId) }}">
         <div class="row justify-content-center">
