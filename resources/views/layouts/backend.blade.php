@@ -19,7 +19,7 @@
 
         <link href="{{ asset('/js/plugins/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
-        <link rel="stylesheet" id="css-main" href="{{ mix('/css/codebase.css') }}">
+        <link rel="stylesheet" id="css-main" href="{{ asset('/css/codebase.css') }}">
    
         <style>
             table tbody td {    
@@ -28,7 +28,7 @@
                 
             </style>
         <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
-        <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/corporate.css') }}"> -->
+        <!-- <link rel="stylesheet" id="css-theme" href="{{ asset('/css/themes/corporate.css') }}"> -->
         @yield('css_after')
 
         <!-- Scripts -->
@@ -93,11 +93,11 @@
 
         <!-- Codebase Core JS -->
 
-        <script src="{{ mix('js/codebase.app.js') }}"></script>
+        <script src="{{ asset('js/codebase.app.js') }}"></script>
        
 
         <!-- Laravel Scaffolding JS -->
-        <script src="{{ mix('js/laravel.app.js') }}"></script>
+        <script src="{{ asset('js/laravel.app.js') }}"></script>
         <script src="{{asset('/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
         <script src="{{asset('/js/plugins/easy-pie-chart/jquery.easypiechart.min.js')}}"></script>
         <script src="{{asset('/js/plugins/chartjs/Chart.bundle.min.js')}}"></script>
