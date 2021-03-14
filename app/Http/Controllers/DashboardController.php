@@ -595,193 +595,221 @@ class DashboardController extends Controller
     public function logProfileOnly($id = "", Request $request)
     {
 
-        if (!isset($id)) {
-            return response()->json(['id empty']);
-        }
-
-        if (!is_numeric($id)) {
-            return response()->json(['id must be number']);
+        $sess = session('usern');
+        if (!isset($sess)) {
+            return redirect()->route('index');
         } else {
-            $client = new \GuzzleHttp\Client();
+            $isAllowed = wled::where('uesrname', $sess)->first();
+            if ($isAllowed) {
+                if (!isset($id)) {
+                    return response()->json(['id empty']);
+                }
+        
+                if (!is_numeric($id)) {
+                    return response()->json(['id must be number']);
+                } else {
+                    $client = new \GuzzleHttp\Client();
+        
+                    $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
+        
+                    $resp = json_decode($res->getBody());
+                    if ($resp->status != 200) {
+                        return response()->json(['DATA INVALID']);
+                    }
+        
+                    if ($resp->payload == null) {
+                        return response()->json(['DATA INVALID']);
+                    }
+                    $dat = $resp->payload->guildMemberList;
+        
+                    $data_arr = array();
+                    foreach ($dat as $data) {
+                        $name = $data->userData->name;
+                        $userId = $data->userData->userId;
+                        $data_arr[] = array(
+                            "name" => $name,
+                            "userId" => $userId,
+                        );
+                    }
+                    // return response()->json($a);
+        
+                    return view('logc')
+                        ->with('member', $data_arr);
+        
+                }
 
-            $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
+            } else {
+                return redirect()->away('https://www.google.com');
 
-            $resp = json_decode($res->getBody());
-            if ($resp->status != 200) {
-                return response()->json(['DATA INVALID']);
             }
-
-            if ($resp->payload == null) {
-                return response()->json(['DATA INVALID']);
-            }
-            $dat = $resp->payload->guildMemberList;
-
-            $data_arr = array();
-            foreach ($dat as $data) {
-                $name = $data->userData->name;
-                $userId = $data->userData->userId;
-                $data_arr[] = array(
-                    "name" => $name,
-                    "userId" => $userId,
-                );
-            }
-            // return response()->json($a);
-
-            return view('logc')
-                ->with('member', $data_arr);
-
         }
+
+        
 
     }
 
     public function showProfile($id, Request $request)
     {
 
-        if (!isset($id)) {
-            return response()->json(['id empty']);
-        }
-
-        if (!is_numeric($id)) {
-            return response()->json(['id must be number']);
+        $sess = session('usern');
+        if (!isset($sess)) {
+            return redirect()->route('index');
         } else {
-            $client = new \GuzzleHttp\Client();
+            $isAllowed = wled::where('uesrname', $sess)->first();
+            if ($isAllowed) {
+                if (!isset($id)) {
+                    return response()->json(['id empty']);
+                }
+        
+                if (!is_numeric($id)) {
+                    return response()->json(['id must be number']);
+                } else {
+                    $client = new \GuzzleHttp\Client();
+        
+                    $res = $client->request('GET', 'http://127.0.0.1:105/getuser2/' . $id);
+        
+                    $restwo = $client->request('GET', 'http://127.0.0.1:105/getuser/' . $id);
+        
+                    $resp = json_decode($res->getBody());
+                    $resp2 = json_decode($restwo->getBody());
+                    if ($resp->status != 200) {
+                        return response()->json(['DATA INVALID']);
+                    }
+        
+                    if ($resp2->status != 200) {
+                        return response()->json(['DATA INVALID']);
+                    }
+                    if ($resp->status != 200) {
+                        return response()->json(['DATA INVALID']);
+                    }
+        
+                    if ($resp->payload->userData == null) {
+                        return response()->json(['DATA INVALID']);
+                    }
+        
+                    if ($resp2->payload == null) {
+                        return response()->json(['DATA INVALID']);
+                    }
+                    $dat = $resp->payload->userData;
+                    $dat2 = $resp2->payload;
+                    $created = Carbon::createFromTimestamp($dat->createdTime)->toDateTimeString();
+                    $name = $dat->name;
+                    $level = $dat->level;
+                    $gold = $dat->money;
+                    $maxcost = $dat->deckCost;
+                    $latestset = $dat->currentTotalPower;
+                    $set = $dat->gvgTotalPower;
+                    $staminamax = $dat->staminaMax;
+                    $stamina = $dat->stamina;
+        
+                    //stats
+                    $hpbonus = $dat->hpCharacterBonus;
+                    $matkbonus = $dat->magicAttackCharacterBonus;
+                    $patkbonus = $dat->attackCharacterBonus;
+                    $mdefbonus = $dat->magicDefenceCharacterBonus;
+                    $pdefbonus = $dat->defenceCharacterBonus;
+        
+                    //personal
+                    $guild = $dat2->guildName;
+                    $hp = $dat2->maxHp;
+                    $patk = $dat2->attackTotalPower;
+                    $matk = $dat2->magicAttackTotalPower;
+                    $pdef = $dat2->defenceTotalPower;
+                    $mdef = $dat2->magicDefenceTotalPower;
+        
+                    switch ($dat->currentJobMstId) {
+                        case (1):
+                            $CJ = "Minstrel";
+                            break;
+                        case (2):
+                            $CJ = "Sorcerer";
+                            break;
+                        case (3):
+                            $CJ = "Mage";
+                            break;
+                        case (4):
+                            $CJ = "Cleric";
+                            break;
+                        case (5):
+                            $CJ = "Breaker";
+                            break;
+                        case (6):
+                            $CJ = "Crusher";
+                            break;
+                        case (7):
+                            $CJ = "Gunner";
+                            break;
+                        case (8):
+                            $CJ = "Paladin";
+                            break;
+        
+                        default:
+                            $CJ = "Unknown";
+                            break;
+                    }
+                    switch ($dat->gvgJobMstId) {
+                        case (1):
+                            $CJ2 = "Minstrel";
+                            break;
+                        case (2):
+                            $CJ2 = "Sorcerer";
+                            break;
+                        case (3):
+                            $CJ2 = "Mage";
+                            break;
+                        case (4):
+                            $CJ2 = "Cleric";
+                            break;
+                        case (5):
+                            $CJ2 = "Breaker";
+                            break;
+                        case (6):
+                            $CJ2 = "Crusher";
+                            break;
+                        case (7):
+                            $CJ2 = "Gunner";
+                            break;
+                        case (8):
+                            $CJ2 = "Paladin";
+                            break;
+        
+                        default:
+                            $CJ2 = "Unknown";
+                            break;
+                    }
+                    return view('intip')
+                        ->with('created', $created)
+                        ->with('name', $name)
+                        ->with('level', $level)
+                        ->with('gold', number_format($gold))
+                        ->with('maxcost', $maxcost)
+                        ->with('latestset', number_format($latestset))
+                        ->with('set', number_format($set))
+                        ->with('staminamax', $staminamax)
+                        ->with('stamina', $stamina)
+                        ->with('hpbonus', $hpbonus)
+                        ->with('matkbonus', $matkbonus)
+                        ->with('patkbonus', $patkbonus)
+                        ->with('mdefbonus', $mdefbonus)
+                        ->with('pdefbonus', $pdefbonus)
+                        ->with('guild', $guild)
+                        ->with('hp', number_format($hp))
+                        ->with('matk', number_format($matk))
+                        ->with('patk', number_format($patk))
+                        ->with('mdef', number_format($mdef))
+                        ->with('pdef', number_format($pdef))
+                        ->with('CJ', $CJ)
+                        ->with('CJ2', $CJ2);
+        
+                }
 
-            $res = $client->request('GET', 'http://127.0.0.1:105/getuser2/' . $id);
+            } else {
+                return redirect()->away('https://www.google.com');
 
-            $restwo = $client->request('GET', 'http://127.0.0.1:105/getuser/' . $id);
-
-            $resp = json_decode($res->getBody());
-            $resp2 = json_decode($restwo->getBody());
-            if ($resp->status != 200) {
-                return response()->json(['DATA INVALID']);
             }
-
-            if ($resp2->status != 200) {
-                return response()->json(['DATA INVALID']);
-            }
-            if ($resp->status != 200) {
-                return response()->json(['DATA INVALID']);
-            }
-
-            if ($resp->payload->userData == null) {
-                return response()->json(['DATA INVALID']);
-            }
-
-            if ($resp2->payload == null) {
-                return response()->json(['DATA INVALID']);
-            }
-            $dat = $resp->payload->userData;
-            $dat2 = $resp2->payload;
-            $created = Carbon::createFromTimestamp($dat->createdTime)->toDateTimeString();
-            $name = $dat->name;
-            $level = $dat->level;
-            $gold = $dat->money;
-            $maxcost = $dat->deckCost;
-            $latestset = $dat->currentTotalPower;
-            $set = $dat->gvgTotalPower;
-            $staminamax = $dat->staminaMax;
-            $stamina = $dat->stamina;
-
-            //stats
-            $hpbonus = $dat->hpCharacterBonus;
-            $matkbonus = $dat->magicAttackCharacterBonus;
-            $patkbonus = $dat->attackCharacterBonus;
-            $mdefbonus = $dat->magicDefenceCharacterBonus;
-            $pdefbonus = $dat->defenceCharacterBonus;
-
-            //personal
-            $guild = $dat2->guildName;
-            $hp = $dat2->maxHp;
-            $patk = $dat2->attackTotalPower;
-            $matk = $dat2->magicAttackTotalPower;
-            $pdef = $dat2->defenceTotalPower;
-            $mdef = $dat2->magicDefenceTotalPower;
-
-            switch ($dat->currentJobMstId) {
-                case (1):
-                    $CJ = "Minstrel";
-                    break;
-                case (2):
-                    $CJ = "Sorcerer";
-                    break;
-                case (3):
-                    $CJ = "Mage";
-                    break;
-                case (4):
-                    $CJ = "Cleric";
-                    break;
-                case (5):
-                    $CJ = "Breaker";
-                    break;
-                case (6):
-                    $CJ = "Crusher";
-                    break;
-                case (7):
-                    $CJ = "Gunner";
-                    break;
-                case (8):
-                    $CJ = "Paladin";
-                    break;
-
-                default:
-                    $CJ = "Unknown";
-                    break;
-            }
-            switch ($dat->gvgJobMstId) {
-                case (1):
-                    $CJ2 = "Minstrel";
-                    break;
-                case (2):
-                    $CJ2 = "Sorcerer";
-                    break;
-                case (3):
-                    $CJ2 = "Mage";
-                    break;
-                case (4):
-                    $CJ2 = "Cleric";
-                    break;
-                case (5):
-                    $CJ2 = "Breaker";
-                    break;
-                case (6):
-                    $CJ2 = "Crusher";
-                    break;
-                case (7):
-                    $CJ2 = "Gunner";
-                    break;
-                case (8):
-                    $CJ2 = "Paladin";
-                    break;
-
-                default:
-                    $CJ2 = "Unknown";
-                    break;
-            }
-            return view('intip')
-                ->with('created', $created)
-                ->with('name', $name)
-                ->with('level', $level)
-                ->with('gold', number_format($gold))
-                ->with('maxcost', $maxcost)
-                ->with('latestset', number_format($latestset))
-                ->with('set', number_format($set))
-                ->with('staminamax', $staminamax)
-                ->with('stamina', $stamina)
-                ->with('hpbonus', $hpbonus)
-                ->with('matkbonus', $matkbonus)
-                ->with('patkbonus', $patkbonus)
-                ->with('mdefbonus', $mdefbonus)
-                ->with('pdefbonus', $pdefbonus)
-                ->with('guild', $guild)
-                ->with('hp', number_format($hp))
-                ->with('matk', number_format($matk))
-                ->with('patk', number_format($patk))
-                ->with('mdef', number_format($mdef))
-                ->with('pdef', number_format($pdef))
-                ->with('CJ', $CJ)
-                ->with('CJ2', $CJ2);
-
         }
+
+        
 
     }
 
