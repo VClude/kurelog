@@ -98,7 +98,11 @@
             ajax: "{{route('get.gc', $ide)}}",
             columns: [{
                     data: 'id',
-                    name: 'Rank'
+                    name: 'Rank',
+                    render: function ( data, type, full, meta ) {
+                    return "Wait Reset Time";    
+                },
+                    sortable: false
                 },
                 {
                     data: 'tsrank',
@@ -108,9 +112,6 @@
                 {
                     data: 'guildName',
                     name: 'Guild Name',
-                    render: function ( data, type, full, meta ) {
-                    return "<a href='{{route('show.guild')}}/" + full.guildId + "'>" + full.guildName + "</a>";    
-                },
                     sortable: false
                 },
                 {

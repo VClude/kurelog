@@ -11,6 +11,7 @@ use App\Models\gvgmember;
 use App\Models\gvgmvp;
 use App\Models\gvgnmlog;
 use App\Models\gvgshinma;
+use App\Models\wled;
 use App\Models\gvgtop;
 use App\Models\weapimg;
 use App\Models\weapskill;
@@ -2415,14 +2416,26 @@ class DashboardController extends Controller
 
     public function gcView($txt = "all")
     {
-        $lastupdate = gcranktime::first();
-        if ($txt == "all") {
-            return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
-        } else if ($txt > 0 && $txt <= 13) {
-            return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+        $sess = session('usern');
+        if (!isset($sess)) {
+            return redirect()->route('index');
         } else {
-            return view('gc')->with('ide', "all")->with('lu', $lastupdate->lastUpdate);
+            $isAllowed = wled::where('uesrname', $sess)->first();
+            if ($isAllowed) {
+                $lastupdate = gcranktime::first();
+                if ($txt == "all") {
+                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                } else if ($txt > 0 && $txt <= 13) {
+                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                } else {
+                    return view('gc')->with('ide', "all")->with('lu', $lastupdate->lastUpdate);
+        
+                }
 
+            } else {
+                return redirect()->away('https://www.google.com');
+
+            }
         }
 
     }
