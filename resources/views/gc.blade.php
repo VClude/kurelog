@@ -99,9 +99,6 @@
             columns: [{
                     data: 'id',
                     name: 'Rank',
-                    render: function ( data, type, full, meta ) {
-                    return "Wait Reset Time";    
-                },
                     sortable: false
                 },
                 {
