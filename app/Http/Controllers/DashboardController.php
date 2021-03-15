@@ -2475,7 +2475,15 @@ class DashboardController extends Controller
                 }
 
             } else {
-                return redirect()->away('https://www.google.com');
+                $lastupdate = gcranktime::first();
+                if ($txt == "all") {
+                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                } else if ($txt > 0 && $txt <= 13) {
+                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                } else {
+                    return view('gce')->with('ide', "all")->with('lu', $lastupdate->lastUpdate);
+        
+                }
 
             }
         }
