@@ -2654,7 +2654,7 @@ class DashboardController extends Controller
             $gain = $point2 == 0 ? 0 : $point2 - $point;
 
             $data_arr[] = array(
-                "grank" => $grank,
+                "grank" => $id,
                 "guildName" => $guildName,
                 "guildLevel" => $guildLevel,
                 "guildId" => $guildId,
