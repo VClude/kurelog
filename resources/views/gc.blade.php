@@ -46,8 +46,12 @@
                     <th>Rank (Server)</th>
                     <th>Rank (TS)</th>
                     <th>Guild Name</th>
-                    <th>Lifeforce Total (Before)</th>
-                    <th>Lifeforce Total (After)</th>
+                    <th>Day 1</th>
+                    <th>Day 2</th>
+                    <th>Day 3</th>
+                    <th>Day 4</th>
+                    <th>Day 5</th>
+                    <th>Day 6</th>
                     <th>Lifeforce Gain</th>
                     <th>Win</th>
                     <th>Lose</th>
