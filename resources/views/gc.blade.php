@@ -97,7 +97,7 @@
             orderable: true,
             ajax: "{{route('get.gc', $ide)}}",
             columns: [{
-                    data: 'id',
+                    data: 'grank',
                     name: 'Rank',
                     sortable: false
                 },
@@ -116,11 +116,27 @@
                 },
                 {
                     data: 'point',
-                    name: 'Lifeforce Before'
+                    name: 'LF Day 1'
                 },
                 {
-                    data: 'postpoint',
-                    name: 'Lifeforce After'
+                    data: 'point2',
+                    name: 'LF Day 2'
+                },
+                {
+                    data: 'point3',
+                    name: 'LF Day 3'
+                },
+                {
+                    data: 'point4',
+                    name: 'LF Day 4'
+                },
+                {
+                    data: 'point5',
+                    name: 'LF Day 5'
+                },
+                {
+                    data: 'point6',
+                    name: 'LF Day 6'
                 },
                 {
                     data: 'gain',

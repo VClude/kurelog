@@ -2594,12 +2594,16 @@ class DashboardController extends Controller
         $data_arr = array();
         foreach ($records as $record) {
 
-            $id = $record->id;
+            $id = $record->grank;
             $guildName = $record->guildName;
             $guildLevel = $record->guildLevel;
             $guildId = $record->guildId;
             $point = $record->point;
-            $postpoint = $record->postpoint;
+            $point2 = $record->point2;
+            $point3 = $record->point3;
+            $point4 = $record->point4;
+            $point5 = $record->point5;
+            $point6 = $record->point6;
             $winPoint = $record->winPoint;
             $sourceCount = $record->sourceCount;
             $rankingInBattleTerm = $record->rankingInBattleTerm;
@@ -2647,15 +2651,19 @@ class DashboardController extends Controller
                     $TS = "unknown";
                     break;
             }
-            $gain = $postpoint == 0 ? 0 : $postpoint - $point;
+            $gain = $point2 == 0 ? 0 : $point2 - $point;
 
             $data_arr[] = array(
-                "id" => $id,
+                "grank" => $grank,
                 "guildName" => $guildName,
                 "guildLevel" => $guildLevel,
                 "guildId" => $guildId,
                 "point" => number_format($point),
-                "postpoint" => number_format($postpoint),
+                "point2" => number_format($point2),
+                "point3" => number_format($point3),
+                "point4" => number_format($point4),
+                "point5" => number_format($point5),
+                "point6" => number_format($point6),
                 "gain" => number_format($gain),
                 "winPoint" => $winPoint,
                 "losePoint" => $sourceCount - $winPoint,
