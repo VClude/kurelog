@@ -2358,7 +2358,7 @@ class DashboardController extends Controller
                 arsort($dpatkb);
                 $dpatkbK = array_keys($dpatkb);
                 $dpatkbV = array_values($dpatkb);
-                $nick = $grid0[0]->userName != null ? $grid0[0]->userName : "player";
+                // $nick = $grid0[0]->userName != null ? $grid0[0]->userName : "player";
                 // return response()->json($y);
                 return view('grid')
                     ->with('hdv', $highestdmgvalue)
@@ -2373,7 +2373,7 @@ class DashboardController extends Controller
                     ->with('hdb', $highestdefbuff)
                     ->with('had', $highestatkdebuff)
                     ->with('hdd', $highestdefdebuff)
-                    ->with('username', $grid0[0]->userName)
+                    ->with('username', "Player")
                     ->with('uid', $userid)
                     ->with('ide', $idmatch)
                     ->with('apm', $apm)
