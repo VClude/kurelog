@@ -1778,7 +1778,7 @@ class DashboardController extends Controller
                 $ysecond = [];
                 // $blog = TbBlog::find($id);
                 $limitgrid = 20;
-                $swaptime = gvglog::where('userId',$userid)->where('readableText', 'like', '%changed gear set to%')->first();
+                $swaptime = gvglog::where('userId',$userid)->where('readableText', 'like', '% changed gear set to %')->first();
                 $st = isset($swaptime) ? $swaptime->actTime : 'none';
                 $stread = isset($swaptime) ? date('i:s', strtotime($st)) : 'none';
 
@@ -1947,7 +1947,6 @@ class DashboardController extends Controller
                         if (isset($colosupport[0])) {
                             foreach ($colosupport as $cs) {
                                 $cse = explode("\n", $cs->readableText);
-                                $regexq = preg_quote($regexq, '/');
                                 $cskill = preg_grep("/^" . $regexq . "/", $cse);
                                 $cskill2 = implode("", $cskill);
                                 // print($cskill2 . '</br>');
@@ -2358,7 +2357,7 @@ class DashboardController extends Controller
                 arsort($dpatkb);
                 $dpatkbK = array_keys($dpatkb);
                 $dpatkbV = array_values($dpatkb);
-                // $nick = $grid0[0]->userName != null ? $grid0[0]->userName : "player";
+
                 // return response()->json($y);
                 return view('grid')
                     ->with('hdv', $highestdmgvalue)
@@ -2373,7 +2372,7 @@ class DashboardController extends Controller
                     ->with('hdb', $highestdefbuff)
                     ->with('had', $highestatkdebuff)
                     ->with('hdd', $highestdefdebuff)
-                    ->with('username', "Player")
+                    ->with('username', $grid0[0]->userName)
                     ->with('uid', $userid)
                     ->with('ide', $idmatch)
                     ->with('apm', $apm)
