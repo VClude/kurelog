@@ -2763,7 +2763,7 @@ class DashboardController extends Controller
                     $TS = "unknown";
                     break;
             }
-            $gain = $point3 == 0 ? 0 : $point3 - $point2;
+            $gain = $point4 == 0 ? 0 : $point4 - $point3;
 
             $data_arr[] = array(
                 "grank" => $id,
