@@ -633,9 +633,47 @@ class DashboardController extends Controller
                     foreach ($dat as $data) {
                         $name = $data->userData->name;
                         $userId = $data->userData->userId;
+                        $hp = $data->maxHp;
+                        $cp = $data->totalPower;
+                        $lastlogin = $data->userData->recentLoginTime;
+                        switch ($data->userData->gvgJobMstId) {
+                            case (1):
+                                $CJ2 = "Minstrel";
+                                break;
+                            case (2):
+                                $CJ2 = "Sorcerer";
+                                break;
+                            case (3):
+                                $CJ2 = "Mage";
+                                break;
+                            case (4):
+                                $CJ2 = "Cleric";
+                                break;
+                            case (5):
+                                $CJ2 = "Breaker";
+                                break;
+                            case (6):
+                                $CJ2 = "Crusher";
+                                break;
+                            case (7):
+                                $CJ2 = "Gunner";
+                                break;
+                            case (8):
+                                $CJ2 = "Paladin";
+                                break;
+            
+                            default:
+                                $CJ2 = "Unknown";
+                                break;
+                        }
                         $data_arr[] = array(
                             "name" => $name,
                             "userId" => $userId,
+                            "job" => $CJ2,
+                            "hp" => $hp,
+                            "cp" => $cp,
+                            "lastlogin" => $lastlogin
+                            
                         );
                     }
                     // return response()->json($a);
@@ -646,7 +684,80 @@ class DashboardController extends Controller
                 }
 
             } else {
-                return redirect()->away('https://www.google.com');
+                if (!isset($id)) {
+                    return response()->json(['id empty']);
+                }
+        
+                if (!is_numeric($id)) {
+                    return response()->json(['id must be number']);
+                } else {
+                    $client = new \GuzzleHttp\Client();
+        
+                    $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
+        
+                    $resp = json_decode($res->getBody());
+                    if ($resp->status != 200) {
+                        return response()->json(['DATA INVALID']);
+                    }
+        
+                    if ($resp->payload == null) {
+                        return response()->json(['DATA INVALID']);
+                    }
+                    $dat = $resp->payload->guildMemberList;
+        
+                    $data_arr = array();
+                    foreach ($dat as $data) {
+                        $name = $data->userData->name;
+                        $userId = $data->userData->userId;
+                        $hp = $data->maxHp;
+                        $cp = $data->totalPower;
+                        $lastlogin = $data->userData->recentLoginTime;
+                        switch ($data->userData->gvgJobMstId) {
+                            case (1):
+                                $CJ2 = "Minstrel";
+                                break;
+                            case (2):
+                                $CJ2 = "Sorcerer";
+                                break;
+                            case (3):
+                                $CJ2 = "Mage";
+                                break;
+                            case (4):
+                                $CJ2 = "Cleric";
+                                break;
+                            case (5):
+                                $CJ2 = "Breaker";
+                                break;
+                            case (6):
+                                $CJ2 = "Crusher";
+                                break;
+                            case (7):
+                                $CJ2 = "Gunner";
+                                break;
+                            case (8):
+                                $CJ2 = "Paladin";
+                                break;
+            
+                            default:
+                                $CJ2 = "Unknown";
+                                break;
+                        }
+                        $data_arr[] = array(
+                            "name" => $name,
+                            "userId" => $userId,
+                            "job" => $CJ2,
+                            "hp" => $hp,
+                            "cp" => $cp,
+                            "lastlogin" => $lastlogin
+                            
+                        );
+                    }
+                    // return response()->json($a);
+        
+                    return view('logd')
+                        ->with('member', $data_arr);
+        
+                }
 
             }
         }

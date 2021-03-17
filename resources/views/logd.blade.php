@@ -39,11 +39,7 @@
                                         <h2>Power : {{$a['cp']}}</h2>
                                         <h2>Job : {{$a['CJ2']}}</h2>
                                         <h2>Last Login : {{$a['lastlogin']}}</h2>
-                                        <a href="{{ route('show.profile', $a['userId']) }}"
-                                           class="btn btn-xs btn-info modalMd" target="_blank">
-                                            <div class="font-size-md text-black mb-5">Intip {{$a['name']}} Profile
-                                            </div>
-                                        </a>
+                                       
 
 
                                     </div>
