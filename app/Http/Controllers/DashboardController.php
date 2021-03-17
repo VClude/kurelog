@@ -2373,7 +2373,7 @@ class DashboardController extends Controller
                     ->with('hdb', $highestdefbuff)
                     ->with('had', $highestatkdebuff)
                     ->with('hdd', $highestdefdebuff)
-                    ->with('username', $grid0[0]->userName)
+                    ->with('username', "Player")
                     ->with('uid', $userid)
                     ->with('ide', $idmatch)
                     ->with('apm', $apm)
