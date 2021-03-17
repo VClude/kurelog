@@ -1778,18 +1778,18 @@ class DashboardController extends Controller
                 $ysecond = [];
                 // $blog = TbBlog::find($id);
                 $limitgrid = 20;
-                $swaptime = gvglog::where('userId',$userid)->where('readableText', 'like', '%changed gear set to%')->first();
+                $swaptime = gvglog::where('userId',$userid)->where('gvgDataId', $idmatch)->where('readableText', 'like', '%changed gear set to%')->first();
                 $st = isset($swaptime) ? $swaptime->actTime : 'none';
                 $stread = isset($swaptime) ? date('i:s', strtotime($st)) : 'none';
 
                 if($st != 'none'){
 
                     $grid0 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
-                    where('readableText', 'not like', '%summon skill%')->where('readableText','not like','%changed gear set to%')->where('actTime', '<', $st)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('actTime', '<', $st)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
                     orderBy('gvgHistoryId', 'asc')->LIMIT(100)->get();
 
                     $grid1 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
-                    where('readableText', 'not like', '%summon skill%')->where('readableText','not like','%changed gear set to%')->where('actTime', '>', $st)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('actTime', '>', $st)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
                     orderBy('gvgHistoryId', 'asc')->LIMIT(100)->get();
 
                     if (count($grid0) == 0 && count($grid1) == 0) {
@@ -1856,7 +1856,7 @@ class DashboardController extends Controller
                 }
                 else{
                     $grid0 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
-                    where('readableText', 'not like', '%summon skill%')->where('readableText','not like','%changed gear set to%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
                     orderBy('gvgHistoryId', 'asc')->LIMIT(100)->get();
 
                     if (count($grid0) == 0) {
@@ -1940,7 +1940,6 @@ class DashboardController extends Controller
                             ->where('readableText', 'not like', '%10 mastery earned.%')
                             ->where('readableText', 'not like', '%switched with%')
                             ->where('readableText', 'not like', '%summon skill%')
-                            ->where('readableText', 'not like', '%changed gear set to%')
                             ->where('readableText', 'not like', '%' . $query2 . '%')
                             ->where('readableText', 'like', '%' . $regexq . '%')
                             ->orderBy('gvgHistoryId', 'asc')->limit(1)->get();
@@ -2373,7 +2372,7 @@ class DashboardController extends Controller
                     ->with('hdb', $highestdefbuff)
                     ->with('had', $highestatkdebuff)
                     ->with('hdd', $highestdefdebuff)
-                    ->with('username', "Player")
+                    ->with('username', $grid0[0]->userName)
                     ->with('uid', $userid)
                     ->with('ide', $idmatch)
                     ->with('apm', $apm)
