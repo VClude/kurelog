@@ -1947,6 +1947,7 @@ class DashboardController extends Controller
                         if (isset($colosupport[0])) {
                             foreach ($colosupport as $cs) {
                                 $cse = explode("\n", $cs->readableText);
+                                $regexq = preg_quote($regexq, '/');
                                 $cskill = preg_grep("/^" . $regexq . "/", $cse);
                                 $cskill2 = implode("", $cskill);
                                 // print($cskill2 . '</br>');
