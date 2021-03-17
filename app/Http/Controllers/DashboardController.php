@@ -669,7 +669,7 @@ class DashboardController extends Controller
                         $data_arr[] = array(
                             "name" => $name,
                             "userId" => $userId,
-                            "job" => $CJ2,
+                            "CJ2" => $CJ2,
                             "hp" => $hp,
                             "cp" => $cp,
                             "lastlogin" => $lastlogin
