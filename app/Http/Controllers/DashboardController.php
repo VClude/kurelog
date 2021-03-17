@@ -593,7 +593,7 @@ class DashboardController extends Controller
 
     }
 
-    public function logProfileOnly($id = "", Request $request)
+    public function logProfileOnly($id = "",$type="web", Request $request)
     {
 
         $sess = session('usern');
@@ -677,9 +677,9 @@ class DashboardController extends Controller
                         );
                     }
                     // return response()->json($a);
-        
-                    return view('logc')
-                        ->with('member', $data_arr);
+                    
+                    return $type == "web" ? view('logc')
+                        ->with('member', $data_arr) : response()->json(['member' => $data_arr]);
         
                 }
 
@@ -754,8 +754,8 @@ class DashboardController extends Controller
                     }
                     // return response()->json($a);
         
-                    return view('logd')
-                        ->with('member', $data_arr);
+                    return $type == "web" ? view('logd')
+                        ->with('member', $data_arr) : response()->json(['member' => $data_arr]);
         
                 }
 
@@ -765,6 +765,7 @@ class DashboardController extends Controller
         
 
     }
+
 
     public function showProfile($id, Request $request)
     {
