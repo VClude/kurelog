@@ -35,11 +35,51 @@
                                         <h3 class="block-title">{{$a['name']}}</h3>
                                     </div>
                                     <div class="block-content">
-                                        <h2>Rank : {{$a['level']}}</h2>
-                                        <h2>HP : {{$a['hp']}}</h2>
-                                        <h2>Power : {{$a['cp']}}</h2>
-                                        <h2>Job : {{$a['CJ2']}}</h2>
-                                        <h2>Last Login : {{$a['lastlogin']}}</h2>
+                                                    <!-- Row #4 -->
+            <div class="col-md-12">
+                <a class="block block-link-shadow overflow-hidden">
+                    <div class="block-content block-content-full">
+                        <div class="text-left">
+                            <h3>{{$a['name']}}</h3>
+                        </div>
+                        <div class="row py-20">
+                            <div class="col-6 text-right border-r">
+                                <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                    <div class="font-size-h3 font-w600 text-info">{{$a['level']}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">Rank
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                    <div class="font-size-h3 font-w600 text-success">{{$a['hp']}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">HP
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row py-20">
+                            <div class="col-6 text-right border-r">
+                                <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
+                                    <div class="font-size-h3 font-w600 text-info">{{$a['cp']}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">Point
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                                    <div class="font-size-h3 font-w600 text-success">{{$a['CJ2']}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-muted">Class
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END Row #4 -->
+        </div>
                                         <a href="{{ route('show.profile', $a['userId']) }}"
                                            class="btn btn-xs btn-info modalMd" target="_blank">
                                             <div class="font-size-md text-black mb-5">Intip {{$a['name']}} Profile
