@@ -22,20 +22,18 @@
     <div class="row row-deck gutters-tiny" id="accordion2" role="tablist" aria-multiselectable="true">
         <div class="col-md-12">
             <div class="block block-rounded">
-                <div class="block-header block-header-default">
-                    <a class="font-w600 collapsed" data-toggle="collapse" data-parent="#accordion2"
-                        href="#accordion2_q1" aria-expanded="false" aria-controls="accordion2_q1">Tap to show
-                        Member List</a>
-                </div>
+                
                
                         @foreach ($member as $a)
                     <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
                         <div class="col-md-12">
                             <a class="block block-link-shadow overflow-hidden">
                                 <div class="block-content block-content-full">
-                                    <div class="text-left">
-                                    <h3>{{$a['name']}} | Last Online : {{$a['lastlogin']}}</h3>
-
+                                <div class="text-left">
+                                        <h3>{{$a['name']}}</h3>
+                                    </div>
+                                    <div class="text-right">
+                                        <h3>Last Online : {{$a['lastlogin']}}</h3>
                                     </div>
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
