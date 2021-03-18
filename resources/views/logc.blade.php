@@ -30,13 +30,7 @@
                     <div id="accordion2_q1" class="collapse" role="tabpanel" aria-labelledby="accordion2_h1" style="">
                         <div class="block-content">
                             @foreach ($member as $a)
-                                <div class="block block-rounded">
-                                    <div class="block-header block-header-default">
-                                        <h3 class="block-title">{{$a['name']}}</h3>
-                                    </div>
-                                    <div class="block-content">
-                                                    <!-- Row #4 -->
-            <div class="col-md-12">
+                            <div class="col-md-12">
                 <a class="block block-link-shadow overflow-hidden">
                     <div class="block-content block-content-full">
                         <div class="text-left">
@@ -80,15 +74,6 @@
             </div>
             <!-- END Row #4 -->
         </div>
-                                        <a href="{{ route('show.profile', $a['userId']) }}"
-                                           class="btn btn-xs btn-info modalMd" target="_blank">
-                                            <div class="font-size-md text-black mb-5">Intip {{$a['name']}} Profile
-                                            </div>
-                                        </a>
-
-
-                                    </div>
-                                </div>
                             @endforeach
                         </div>
                     </div>

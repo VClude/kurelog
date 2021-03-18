@@ -30,12 +30,7 @@
                     <div id="accordion2_q1" class="collapse" role="tabpanel" aria-labelledby="accordion2_h1" style="">
                         <div class="block-content">
                             @foreach ($member as $a)
-                                <div class="block block-rounded">
-                                   
-                                    <div class="block-content">
-                                    <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
-            <!-- Row #4 -->
-            <div class="col-md-12">
+                            <div class="col-md-12">
                 <a class="block block-link-shadow overflow-hidden">
                     <div class="block-content block-content-full">
                         <div class="text-left">
@@ -79,12 +74,6 @@
             </div>
             <!-- END Row #4 -->
         </div>
-                                       
-                                       
-
-
-                                    </div>
-                                </div>
                             @endforeach
                         </div>
                     </div>
