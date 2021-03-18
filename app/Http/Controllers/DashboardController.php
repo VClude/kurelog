@@ -633,6 +633,7 @@ class DashboardController extends Controller
                     foreach ($dat as $data) {
                         $name = $data->userData->name;
                         $userId = $data->userData->userId;
+                        $level = $data->userData->level;
                         $hp = $data->maxHp;
                         $cp = $data->totalPower;
                         $lastlogin = $data->userData->recentLoginTime;
@@ -670,8 +671,9 @@ class DashboardController extends Controller
                             "name" => $name,
                             "userId" => $userId,
                             "CJ2" => $CJ2,
-                            "hp" => $hp,
-                            "cp" => $cp,
+                            "hp" => number_format($hp),
+                            "cp" => number_format($cp),
+                            "level" => $level,
                             "lastlogin" => $lastlogin
                             
                         );
@@ -709,6 +711,7 @@ class DashboardController extends Controller
                     foreach ($dat as $data) {
                         $name = $data->userData->name;
                         $userId = $data->userData->userId;
+                        $level = $data->userData->level;
                         $hp = $data->maxHp;
                         $cp = $data->totalPower;
                         $lastlogin = $data->userData->recentLoginTime;
@@ -746,8 +749,9 @@ class DashboardController extends Controller
                             "name" => $name,
                             "userId" => $userId,
                             "CJ2" => $CJ2,
-                            "hp" => $hp,
-                            "cp" => $cp,
+                            "hp" => number_format($hp),
+                            "cp" => number_format($cp),
+                            "level" => $level,
                             "lastlogin" => $lastlogin
                             
                         );

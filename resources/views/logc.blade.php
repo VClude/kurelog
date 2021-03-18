@@ -35,6 +35,7 @@
                                         <h3 class="block-title">{{$a['name']}}</h3>
                                     </div>
                                     <div class="block-content">
+                                        <h2>Rank : {{$a['level']}}</h2>
                                         <h2>HP : {{$a['hp']}}</h2>
                                         <h2>Power : {{$a['cp']}}</h2>
                                         <h2>Job : {{$a['CJ2']}}</h2>
