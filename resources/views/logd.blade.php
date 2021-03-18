@@ -34,7 +34,8 @@
                             <a class="block block-link-shadow overflow-hidden">
                                 <div class="block-content block-content-full">
                                     <div class="text-left">
-                                        <h3>{{$a['name']}}</h3>
+                                    <h3>{{$a['name']}} | Last Online : {{$a['lastlogin']}}</h3>
+
                                     </div>
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">

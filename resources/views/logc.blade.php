@@ -31,10 +31,10 @@
                             @foreach ($member as $a)
                             <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
                         <div class="col-md-12">
-                            <a class="block block-link-shadow overflow-hidden">
+                            <a class="block block-link-shadow overflow-hidden" href="{{ route('show.profile', $a['userId']) }}" target="_blank">
                                 <div class="block-content block-content-full">
                                     <div class="text-left">
-                                        <h3>{{$a['name']}}</h3>
+                                        <h3>{{$a['name']}} | Last Online : {{$a['lastlogin']}}</h3>
                                     </div>
                                     <div class="row py-20">
                                         <div class="col-6 text-right border-r">
