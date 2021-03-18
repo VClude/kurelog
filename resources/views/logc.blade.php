@@ -27,56 +27,59 @@
                            href="#accordion2_q1" aria-expanded="false" aria-controls="accordion2_q1">Tap to show
                             Member List</a>
                     </div>
-                    <div id="accordion2_q1" class="collapse" role="tabpanel" aria-labelledby="accordion2_h1" style="">
-                        <div class="block-content">
+                    
                             @foreach ($member as $a)
-                            <div class="col-md-12">
-                <a class="block block-link-shadow overflow-hidden">
-                    <div class="block-content block-content-full">
-                        <div class="text-left">
-                            <h3>{{$a['name']}}</h3>
+                            <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+                        <div class="col-md-12">
+                            <a class="block block-link-shadow overflow-hidden">
+                                <div class="block-content block-content-full">
+                                    <div class="text-left">
+                                        <h3>{{$a['name']}}</h3>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-right border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear"
+                                                data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{$a['level']}}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">Rank
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear"
+                                                data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{$a['hp']}}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">HP
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row py-20">
+                                        <div class="col-6 text-right border-r">
+                                            <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear"
+                                                data-class="animated fadeInLeft">
+                                                <div class="font-size-h3 font-w600 text-info">{{$a['cp']}}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">Point
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="js-appear-enabled animated fadeInRight" data-toggle="appear"
+                                                data-class="animated fadeInRight">
+                                                <div class="font-size-h3 font-w600 text-success">{{$a['CJ2']}}</div>
+                                                <div class="font-size-sm font-w600 text-uppercase text-muted">Class
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="row py-20">
-                            <div class="col-6 text-right border-r">
-                                <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
-                                    <div class="font-size-h3 font-w600 text-info">{{$a['level']}}</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-muted">Rank
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
-                                    <div class="font-size-h3 font-w600 text-success">{{$a['hp']}}</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-muted">HP
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row py-20">
-                            <div class="col-6 text-right border-r">
-                                <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
-                                    <div class="font-size-h3 font-w600 text-info">{{$a['cp']}}</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-muted">Point
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
-                                    <div class="font-size-h3 font-w600 text-success">{{$a['CJ2']}}</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-muted">Class
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- END Row #4 -->
                     </div>
-                </a>
-            </div>
-            <!-- END Row #4 -->
-        </div>
                             @endforeach
-                        </div>
-                    </div>
+                  
 
                 </div>
             </div>
