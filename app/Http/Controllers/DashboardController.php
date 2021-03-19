@@ -595,7 +595,7 @@ class DashboardController extends Controller
 
     public function logProfileOnly($id = "",$type="web", Request $request)
     {
-        Response::json(array(
+        return Response::json(array(
             'code'      =>  509,
             'message'   =>  "Traffic Exceeded"
         ), 509);
