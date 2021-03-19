@@ -67,16 +67,12 @@
         </table>
 </div>
 </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2> Due Lack of US TS Final slot information, the Final US Prediction wasn't Showed </h2>
 
+
+
+        <div class="row">
+            <div class="col-md-3">
             </div>
-
-            
-        </div>
-
-        <div class="row">
             <div class="col-md-6">
                 <h1> Final Asia Prediction </h1>
                 <table class="table table-bordered yajra-datatable" id="tbl2">
@@ -93,7 +89,33 @@
                 </table>
             </div>
 
-            
+            <div class="col-md-3">
+            </div>
+           
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <h1> Final US Prediction </h1>
+                <table class="table table-bordered yajra-datatable" id="tbl3">
+                    <thead>
+                        <tr>
+                            <th>Guild Name</th>
+                            <th>Versus</th>
+                            <th>Guild Name</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-3">
+            </div>
+           
         </div>
     </div>
 
@@ -212,7 +234,35 @@
             ]
         });
 
-       
+        $('#tbl3').DataTable({
+
+processing: true,
+serverSide: true,
+orderable: true,
+searching: false,
+lengthChange: false,
+pageLength: 50,
+ajax: "{{route('get.finalb')}}",
+columns: [{
+        data: 'guildNameA',
+        name: 'Guild A',
+        sortable: false
+    },
+    {
+        data: 'versus',
+        name: 'Guild Name',
+        sortable: false
+    },
+    {
+        data: 'guildNameB',
+        name: 'Guild B',
+        sortable: false
+    }
+]
+});
+
+     
+
 
         document.getElementById('ts').addEventListener('change', function (e) {
             window.location.href = "{{route('show.gc')}}/" + e.target.value;
