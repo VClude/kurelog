@@ -74,7 +74,8 @@
         <div class="row">
             
             <div class="col-md-6" style="overflow:auto;">
-                <h1> Final Asia Prediction </h1>
+            <h1> Final Asia Prediction </h1>
+                <h3>Update On : 18:00 UTC</h3>
                 <table class="table table-bordered yajra-datatable" id="tbl2">
                     <thead>
                         <tr>
@@ -91,6 +92,7 @@
 
             <div class="col-md-6" style="overflow:auto;">
                 <h1> Final US Prediction </h1>
+                <h3>Update On : 05:00 UTC</h3>
                 <table class="table table-bordered yajra-datatable" id="tbl3">
                     <thead>
                         <tr>
