@@ -65,7 +65,7 @@
         </table>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h2> Due Lack of US TS Final slot information, the Final US Prediction wasn't Showed </h2>
 
             </div>
