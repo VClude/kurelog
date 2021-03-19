@@ -71,9 +71,8 @@
 
 
         <div class="row">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6">
+            
+            <div class="col-md-6" style="overflow:auto;">
                 <h1> Final Asia Prediction </h1>
                 <table class="table table-bordered yajra-datatable" id="tbl2">
                     <thead>
@@ -89,15 +88,7 @@
                 </table>
             </div>
 
-            <div class="col-md-3">
-            </div>
-           
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="overflow:auto;">
                 <h1> Final US Prediction </h1>
                 <table class="table table-bordered yajra-datatable" id="tbl3">
                     <thead>
@@ -112,11 +103,10 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="col-md-3">
-            </div>
            
         </div>
+
+      
     </div>
 
 </body>
