@@ -18,6 +18,8 @@ Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('index')
 Route::get('/gcrank/{txt?}', 'App\Http\Controllers\DashboardController@gcView')->name('show.gc'); 
 Route::get('/gclist/{txt?}', 'App\Http\Controllers\DashboardController@getGcRank')->name('get.gc');
 Route::get('/finala', 'App\Http\Controllers\DashboardController@getGcFinalA')->name('get.finala');
+Route::get('/finalb', 'App\Http\Controllers\DashboardController@getGcFinalB')->name('get.finalb');
+
 Route::get('/guild/{id?}/{type?}', 'App\Http\Controllers\DashboardController@logProfileOnly')->name('show.guild');
 
 Route::group(['middleware' => 'page-cache'], function(){

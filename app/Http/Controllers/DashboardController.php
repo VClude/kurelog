@@ -2820,7 +2820,106 @@ class DashboardController extends Controller
         $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)->count();
         $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
+            ->select('gcranks.*')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+        $data_arr = array();
+        $ctr = 1;
+        foreach ($records as $record) {
+            switch ($record->gvgTimeType) {
+                case (1):
+                    $TS = 1;
+                    break;
+                case (2):
+                    $TS = 2;
+                    break;
+                case (4):
+                    $TS = 3;
+                    break;
+                case (8):
+                    $TS = 4;
+                    break;
+                case (16):
+                    $TS = 5;
+                    break;
+                case (32):
+                    $TS = 6;
+                    break;
+                case (64):
+                    $TS = 7;
+                    break;
+                case (128):
+                    $TS = 8;
+                    break;
+                case (256):
+                    $TS = 9;
+                    break;
+                case (512):
+                    $TS = 10;
+                    break;
+                case (1024):
+                    $TS = 11;
+                    break;
+                case (2048):
+                    $TS = 12;
+                    break;
+                case (4096):
+                    $TS = 13;
+                    break;
+                default:
+                    $TS = "unknown";
+                    break;
+            }
+            $guildName = $record->guildName;
+            if ($ctr % 2 == 1) {
+                $guildA = $guildName;
+            } else {
+                $guildB = $guildName;
+                $data_arr[] = array(
+                    "guildNameA" => $guildA . " [TS : " . $TS . "]",
+                    "versus" => "vs",
+                    "guildNameB" => $guildB . " [TS : " . $TS . "]",
+                );
+            }
+
+            $ctr++;
+        }
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr,
+        );
+
+        return json_encode($response);
+
+    }
+
+    public function getGcFinalB(Request $request)
+    {
+
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)->count();
+        $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
+            ->count();
+        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)
@@ -2830,14 +2929,58 @@ class DashboardController extends Controller
         $ctr = 1;
         foreach ($records as $record) {
             $guildName = $record->guildName;
+            switch ($record->gvgTimeType) {
+                case (1):
+                    $TS = 1;
+                    break;
+                case (2):
+                    $TS = 2;
+                    break;
+                case (4):
+                    $TS = 3;
+                    break;
+                case (8):
+                    $TS = 4;
+                    break;
+                case (16):
+                    $TS = 5;
+                    break;
+                case (32):
+                    $TS = 6;
+                    break;
+                case (64):
+                    $TS = 7;
+                    break;
+                case (128):
+                    $TS = 8;
+                    break;
+                case (256):
+                    $TS = 9;
+                    break;
+                case (512):
+                    $TS = 10;
+                    break;
+                case (1024):
+                    $TS = 11;
+                    break;
+                case (2048):
+                    $TS = 12;
+                    break;
+                case (4096):
+                    $TS = 13;
+                    break;
+                default:
+                    $TS = "unknown";
+                    break;
+            }
             if ($ctr % 2 == 1) {
                 $guildA = $guildName;
             } else {
                 $guildB = $guildName;
                 $data_arr[] = array(
-                    "guildNameA" => $guildA,
+                    "guildNameA" => $guildA . " [TS : " . $TS . "]",
                     "versus" => "vs",
-                    "guildNameB" => $guildB,
+                    "guildNameB" => $guildB . " [TS : " . $TS . "]",
                 );
             }
 
