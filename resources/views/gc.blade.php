@@ -214,7 +214,7 @@
             ]
         });
 
-        $('#tbl2').DataTable({
+        $('#tbl3').DataTable({
 
 processing: true,
 serverSide: true,
