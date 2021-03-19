@@ -40,6 +40,8 @@
             <option value="12" {{ $ide == 12 ? 'selected' : '' }}>12</option>
             <option value="13" {{ $ide == 13 ? 'selected' : '' }}>13</option>
         </select>
+        <div class="row">
+            <div class="col-md-12" style="overflow:auto;">
         <table class="table table-bordered yajra-datatable" id="tbl1">
             <thead>
                 <tr>
@@ -63,6 +65,8 @@
             <tbody>
             </tbody>
         </table>
+</div>
+</div>
 
         <div class="row">
             <div class="col-md-12">
