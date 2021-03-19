@@ -81,21 +81,7 @@
                 </table>
             </div>
 
-            <div class="col-md-6">
-                <h1> Final US Prediction </h1>
-                <table class="table table-bordered yajra-datatable" id="tbl3">
-                    <thead>
-                        <tr>
-                            <th>Guild Name</th>
-                            <th>Versus</th>
-                            <th>Guild Name</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+           
         </div>
     </div>
 
@@ -214,32 +200,7 @@
             ]
         });
 
-        $('#tbl2').DataTable({
-
-processing: true,
-serverSide: true,
-orderable: true,
-searching: false,
-lengthChange: false,
-pageLength: 50,
-ajax: "{{route('get.finalb')}}",
-columns: [{
-        data: 'guildNameA',
-        name: 'Guild A',
-        sortable: false
-    },
-    {
-        data: 'versus',
-        name: 'Guild Name',
-        sortable: false
-    },
-    {
-        data: 'guildNameB',
-        name: 'Guild B',
-        sortable: false
-    }
-]
-});
+     
 
 
         document.getElementById('ts').addEventListener('change', function (e) {
