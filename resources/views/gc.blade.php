@@ -66,8 +66,24 @@
 
         <div class="row">
             <div class="col-md-6">
-            <h1> Final Asia Prediction </h1>
-                    <table class="table table-bordered yajra-datatable" id="tbl2">
+                <h1> Final Asia Prediction </h1>
+                <table class="table table-bordered yajra-datatable" id="tbl2">
+                    <thead>
+                        <tr>
+                            <th>Guild Name</th>
+                            <th>Versus</th>
+                            <th>Guild Name</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h1> Final US Prediction </h1>
+                <table class="table table-bordered yajra-datatable" id="tbl3">
                     <thead>
                         <tr>
                             <th>Guild Name</th>
@@ -113,9 +129,10 @@
                 {
                     data: 'guildName',
                     name: 'Guild Name',
-                    render: function ( data, type, full, meta ) {
-                    return "<a href='{{route('show.guild')}}/" + full.guildId + "'>" + full.guildName + "</a>";    
-                },
+                    render: function (data, type, full, meta) {
+                        return "<a href='{{route('show.guild')}}/" + full.guildId + "'>" + full
+                            .guildName + "</a>";
+                    },
                     sortable: false
                 },
                 {
@@ -179,8 +196,7 @@
             lengthChange: false,
             pageLength: 50,
             ajax: "{{route('get.finala')}}",
-            columns: [
-                {
+            columns: [{
                     data: 'guildNameA',
                     name: 'Guild A',
                     sortable: false
@@ -197,6 +213,33 @@
                 }
             ]
         });
+
+        $('#tbl2').DataTable({
+
+processing: true,
+serverSide: true,
+orderable: true,
+searching: false,
+lengthChange: false,
+pageLength: 50,
+ajax: "{{route('get.finalb')}}",
+columns: [{
+        data: 'guildNameA',
+        name: 'Guild A',
+        sortable: false
+    },
+    {
+        data: 'versus',
+        name: 'Guild Name',
+        sortable: false
+    },
+    {
+        data: 'guildNameB',
+        name: 'Guild B',
+        sortable: false
+    }
+]
+});
 
 
         document.getElementById('ts').addEventListener('change', function (e) {
