@@ -2879,9 +2879,9 @@ class DashboardController extends Controller
             } else {
                 $guildB = $guildName;
                 $data_arr[] = array(
-                    "guildNameA" => $guildA . " [TS : " . $TS . "]",
+                    "guildNameA" => $guildA,
                     "versus" => "vs",
-                    "guildNameB" => $guildB . " [TS : " . $TS . "]",
+                    "guildNameB" => $guildB,
                 );
             }
 
@@ -2978,9 +2978,9 @@ class DashboardController extends Controller
             } else {
                 $guildB = $guildName;
                 $data_arr[] = array(
-                    "guildNameA" => $guildA . " [TS : " . $TS . "]",
+                    "guildNameA" => $guildA,
                     "versus" => "vs",
-                    "guildNameB" => $guildB . " [TS : " . $TS . "]",
+                    "guildNameB" => $guildB,
                 );
             }
 
