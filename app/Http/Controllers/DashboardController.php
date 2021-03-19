@@ -595,8 +595,10 @@ class DashboardController extends Controller
 
     public function logProfileOnly($id = "",$type="web", Request $request)
     {
-        return response()->json(['Updating TS 3,4,5,6 Score, please wait']);
-
+        Response::json(array(
+            'code'      =>  509,
+            'message'   =>  "Traffic Exceeded"
+        ), 509);
         $sess = session('usern');
         $theuser = session('theuser');
         if (!isset($theuser)) {
@@ -2575,8 +2577,6 @@ class DashboardController extends Controller
 
     public function gcView($txt = "all")
     {
-        return response()->json(['Updating TS 3,4,5,6 Score, please wait']);
-
         $sess = session('usern');
         if (!isset($sess)) {
             return redirect()->route('index');
