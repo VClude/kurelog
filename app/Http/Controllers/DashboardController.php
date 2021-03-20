@@ -595,10 +595,10 @@ class DashboardController extends Controller
 
     public function logProfileOnly($id = "",$type="web", Request $request)
     {
-        return response()->json(array(
-            'code'      =>  509,
-            'message'   =>  "Traffic Exceeded"
-        ), 509);
+        // return response()->json(array(
+        //     'code'      =>  509,
+        //     'message'   =>  "Traffic Exceeded"
+        // ), 509);
         $sess = session('usern');
         $theuser = session('theuser');
         if (!isset($theuser)) {
