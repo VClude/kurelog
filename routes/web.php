@@ -37,5 +37,5 @@ Route::get('/', 'App\Http\Controllers\DashboardController@indexDisc')->name('ind
 //     // Route::get('/log/showgridb/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGridB')->name('show.gridb');
 //     Route::get('/log/showbuff/{userid}/{idmatch}','App\Http\Controllers\DashboardController@getBuffSimp')->name('show.buff');
 
-});
+// });
 
