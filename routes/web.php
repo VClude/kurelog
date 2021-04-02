@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('index');
+Route::get('/', 'App\Http\Controllers\DashboardController@indexDisc')->name('index');
 Route::get('/gcrank/{txt?}', 'App\Http\Controllers\DashboardController@gcView')->name('show.gc'); 
 Route::get('/gclist/{txt?}', 'App\Http\Controllers\DashboardController@getGcRank')->name('get.gc');
 Route::get('/finala', 'App\Http\Controllers\DashboardController@getGcFinalA')->name('get.finala');

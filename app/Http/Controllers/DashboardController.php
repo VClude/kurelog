@@ -27,6 +27,10 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexDisc(Request $request)
+    {
+    return view('dashboard')->with('guild', 0);
+    }
     public function index(Request $request)
     {
         $inarr = [];
