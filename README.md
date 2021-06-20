@@ -21,5 +21,7 @@ This application was made for sorting messy battle log given by sinoalice into i
 - etc, i even forgot what inside completely lol
 
 
+## you need to feed your own battle-log data / grancolo data to the database by yourself, Internal API for getting guild data also not included in this repository
+
 
 
