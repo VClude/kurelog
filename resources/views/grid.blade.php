@@ -30,7 +30,7 @@
                         <div class="block-content block-content-full">
                             <div class="py-15 px-20 clearfix border-black-op-b">
 
-                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Statistics</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light"> {{$username}} Statistics</div>
                             </div>
 
                             <div class="py-15 px-20 clearfix border-black-op-b">
@@ -81,7 +81,15 @@
 
                                 <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo"
                                     data-speed="1000" data-to="260">{{$swaptime}}</div>
-                                <div class="font-size-sm font-w600 text-uppercase text-info-light">{{$username}} Switching Grid in Minutes
+                                <div class="font-size-sm font-w600 text-uppercase text-info-light">{{$username}} Switching to Second Grid in Minutes
+                                </div>
+                            </div>
+
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-info js-count-to-enabled" data-toggle="countTo"
+                                    data-speed="1000" data-to="260">{{$swaptime2}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-info-light">{{$username}} Switching to Third Grid in Minutes
                                 </div>
                             </div>
                         </div>
@@ -102,7 +110,7 @@
                         style="background-image: url('assets/media/photos/photo34@2x.jpg');">
                         <div class="block-header">
                             <h3 class="block-title">
-                                {{$username}} <small>@if($vs == 0) First @else Second @endif Grid</small>
+                                {{$username}} <small>@if($vs == 0) First @elseif($vs == 1) Second @else Third @endif Grid</small>
                             </h3>
                         </div>
                         <div class="block-content">
@@ -111,6 +119,7 @@
                             @endphp
 
                             @foreach ($imagelist as $im)
+                            
                             <img onclick='weapSpec({{$uid}}, {{$ide}}, "{{$masterdata[0]["grid"][$vs][$b] ? $masterdata[0]["grid"][$vs][$b] : 0}}", "{{$masterdata[0]["effect"][$vs][$b]}}", "{{$masterdata[0]["coloskill"][$vs][$b]}}")'
                                 src="{{ asset($im) }}" data-toggle="tooltip" data-placement="bottom" data-html="true"
                                 title="Colo Skill : <br> @if(isset($masterdata[0]['grid'][$vs][$b])){{ $masterdata[0]['grid'][$vs][$b] }} @else'Not found' @endif <br><br> Skill Desc : <br> {{ $masterdata[0]['effect'][$vs][$b] }} <br><br>   Colo Support : <br> @if(isset($masterdata[0]['coloskill'][$vs][$b])){{ $masterdata[0]['coloskill'][$vs][$b] }} @else'Not found' @endif "></img>
@@ -801,7 +810,7 @@
             .then((data) => {
                 console.log(data);
                 // console.log(wat);
-                document.getElementById("weimg").src = 'http://kurelog.madjavacoder.me/' + data.url;
+                document.getElementById("weimg").src = 'http://localhost/kureha-log/public/' + data.url;
                 document.getElementById("wename").innerHTML = textSearch;
                 document.getElementById("wedesc").innerHTML = textDesc;
                 document.getElementById("wetypz").innerHTML = data.ismulti == 0 ? 'Single Target' : (data.ismulti ==

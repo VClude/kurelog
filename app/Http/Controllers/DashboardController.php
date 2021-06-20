@@ -124,6 +124,8 @@ class DashboardController extends Controller
 
     public function log($id, Request $request)
     {
+
+
         $guildAAbuff = 0;
         $guildBAbuff = 0;
         $guildAAdebuff = 0;
@@ -1783,13 +1785,130 @@ class DashboardController extends Controller
 
                 $yfirst = [];
                 $ysecond = [];
+                $ythird = [];
                 // $blog = TbBlog::find($id);
                 $limitgrid = 20;
-                $swaptime = gvglog::where('userId',$userid)->where('gvgDataId', $idmatch)->where('readableText', 'like', '%changed gear set to%')->first();
-                $st = isset($swaptime) ? $swaptime->actTime : 'none';
-                $stread = isset($swaptime) ? date('i:s', strtotime($st)) : 'none';
+                $swaptime = gvglog::where('userId',$userid)->where('gvgDataId', $idmatch)->where('readableText', 'like', '%changed gear set to%')->orderBy('gvgHistoryId', 'asc')->get();
+                $st = isset($swaptime[0]) ? $swaptime[0]->actTime : 'none';
+                $stread = isset($swaptime[0]) ? date('i:s', strtotime($st)) : 'none';
 
-                if($st != 'none'){
+                $st2 = isset($swaptime[1]) ? $swaptime[1]->actTime : 'none';
+                $stread2 = isset($swaptime[1]) ? date('i:s', strtotime($st2)) : 'none';
+
+                // dd($st,$st2);return;
+
+
+                if($st != 'none' && $st2 != 'none'){
+
+                    $grid0 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('actTime', '<', $st)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
+                    orderBy('gvgHistoryId', 'asc')->LIMIT(100)->get();
+                    // dd($grid0);return;
+
+                    $grid1 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('actTime', '>', $st)->where('actTime', '<', $st2)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
+                    orderBy('gvgHistoryId', 'asc')->LIMIT(100)->get();
+
+                    $grid2 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
+                    where('readableText', 'not like', '%summon skill%')->where('actTime', '>', $st2)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
+                    orderBy('gvgHistoryId', 'asc')->LIMIT(100)->get();
+
+                   
+
+                    if (count($grid0) == 0 && count($grid1) == 0  && count($grid2) == 0) {
+                        return response()->json(['match/grid not available']);
+                    }
+    
+                    foreach ($grid0 as $g) {
+    
+                        if ($gridctr != $limitgrid) {
+                            $thearr = explode("\n", $g->readableText);
+                            if (preg_match('/combo.$/', $thearr[0])) {
+                                $strt = preg_replace('/activated.$/', '', $thearr[1]);
+                                if (!in_array($strt, $y)) {
+                                    array_push($y, $strt);
+                                    $gridctr++;
+                                }
+    
+                            } else {
+                                $strt = preg_replace('/activated.$/', '', $thearr[0]);
+                                if (!in_array($strt, $y)) {
+                                    array_push($y, $strt);
+                                    $gridctr++;
+    
+                                }
+    
+                            }
+    
+                        }
+    
+                        // .*\.ccf$
+                    }
+                    $y_arr[] = $y;
+                    $gridctr = 0;
+                    $y = [];
+
+                    foreach ($grid1 as $g) {
+    
+                        if ($gridctr != $limitgrid) {
+                            $thearr = explode("\n", $g->readableText);
+                            if (preg_match('/combo.$/', $thearr[0])) {
+                                $strt = preg_replace('/activated.$/', '', $thearr[1]);
+                                if (!in_array($strt, $y)) {
+                                    array_push($y, $strt);
+                                    $gridctr++;
+                                }
+    
+                            } else {
+                                $strt = preg_replace('/activated.$/', '', $thearr[0]);
+                                if (!in_array($strt, $y)) {
+                                    array_push($y, $strt);
+                                    $gridctr++;
+    
+                                }
+    
+                            }
+    
+                        }
+    
+                        // .*\.ccf$
+                    }
+                    $y_arr[] = $y;
+                    $gridctr = 0;
+                    $y = [];
+                    
+                    foreach ($grid2 as $g) {
+    
+                        if ($gridctr != $limitgrid) {
+                            $thearr = explode("\n", $g->readableText);
+                            if (preg_match('/combo.$/', $thearr[0])) {
+                                $strt = preg_replace('/activated.$/', '', $thearr[1]);
+                                if (!in_array($strt, $y)) {
+                                    array_push($y, $strt);
+                                    $gridctr++;
+                                }
+    
+                            } else {
+                                $strt = preg_replace('/activated.$/', '', $thearr[0]);
+                                if (!in_array($strt, $y)) {
+                                    array_push($y, $strt);
+                                    $gridctr++;
+    
+                                }
+    
+                            }
+    
+                        }
+    
+                        // .*\.ccf$
+                    }
+                    $y_arr[] = $y;
+
+
+                }
+
+
+                else if($st != 'none' && $st2 == 'none'){
 
                     $grid0 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                     where('readableText', 'not like', '%summon skill%')->where('actTime', '<', $st)->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
@@ -1831,6 +1950,7 @@ class DashboardController extends Controller
                     $y_arr[] = $y;
                     $gridctr = 0;
                     $y = [];
+
                     
                     foreach ($grid1 as $g) {
     
@@ -1861,6 +1981,8 @@ class DashboardController extends Controller
 
 
                 }
+
+
                 else{
                     $grid0 = gvglog::where('userId', $userid)->where('gvgDataId', $idmatch)->where('readableText', 'not like', '%revive%')->where('readableText', 'not like', '%guildship%')->where('readableText', 'not like', '%10 mastery earned.%')->
                     where('readableText', 'not like', '%summon skill%')->where('readableText', 'not like', '%switched with%')->where('readableText', 'not like', '%HP recovered.%')->
@@ -1898,6 +2020,8 @@ class DashboardController extends Controller
                     $y_arr[] = $y;
 
                 }
+
+                // dd($y_arr);return;
                 
                 foreach($y_arr as $grid){
                     foreach ($grid as $ys) {
@@ -2408,6 +2532,7 @@ class DashboardController extends Controller
                     ->with('rs2rate', number_format($rs2rate))
                     ->with('sb3rate', number_format($sb3rate))
                     ->with('swaptime', $stread)
+                    ->with('swaptime2', $stread2)
                     ->with('masterdata', $masterarray);
 
             } else {

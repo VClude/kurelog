@@ -37,6 +37,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
         <script src="{{ asset('/js/plugins/datatables/jquery.dataTables.min.js') }}" defer></script>
         <script src="{{ asset('/js/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <style>
+        .kontener {
+  position: relative;
+}
+
+/* Bottom right text */
+.text-blok {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: black;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+        </style>
     </head>
     <body>
   
