@@ -22,7 +22,7 @@
         <h2 class="mb-4">GC 11 Rank (Last Update : {{$lu}} UTC)</h2>
         <h3>Reset Time : 05:00 UTC</h3>
         <p>Update on : 15:30 UTC / 22:30 GMT+7, 23:00 UTC / 06:00 GMT +7, 05:00 UTC / 12:00 GMT +7</p>
-        <h2 class="mb-4">Use Desktop view if you Browse this in Mobile for better view</h2>
+        <h2 class="mb-4">Guild info feature is now available, click guildname to view</h2>
 
         <label for="ts">Select TS:</label>
 

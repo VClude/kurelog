@@ -622,7 +622,7 @@ class DashboardController extends Controller
                 } else {
                     $client = new \GuzzleHttp\Client();
         
-                    $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
+                    $res = $client->request('GET', 'https://xvc.cleverapps.io/getguild/' . $id);
         
                     $resp = json_decode($res->getBody());
                     if ($resp->status != 200) {
@@ -700,7 +700,7 @@ class DashboardController extends Controller
                 } else {
                     $client = new \GuzzleHttp\Client();
         
-                    $res = $client->request('GET', 'http://127.0.0.1:105/getguild/' . $id);
+                    $res = $client->request('GET', 'https://xvc.cleverapps.io/getguild/' . $id);
         
                     $resp = json_decode($res->getBody());
                     if ($resp->status != 200) {
@@ -801,9 +801,9 @@ class DashboardController extends Controller
                 } else {
                     $client = new \GuzzleHttp\Client();
         
-                    $res = $client->request('GET', 'http://127.0.0.1:105/getuser2/' . $id);
+                    $res = $client->request('GET', 'https://xvc.cleverapps.io/getuser2/' . $id);
         
-                    $restwo = $client->request('GET', 'http://127.0.0.1:105/getuser/' . $id);
+                    $restwo = $client->request('GET', 'https://xvc.cleverapps.io/getuser/' . $id);
         
                     $resp = json_decode($res->getBody());
                     $resp2 = json_decode($restwo->getBody());
