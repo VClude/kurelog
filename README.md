@@ -1,7 +1,6 @@
+## New Site : https://kurelog.site
 
 ## Kurelog
-
-Thank you for using kurelog for all this time, unfortunately due to my lost interest in sinoalice, i made this source code public so anyone can use it
 
 Database example was found at kurelog.sql
 
