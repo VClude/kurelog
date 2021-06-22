@@ -5,8 +5,8 @@
 <div class="content">
     <div class="my-50 text-center">
 
-        <h2 class="font-w700 text-white mb-10">Guild/User Info</h2>
-        <h3 class="h5 text-muted mb-0">cibai ?</h3>
+        <h2 class="font-w700 text-white mb-10">Stalking Mode</h2>
+        <h3 class="h5 text-muted mb-0">use it wisely</h3>
 
     </div>
 
@@ -76,6 +76,40 @@
                         <div class="font-size-sm font-w600 text-uppercase text-success-light">AP Left</div>
                     </div>
 
+                    <div class="py-15 px-20 clearfix border-black-op-b">
+
+                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
+                            data-speed="200" data-to="149">{{$hp}}</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light">HP</div>
+                    </div>
+
+                    <div class="py-15 px-20 clearfix border-black-op-b">
+
+                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
+                            data-speed="200" data-to="149">{{$patk}}</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light">PATK</div>
+                    </div>
+
+                    <div class="py-15 px-20 clearfix border-black-op-b">
+
+                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
+                            data-speed="200" data-to="149">{{$pdef}}</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light">PDEF</div>
+                    </div>
+
+                    <div class="py-15 px-20 clearfix border-black-op-b">
+
+                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
+                            data-speed="200" data-to="149">{{$matk}}</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light">MATK</div>
+                    </div>
+
+                    <div class="py-15 px-20 clearfix border-black-op-b">
+
+                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
+                            data-speed="200" data-to="149">{{$mdef}}</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light">MDEF</div>
+                    </div>
 
 
 
