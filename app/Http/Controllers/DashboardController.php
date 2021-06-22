@@ -763,7 +763,7 @@ class DashboardController extends Controller
                     }
                     // return response()->json($a);
         
-                    return $type == "web" ? view('logd')
+                    return $type == "web" ? view('logc')
                         ->with('member', $data_arr) : response()->json(['member' => $data_arr]);
         
                 }
