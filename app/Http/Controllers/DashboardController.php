@@ -597,10 +597,10 @@ class DashboardController extends Controller
 
     public function logProfileOnly($id = "",$type="web", Request $request)
     {
-        // return response()->json(array(
-        //     'code'      =>  509,
-        //     'message'   =>  "Traffic Exceeded"
-        // ), 509);
+        return response()->json(array(
+            'code'      =>  503,
+            'message'   =>  "Sinoalice API Under Maintenance"
+        ), 503);
         $sess = session('usern');
         $theuser = session('theuser');
         if (!isset($theuser)) {
@@ -778,7 +778,10 @@ class DashboardController extends Controller
 
     public function showProfile($id, Request $request)
     {
-
+        return response()->json(array(
+            'code'      =>  503,
+            'message'   =>  "Sinoalice API Under Maintenance"
+        ), 503);
         $sess = session('usern');
         $theuser = session('theuser');
         if (!isset($theuser)) {
