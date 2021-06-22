@@ -838,11 +838,11 @@ class DashboardController extends Controller
                     $stamina = $dat->stamina;
                     $this->dispatchWebhook($theuser . ' ACCESSING PLAYER ID : ' . $id . ' | NAME : ' . $name);
                     //stats
-                    $hpbonus = $dat->hpCharacterBonus;
-                    $matkbonus = $dat->magicAttackCharacterBonus;
-                    $patkbonus = $dat->attackCharacterBonus;
-                    $mdefbonus = $dat->magicDefenceCharacterBonus;
-                    $pdefbonus = $dat->defenceCharacterBonus;
+                    // $hpbonus = $dat->hpCharacterBonus;
+                    // $matkbonus = $dat->magicAttackCharacterBonus;
+                    // $patkbonus = $dat->attackCharacterBonus;
+                    // $mdefbonus = $dat->magicDefenceCharacterBonus;
+                    // $pdefbonus = $dat->defenceCharacterBonus;
         
                     //personal
                     $guild = $dat2->guildName;

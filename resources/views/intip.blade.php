@@ -76,33 +76,6 @@
                         <div class="font-size-sm font-w600 text-uppercase text-success-light">AP Left</div>
                     </div>
 
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-
-                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
-                            data-speed="200" data-to="149">{{$hp}} ({{$hpbonus}} Bonus HP)</div>
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light">HP</div>
-                    </div>
-
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-
-                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
-                            data-speed="200" data-to="149">{{$patk}} ({{$patkbonus}} Base PATK)</div>
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light">PATK</div>
-                    </div>
-
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-
-                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
-                            data-speed="200" data-to="149">{{$pdef}} ({{$pdefbonus}} Base PDEF)</div>
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light">PDEF</div>
-                    </div>
-
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-
-                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
-                            data-speed="200" data-to="149">{{$matk}} ({{$matkbonus}} Base MATK)</div>
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light">MATK</div>
-                    </div>
 
                     <div class="py-15 px-20 clearfix border-black-op-b">
 
