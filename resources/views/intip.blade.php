@@ -77,13 +77,6 @@
                     </div>
 
 
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-
-                        <div class="font-size-h3 font-w600 text-success js-count-to-enabled" data-toggle="countTo"
-                            data-speed="200" data-to="149">{{$mdef}} ({{$mdefbonus}} Base MDEF)</div>
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light">MDEF</div>
-                    </div>
-
 
 
 
