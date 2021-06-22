@@ -23,7 +23,7 @@
         <h3>Reset Time : 05:00 UTC</h3>
         <p>Update on : 15:30 UTC / 22:30 GMT+7, 23:00 UTC / 06:00 GMT +7, 05:00 UTC / 12:00 GMT +7</p>
         <h2 class="mb-4">Guild info feature is now available, click guildname to view</h2>
-        <h2 class="mb-4">Day 2 data is lost due my mistake</h2>
+        <h2 class="mb-4">Day 2 data is merged with Day 3, my mistake</h2>
         <label for="ts">Select TS:</label>
 
         <select name="ts" id="ts">
@@ -155,11 +155,7 @@
                 },
                 {
                     data: 'point2',
-                    name: 'LF Day 2',
-                    render: function (data, type, full, meta) {
-                        return "-";
-                    },
-                    sortable: false
+                    name: 'LF Day 2'
 
                 },
                 {
