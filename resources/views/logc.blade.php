@@ -5,8 +5,8 @@
     <div class="content">
     <div class="my-50 text-center">
             
-    <h2 class="font-w700 text-white mb-10">Stalking Mode</h2>
-        <h3 class="h5 text-muted mb-0">use it wisely</h3>
+    <h2 class="font-w700 text-white mb-10">Guild/User Info</h2>
+        <h3 class="h5 text-muted mb-0">u cibai ?</h3>
 
         </div>
 
