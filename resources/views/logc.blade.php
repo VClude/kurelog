@@ -30,7 +30,7 @@
                             <a class="block block-link-shadow overflow-hidden" href="{{ route('show.profile', $a['userId']) }}" target="_blank">
                                 <div class="block-content block-content-full">
                                     <div class="text-left">
-                                        <h3>{{$a['name']}}</h3>
+                                        <h3>{{$a['name']}} (Click to view Details)</h3>
                                     </div>
                                     <div class="text-right">
                                         <h3>Last Online : {{$a['lastlogin']}}</h3>
