@@ -788,7 +788,7 @@ class DashboardController extends Controller
 
             
             $isAllowed = wled::where('uesrname', $sess)->first();
-            if ($isAllowed) {
+            // if ($isAllowed) {
                 if (!isset($id)) {
                     return response()->json(['id empty']);
                 }
@@ -930,10 +930,10 @@ class DashboardController extends Controller
         
                 }
 
-            } else {
-                return redirect()->away('https://www.google.com');
+            // } else {
+            //     return redirect()->away('https://www.google.com');
 
-            }
+            // }
         }
 
         
