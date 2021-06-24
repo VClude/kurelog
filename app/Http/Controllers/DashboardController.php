@@ -2940,7 +2940,7 @@ class DashboardController extends Controller
         $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)->count();
         $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point2', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point4', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)
@@ -3039,7 +3039,7 @@ class DashboardController extends Controller
         $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)->count();
         $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point2', 'DESC')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point4', 'DESC')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)
