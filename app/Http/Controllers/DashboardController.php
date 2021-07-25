@@ -640,12 +640,13 @@ class DashboardController extends Controller
 
         $ally = gvgmember::where('gvgDataId', $id)->get();
         $enemy = gvgenemymember::where('gvgDataId', $id)->get();
+        $a = gvgtop::where('gvgDataId', $id)->first();
         $theuser = session('theuser');
         if (!isset($theuser)) {
             $theuser = "someone ";
         }
         viewer::where('id', 1)->increment('viewer');
-            $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH ID : ' . $id);
+            $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH : ' . $a->guildDataNameA . ' vs ' . $a->guildDataNameB);
         if (count($ally) == 0 && count($enemy) == 0) {
             return response()->json(['match/grid not parsed yet']);
         }
@@ -653,6 +654,7 @@ class DashboardController extends Controller
         return view('logb')
             ->with('ally', $ally)
             ->with('enemy', $enemy)
+            ->with('gvg', $a)
             ->with('ide', $id);
 
     }
