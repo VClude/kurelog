@@ -118,7 +118,7 @@ class DashboardController extends Controller
                         $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
                     
                         // return response()->json($a);
-                        return view('dashboard')->with('guild', $a)->with('isentry', $isentry)->with('discordid', $usern)->with('discordname', session('theuser'));
+                        return view('dashboard')->with('guild', $a)->with('isentry', $isentry)->with('discordid', $usersess)->with('discordname', session('theuser'));
                     } else {
                         return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
 
