@@ -36,7 +36,7 @@
                 <div class="block-content block-content-full">
                     <div class="py-15 px-20 clearfix border-black-op-b">
 
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals  (Still Parsing)</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals (0 LF Guild was not shown here)</div>
 
                     </div>
 
