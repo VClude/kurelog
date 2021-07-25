@@ -119,7 +119,7 @@ class DashboardController extends Controller
                         $isentry = giveaway::where('discord_id', $usersess)->get();
                         
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->simplePaginate(10);
+                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(10);
                         }
                         else{
                             $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(10);
@@ -165,7 +165,7 @@ class DashboardController extends Controller
                         
                         
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->simplePaginate(10);
+                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(10);
                         }
                         else{
                             $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(10);
