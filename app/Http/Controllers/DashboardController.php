@@ -33,26 +33,30 @@ class DashboardController extends Controller
     public function accessWhitelist(Request $request){
          return response()->json(['response'=> false]);
                     
-        // $input = $request->all();
-        // if(!$input['discord_id'] && !$input['discord_name']){
-        //     return response()->json(['response'=> false]);
-        // }
+        $input = $request->all();
+        $quota = giveaway::all()->count();
+        if(!$input['discord_id'] && !$input['discord_name']){
+            return response()->json(['response'=> false]);
+        }
+        if($quota > 80){
+            return response()->json(['response'=> false]);
+        }
       
         
-        // $checkaccess = giveaway::where('discord_id',$input['discord_id'])->count();
-        //             if($checkaccess == 0){
-        //                 $this->dispatchWebhook($input['discord_name'] . ' Signed up for GC finals Access ');
-        //                 $givedemo = new giveaway;
-        //                 $givedemo->discord_id = $input['discord_id'];
-        //                 $givedemo->discord_name =  $input['discord_name'];
-        //                 $givedemo->save();
-        //                 return response()->json(['response'=> true]);
+        $checkaccess = giveaway::where('discord_id',$input['discord_id'])->count();
+                    if($checkaccess == 0){
+                        $this->dispatchWebhook($input['discord_name'] . ' Signed up for GC finals Access ');
+                        $givedemo = new giveaway;
+                        $givedemo->discord_id = $input['discord_id'];
+                        $givedemo->discord_name =  $input['discord_name'];
+                        $givedemo->save();
+                        return response()->json(['response'=> true]);
 
-        //             }
-        //             else{
-        //                 return response()->json(['response'=> false]);
+                    }
+                    else{
+                        return response()->json(['response'=> false]);
 
-        //             }
+                    }
 
 
     }
