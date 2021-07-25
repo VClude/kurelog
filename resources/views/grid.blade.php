@@ -810,7 +810,7 @@
             .then((data) => {
                 console.log(data);
                 // console.log(wat);
-                document.getElementById("weimg").src = 'http://localhost/kureha-log/public/' + data.url;
+                document.getElementById("weimg").src = 'https://kurelog.site/public/' + data.url;
                 document.getElementById("wename").innerHTML = textSearch;
                 document.getElementById("wedesc").innerHTML = textDesc;
                 document.getElementById("wetypz").innerHTML = data.ismulti == 0 ? 'Single Target' : (data.ismulti ==

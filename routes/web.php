@@ -25,17 +25,17 @@ Route::get('/guild/{id?}/{type?}', 'App\Http\Controllers\DashboardController@log
 
 Route::group(['middleware' => 'page-cache'], function(){
     Route::get('/log/{id}', 'App\Http\Controllers\DashboardController@log')->name('show.log');
-    // Route::get('/loggrid/{id}', 'App\Http\Controllers\DashboardController@logGridOnly')->name('show.gridonly');
+    Route::get('/loggrid/{id}', 'App\Http\Controllers\DashboardController@logGridOnly')->name('show.gridonly');
     Route::get('/profile/{id}', 'App\Http\Controllers\DashboardController@showProfile')->name('show.profile');
     Route::get('/log/getlog/{id}','App\Http\Controllers\DashboardController@getLog')->name('show.getlog');
-    // Route::get('/log/getlogd/{id}','App\Http\Controllers\DashboardController@getLogD')->name('show.getlogd');
+    Route::get('/log/getlogd/{id}','App\Http\Controllers\DashboardController@getLogD')->name('show.getlogd');
     Route::get('/log/getlog2/{id}/{idm}','App\Http\Controllers\DashboardController@getLogz')->name('show.getlog2');
     Route::get('/log/spec/{spec?}/{userid?}/{idmatch?}','App\Http\Controllers\DashboardController@statSpec')->name('spec.define');
     Route::get('/log/weapspec/{userid?}/{idmatch?}/{spec?}','App\Http\Controllers\DashboardController@statSpecWeap')->name('weapspec.define');
     Route::get('/log/showgrid/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGrid')->name('show.grid');
     Route::get('/log/showgridsino/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGridSino')->name('show.gridsino');
 
-    // Route::get('/log/showgridb/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGridB')->name('show.gridb');
+    Route::get('/log/showgridb/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGridB')->name('show.gridb');
     Route::get('/log/showbuff/{userid}/{idmatch}','App\Http\Controllers\DashboardController@getBuffSimp')->name('show.buff');
 
 });

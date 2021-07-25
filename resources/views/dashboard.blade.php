@@ -18,7 +18,7 @@
             <div class="col-md-6 col-xl-12">
                 <div class="block">
                     <div class="block-content">
-                        <h1>GC 12 Rank Data</h1>
+                        <h1>GC 12 Rank Data (Still Parsing)</h1>
 
                     </div>
                 </div>
@@ -42,7 +42,7 @@
 
                     <div class="py-15 px-20 clearfix border-black-op-b">
                         @foreach ($guild as $g)
-                        <a href="{{ route('show.log', $g->gvgDataId) }}">
+                        <a href="{{ route('show.gridonly', $g->gvgDataId) }}">
                             <div class="row justify-content-center">
                                 <div class="col-md-6 col-xl-12">
                                     <div class="block">

@@ -131,8 +131,6 @@
 
                         <th style="width:20% !important; background-color:white !important;">userName</th>
 
-                        <th style="width:5% !important; background-color:white !important;">ownGuild</th>
-
                         <th style="width:50% !important;    background-color:white !important;">Action</th>
 
                     </tr>
@@ -170,7 +168,6 @@
                 {data: 'id'},
                 {data: 'actTime'},
                 {data: 'username'},
-                {data: 'isenemy'},
                 {data: 'text'}
             ]
         });

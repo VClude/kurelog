@@ -114,8 +114,12 @@ class DashboardController extends Controller
                         $request->session()->put('theuser', $user->getUsername() . '#' . $user->getDiscriminator());
                         $isentry = giveaway::where('discord_id', $usersess)->get();
                         
-                        
-                        $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
+                        if(count($isentry) > 0){
+                            $a = gvgtop::all();
+                        }
+                        else{
+                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
+                        }
                     
                         // return response()->json($a);
                         return view('dashboard')->with('guild', $a)->with('isentry', $isentry)->with('discordid', $usersess)->with('discordname', session('theuser'));
@@ -156,8 +160,12 @@ class DashboardController extends Controller
                         $isentry = giveaway::where('discord_id', $sess)->get();
                         
                         
-                        $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
-                    
+                        if(count($isentry) > 0){
+                            $a = gvgtop::all();
+                        }
+                        else{
+                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
+                        }                    
                         // return response()->json($a);
                         return view('dashboard')->with('guild', $a)->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);
             } else {
@@ -632,7 +640,9 @@ class DashboardController extends Controller
 
         $ally = gvgmember::where('gvgDataId', $id)->get();
         $enemy = gvgenemymember::where('gvgDataId', $id)->get();
-
+        if (count($ally) == 0 && count($enemy) == 0) {
+            return response()->json(['match/grid not parsed yet']);
+        }
         // return response()->json($a);
         return view('logb')
             ->with('ally', $ally)
@@ -1137,20 +1147,17 @@ class DashboardController extends Controller
             $defarr = [];
 
             $tsarr = [];
-            $isAllowed = allowed::where('username', $sess)->get();
-            if ($isAllowed) {
-                foreach ($isAllowed as $d) {
-                    array_push($inarr, $d->guildId);
-                }
-                $a = gvgtop::where('gvgDataId', $idmatch)->get();
+            $isAllowed = giveaway::where('discord_id', $sess)->count();
 
-                if (count($a) == 0) {
-                    return response()->json(['match/grid not available']);
-                }
-                $amiallowed = $a[0]->guildDataIdA;
-                if (!in_array($amiallowed, $inarr)) {
-                    return response()->json(['You are not allowed to see this grid']);
-                }
+               
+            $a = gvgtop::where('gvgDataId', $idmatch)->get();
+            if (count($a) == 0) {
+                return response()->json(['match/grid not available']);
+            }
+           
+            if ($isAllowed == 0) {
+                return response()->json(['You are not allowed to see this grid']);
+            }
 
                 $thequery = gvglog::where('gvgDataId', $idmatch)->where('userId', $userid)->where('readableText', 'like', '%' . $specs . '%')->orderBy('gvgHistoryId', 'asc');
                 $getquery = $thequery->get();
@@ -1687,10 +1694,7 @@ class DashboardController extends Controller
                     'atkarr' => $atkarr,
                     'defarr' => $defarr,
                     'tsarr' => $tsarr]);
-            } else {
-                return response()->json(['You are not allowed']);
-
-            }
+           
 
         }
     }
@@ -1764,17 +1768,15 @@ class DashboardController extends Controller
             return redirect()->route('index');
         } else {
             $inarr = [];
-            $isAllowed = allowed::where('username', $sess)->get();
-            if ($isAllowed) {
-                foreach ($isAllowed as $d) {
-                    array_push($inarr, $d->guildId);
-                }
+            $isAllowed = giveaway::where('discord_id', $sess)->count();
+
+               
                 $a = gvgtop::where('gvgDataId', $idmatch)->get();
                 if (count($a) == 0) {
                     return response()->json(['match/grid not available']);
                 }
-                $amiallowed = $a[0]->guildDataIdA;
-                if (!in_array($amiallowed, $inarr)) {
+               
+                if ($isAllowed == 0) {
                     return response()->json(['You are not allowed to see this grid']);
                 }
 
@@ -2577,10 +2579,7 @@ class DashboardController extends Controller
                     ->with('swaptime2', $stread2)
                     ->with('masterdata', $masterarray);
 
-            } else {
-                return response()->json(['Not Astellians']);
-
-            }
+           
         }
 
     }
@@ -3206,17 +3205,17 @@ class DashboardController extends Controller
             return redirect()->route('index');
         } else {
             $inarr = [];
-            $isAllowed = allowed::where('username', $sess)->get();
-            if ($isAllowed) {
-                foreach ($isAllowed as $d) {
-                    array_push($inarr, $d->guildId);
-                }
-                $a = gvgtop::where('gvgDataId', $id)->first();
+            $isAllowed = giveaway::where('discord_id', $sess)->count();
 
-                $amiallowed = $a->guildDataIdA;
-                if (!in_array($amiallowed, $inarr)) {
-                    return response()->json(['You are not allowed to see this grid']);
-                }
+               
+            $a = gvgtop::where('gvgDataId', $id)->get();
+            if (count($a) == 0) {
+                return response()->json(['match/grid not available']);
+            }
+           
+            if ($isAllowed == 0) {
+                return response()->json(['You are not allowed to see this grid']);
+            }
 
                 ## Read value
                 $draw = $request->get('draw');
@@ -3276,10 +3275,7 @@ class DashboardController extends Controller
 
                 return json_encode($response);
 
-            } else {
-                return response()->json(['Not Astellians']);
-
-            }
+          
         }
 
     }
