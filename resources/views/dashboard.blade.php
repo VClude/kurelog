@@ -39,9 +39,9 @@
                         <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals (0 LF Guild was not shown here)</div>
 
                     </div>
-
+                
                     <div class="py-15 px-20 clearfix border-black-op-b">
-                        @foreach ($guild as $g)
+                        @foreach ($a as $g)
                         <a href="{{ route('show.gridonly', $g->gvgDataId) }}">
                             <div class="row justify-content-center">
                                 <div class="col-md-6 col-xl-12">
@@ -61,6 +61,25 @@
 
                     </div>
 
+
+                    <div class="py-15 px-20 clearfix border-black-op-b">
+                        
+                            <div class="row justify-content-center">
+                            <div class="col-md-3 col-xl-12"></div>
+                                <div class="col-md-6 col-xl-12">
+                                    
+                                {{ $a->links() }}
+
+                                </div>
+                                <div class="col-md-3 col-xl-12"></div>
+
+                            </div>
+                     
+                       
+
+
+
+                    </div>
 
 
 
