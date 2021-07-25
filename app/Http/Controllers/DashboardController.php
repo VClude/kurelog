@@ -15,6 +15,8 @@ use App\Models\wled;
 use App\Models\gvgtop;
 use App\Models\weapimg;
 use App\Models\weapskill;
+use App\Models\viewer;
+use App\Models\giveaway;
 use Carbon\Carbon;
 use Config;
 use Illuminate\Http\Request;
@@ -27,6 +29,33 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+    public function accessWhitelist(Request $request){
+         return response()->json(['response'=> false]);
+                    
+        // $input = $request->all();
+        // if(!$input['discord_id'] && !$input['discord_name']){
+        //     return response()->json(['response'=> false]);
+        // }
+      
+        
+        // $checkaccess = giveaway::where('discord_id',$input['discord_id'])->count();
+        //             if($checkaccess == 0){
+        //                 $this->dispatchWebhook($input['discord_name'] . ' Signed up for GC finals Access ');
+        //                 $givedemo = new giveaway;
+        //                 $givedemo->discord_id = $input['discord_id'];
+        //                 $givedemo->discord_name =  $input['discord_name'];
+        //                 $givedemo->save();
+        //                 return response()->json(['response'=> true]);
+
+        //             }
+        //             else{
+        //                 return response()->json(['response'=> false]);
+
+        //             }
+
+
+    }
     public function index(Request $request)
     {
         $inarr = [];
@@ -66,6 +95,7 @@ class DashboardController extends Controller
                     $indev = Config::get('app.debug') ? ' (Development Mode)' : '';
                     $user = $provider->getResourceOwner($token);
                     $this->dispatchWebhook($user->getUsername() . '#' . $user->getDiscriminator() . ' Logged in ' . $indev);
+                    viewer::where('id', 1)->increment('viewer');
                     $usersess = $user->getId();
                     $inarr = [];
                     // $checkdemo = allowed::where('username',$usersess)->where('guildId','54')->count();
@@ -82,10 +112,13 @@ class DashboardController extends Controller
                         }
                         $request->session()->put('usern', $usersess);
                         $request->session()->put('theuser', $user->getUsername() . '#' . $user->getDiscriminator());
+                        $isentry = giveaway::where('discord_id', $usersess)->get();
+                        
+                        
                         $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
-
+                    
                         // return response()->json($a);
-                        return view('dashboard')->with('guild', $a);
+                        return view('dashboard')->with('guild', $a)->with('isentry', $isentry)->with('discordid', $usern)->with('discordname', session('theuser'));
                     } else {
                         return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
 
@@ -113,7 +146,20 @@ class DashboardController extends Controller
 
                 // $request->session()->put('usern', $usersess);
                 // return response()->json($a);
-                return view('dashboard')->with('guild', $a);
+                                        foreach ($isAllowed as $d) {
+                            array_push($inarr, $d->guildId);
+                        }
+             
+                        $sess = session('usern');
+                        $theuser = session('theuser');
+         
+                        $isentry = giveaway::where('discord_id', $sess)->get();
+                        
+                        
+                        $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
+                    
+                        // return response()->json($a);
+                        return view('dashboard')->with('guild', $a)->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);
             } else {
                 return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
 
@@ -121,7 +167,7 @@ class DashboardController extends Controller
         }
 
     }
-
+    
     public function log($id, Request $request)
     {
 
@@ -606,7 +652,7 @@ class DashboardController extends Controller
         if (!isset($sess)) {
             return redirect()->route('index');
         } else {
-
+            viewer::where('id', 1)->increment('viewer');
             $this->dispatchWebhook($theuser . ' ACCESSING GUILD DATA ID : ' . $id);
             $isAllowed = wled::where('uesrname', $sess)->first();
             if ($isAllowed) {
@@ -775,18 +821,22 @@ class DashboardController extends Controller
 
     public function showProfile($id, Request $request)
     {
-        
+
         $sess = session('usern');
         $theuser = session('theuser');
         if (!isset($theuser)) {
             $theuser = "someone ";
         }
-
+        // $this->dispatchWebhook(' Rejecting Access ' . $theuser . ' to ID : ' . $id);
+        // return response()->json(array(
+        //     'code'      =>  404,
+        //     'message'   =>  "See you next Sin/Gran Colo"
+        // ), 404);  
         if (!isset($sess)) {
             return redirect()->route('index');
         } else {
 
-            
+            viewer::where('id', 1)->increment('viewer');
             $isAllowed = wled::where('uesrname', $sess)->first();
             // if ($isAllowed) {
                 if (!isset($id)) {
@@ -2701,23 +2751,26 @@ class DashboardController extends Controller
             $isAllowed = wled::where('uesrname', $sess)->first();
             if ($isAllowed) {
                 $lastupdate = gcranktime::first();
+                $viewer = viewer::first();
                 if ($txt == "all") {
-                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else if ($txt > 0 && $txt <= 13) {
-                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else {
-                    return view('gc')->with('ide', "all")->with('lu', $lastupdate->lastUpdate);
+                    return view('gc')->with('ide', "all")->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
         
                 }
 
             } else {
                 $lastupdate = gcranktime::first();
+                $viewer = viewer::first();
+
                 if ($txt == "all") {
-                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else if ($txt > 0 && $txt <= 13) {
-                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate);
+                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else {
-                    return view('gce')->with('ide', "all")->with('lu', $lastupdate->lastUpdate);
+                    return view('gce')->with('ide', "all")->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
         
                 }
 
@@ -2795,12 +2848,18 @@ class DashboardController extends Controller
             $totalRecords = gcrank::select('count(*) as allcount')->count();
             $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' . $searchValue . '%')
                 ->count();
+
+   
+                
             $records = gcrank::orderBy($columnName, $columnSortOrder)
+            // $records = gcrank::orderBy("point4", "DESC")
                 ->select('gcranks.*')
                 ->where('gcranks.guildName', 'like', '%' . $searchValue . '%')
                 ->skip($start)
                 ->take($rowperpage)
                 ->get();
+
+
 
         } else if ($txt > 0 && $txt <= 13) {
             $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $tx)->count();
@@ -2940,7 +2999,7 @@ class DashboardController extends Controller
         $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)->count();
         $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point4', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)
@@ -3039,7 +3098,7 @@ class DashboardController extends Controller
         $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)->count();
         $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point4', 'DESC')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)

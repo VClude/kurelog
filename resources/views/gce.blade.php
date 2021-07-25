@@ -16,14 +16,21 @@
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<body>
+<style>
+    h1,p,h2,h3,label{color:gray !important;}
+    table,td,tr{background:#2F3136 !important; color:whitesmoke !important;}
+</style>
+<body style="background:#36393F;">
 
     <div class="container mt-5">
-        <h2 class="mb-4">GC 11 Rank (Last Update : {{$lu}} UTC)</h2>
-        <h3>Reset Time : 05:00 UTC</h3>
-        <p>Update on : 15:30 UTC / 22:30 GMT+7, 23:00 UTC / 06:00 GMT +7, 05:00 UTC / 12:00 GMT +7</p>
-        <h2 class="mb-4">Guild info feature is now available, click guildname to view</h2>
-        <h2 class="mb-4">Day 2 data is merged with Day 3, my mistake</h2>
+        <h2 class="mb-4">GC 12 Rank (Last Update : {{$lu}} UTC)</h2>
+                <p>Update on 04:30 UTC</p>
+
+       <h2 class="mb-4">Site Accessed : {{$view}} times</h2>
+       <h2 class="mb-4"><a href="https://www.kurelog.site/public/gc11.json">GC 11 Archive Link</a></h2>
+
+        
+
         <label for="ts">Select TS:</label>
 
         <select name="ts" id="ts">
@@ -74,9 +81,8 @@
 
         <div class="row">
             
-            <div class="col-md-6" style="overflow:auto;">
+            <div class="col-md-12" style="overflow:auto;">
             <h1> Final Asia Prediction </h1>
-                <h3>Update On : 18:00 UTC</h3>
                 <table class="table table-bordered yajra-datatable" id="tbl2">
                     <thead>
                         <tr>
@@ -90,10 +96,14 @@
                     </tbody>
                 </table>
             </div>
+           
+        </div>
+        
+        
+        <div class="row">
 
-            <div class="col-md-6" style="overflow:auto;">
+            <div class="col-md-12" style="overflow:auto;">
                 <h1> Final US Prediction </h1>
-                <h3>Update On : 05:00 UTC</h3>
                 <table class="table table-bordered yajra-datatable" id="tbl3">
                     <thead>
                         <tr>

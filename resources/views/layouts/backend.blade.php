@@ -99,7 +99,9 @@
                         Created by <a class="font-w600">Kureha</a>
                     </div>
                     <div class="float-left">
-                        <a class="font-w600" href="https://saweria.co/kureha" target="_blank">spare some TC</a> plz 
+                        spare tc pls | 
+                        <span></li><a class="font-w600" href="https://saweria.co/kureha" target="_blank">Saweria</a></span> | 
+                        <span></li><a class="font-w600" href="https://ko-fi.com/kurelog" target="_blank">Ko- Fi</a> </span>
                     </div>
                 </div>
             </footer>

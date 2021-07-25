@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bcaaf1124dd41fbe64b773b27509a02",
+    "content-hash": "9fd4fa54cbe5a2748ff2c4aeeb2ab1b2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2636,16 +2636,16 @@
         },
         {
             "name": "spatie/laravel-webhook-server",
-            "version": "1.11.1",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-webhook-server.git",
-                "reference": "41d283c4c2d0e6ada300ba10fe4e935f7f763561"
+                "reference": "9063cba621c27d4daec801654e4da568043bfe39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-webhook-server/zipball/41d283c4c2d0e6ada300ba10fe4e935f7f763561",
-                "reference": "41d283c4c2d0e6ada300ba10fe4e935f7f763561",
+                "url": "https://api.github.com/repos/spatie/laravel-webhook-server/zipball/9063cba621c27d4daec801654e4da568043bfe39",
+                "reference": "9063cba621c27d4daec801654e4da568043bfe39",
                 "shasum": ""
             },
             "require": {
@@ -2697,7 +2697,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-webhook-server/issues",
-                "source": "https://github.com/spatie/laravel-webhook-server/tree/1.11.1"
+                "source": "https://github.com/spatie/laravel-webhook-server/tree/1.13.0"
             },
             "funding": [
                 {
@@ -2705,7 +2705,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-12-15T15:35:11+00:00"
+            "time": "2021-04-28T17:32:06+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
