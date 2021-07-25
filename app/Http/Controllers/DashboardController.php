@@ -647,7 +647,8 @@ class DashboardController extends Controller
         $a = gvgtop::where('gvgDataId', $id)->first();
         $theuser = session('theuser');
         if (!isset($theuser)) {
-            $theuser = "someone ";
+            $theuser = "someone was rejected ";
+            return redirect()->route('index');
         }
         if (count($ally) == 0 && count($enemy) == 0) {
             $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH : ' . $a->guildDataNameA . ' vs ' . $a->guildDataNameB . ' failed (Log not parsed)');
