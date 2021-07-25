@@ -645,11 +645,13 @@ class DashboardController extends Controller
         if (!isset($theuser)) {
             $theuser = "someone ";
         }
-        viewer::where('id', 1)->increment('viewer');
-            $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH : ' . $a->guildDataNameA . ' vs ' . $a->guildDataNameB);
         if (count($ally) == 0 && count($enemy) == 0) {
+            $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH : ' . $a->guildDataNameA . ' vs ' . $a->guildDataNameB . ' failed (Log not parsed)');
             return response()->json(['match/grid not parsed yet']);
         }
+        viewer::where('id', 1)->increment('viewer');
+        $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH : ' . $a->guildDataNameA . ' vs ' . $a->guildDataNameB);
+
         // return response()->json($a);
         return view('logb')
             ->with('ally', $ally)
