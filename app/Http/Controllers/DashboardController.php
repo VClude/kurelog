@@ -1774,6 +1774,10 @@ class DashboardController extends Controller
     {
 
         $sess = session('usern');
+        $theuser = session('theuser');
+        if (!isset($theuser)) {
+            $theuser = "someone ";
+        }
         if (!isset($sess)) {
             return redirect()->route('index');
         } else {
@@ -1784,11 +1788,19 @@ class DashboardController extends Controller
                 $a = gvgtop::where('gvgDataId', $idmatch)->get();
                 if (count($a) == 0) {
                     return response()->json(['match/grid not available']);
+                    $this->dispatchWebhook($theuser . ' ACCESSING GRID : ' . $userid . ' , MATCH ' . $idmatch . ' fails');
+
                 }
                
                 if ($isAllowed == 0) {
+                    $this->dispatchWebhook($theuser . ' ACCESSING GRID : ' . $userid . ' , MATCH ' . $idmatch . ' rejected');
                     return response()->json(['You are not allowed to see this grid']);
                 }
+
+
+                viewer::where('id', 1)->increment('viewer');
+                $this->dispatchWebhook($theuser . ' ACCESSING GRID : ' . $userid . ' , MATCH ' . $idmatch);
+        
 
                 $y = [];
                 $yb = [];
