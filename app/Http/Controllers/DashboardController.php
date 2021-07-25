@@ -36,10 +36,10 @@ class DashboardController extends Controller
         $input = $request->all();
         $quota = giveaway::all()->count();
         if(!$input['discord_id'] && !$input['discord_name']){
-            return response()->json(['response'=> false]);
+            return response()->json(['response'=> "missing discord parameter"]);
         }
-        if($quota > 80){
-            return response()->json(['response'=> false]);
+        if($quota > 70){
+            return response()->json(['response'=> "Entry has reach limit"]);
         }
       
         
@@ -54,7 +54,7 @@ class DashboardController extends Controller
 
                     }
                     else{
-                        return response()->json(['response'=> false]);
+                        return response()->json(['response'=> 'Failed to Sign up']);
 
                     }
 

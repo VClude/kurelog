@@ -88,7 +88,7 @@
                         <div class="block-content block-content-full">
                             <div class="py-15 px-20 clearfix border-black-op-b">
 
-                                <div class="font-size-sm font-w600 text-uppercase text-success-light"> Finals GC data is actually made Public by pokelabo, so for Finals only we can see Each guild battle and grids OwO </div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals Data</div>
 
                                  <div class="font-size-sm font-w600 text-uppercase text-success"> Max Entry Extended to 80 users, feel free to sign up, first come first served :) </div>
                             </div>
@@ -184,6 +184,9 @@
               if(data.response == true){
                     alert("Sign-up for Whitelist success.");
                     $( ".textsign" ).text( "Signed up (Please Reload browser)" );
+              }
+              else{
+                  $( ".textsign" ).text(data.response);
               }
             
            }
