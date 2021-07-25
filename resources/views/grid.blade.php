@@ -114,6 +114,7 @@
                             </h3>
                         </div>
                         <div class="block-content">
+                        <h2 style="color:white;">Click Weapon Card for see the Weapon Performance</h2>
                             @php
                             $b = 0
                             @endphp
