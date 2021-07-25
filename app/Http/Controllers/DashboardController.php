@@ -640,6 +640,12 @@ class DashboardController extends Controller
 
         $ally = gvgmember::where('gvgDataId', $id)->get();
         $enemy = gvgenemymember::where('gvgDataId', $id)->get();
+        $theuser = session('theuser');
+        if (!isset($theuser)) {
+            $theuser = "someone ";
+        }
+        viewer::where('id', 1)->increment('viewer');
+            $this->dispatchWebhook($theuser . ' ACCESSING GC MATCH ID : ' . $id);
         if (count($ally) == 0 && count($enemy) == 0) {
             return response()->json(['match/grid not parsed yet']);
         }
