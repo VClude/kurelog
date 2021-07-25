@@ -103,7 +103,7 @@
                         @if(count($isentry) == 0)
                         <h1 class="textsign">Sign up</h1>
                         @else
-                        <h1 class="textsign">Signed up</h1>
+                        <h1 class="textsign">Signed up (Please Reload browser)</h1>
                         @endif
 
                     </div>

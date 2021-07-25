@@ -31,7 +31,7 @@ class DashboardController extends Controller
      */
      
     public function accessWhitelist(Request $request){
-         return response()->json(['response'=> false]);
+
                     
         $input = $request->all();
         $quota = giveaway::all()->count();
