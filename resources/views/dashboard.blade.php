@@ -47,7 +47,7 @@
                                 <div class="col-md-6 col-xl-12">
                                     <div class="block">
                                         <div class="block-content">
-                                            <h1>{{ $g->battleEndTime }} </br> {{ $g->guildDataNameA }} vs
+                                            <h1>{{ $g->battleEndTime }} @if($g->selfComboCount == 105) [US] @else [ASIA] @endif </br> {{ $g->guildDataNameA }} vs
                                                 {{ $g->guildDataNameB }}</h1>
 
                                         </div>
