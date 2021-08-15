@@ -14,7 +14,8 @@
         <!-- Fonts and Styles -->
         @yield('css_before')
         <link href="{{ asset('/js/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet">
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644734281294568"
+     crossorigin="anonymous"></script>
 
 
         <link href="{{ asset('/js/plugins/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">

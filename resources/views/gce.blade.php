@@ -8,7 +8,8 @@
     <meta name="twitter:description" content="this link will give you corona" />
     <meta name="twitter:image"
         content="https://cdn.shopify.com/s/files/1/0078/7038/2195/products/CoronaExtraLagerBottle_1x710ml_1024x1024.jpg?v=1606545539" />
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644734281294568"
+     crossorigin="anonymous"></script>
     <title>GC 11 Rank</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />

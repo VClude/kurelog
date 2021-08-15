@@ -23,7 +23,7 @@ Route::get('/finalb', 'App\Http\Controllers\DashboardController@getGcFinalB')->n
 
 Route::get('/guild/{id?}/{type?}', 'App\Http\Controllers\DashboardController@logProfileOnly')->name('show.guild');
 
-Route::group(['middleware' => 'page-cache'], function(){
+// Route::group(['middleware' => 'page-cache'], function(){
     Route::get('/log/{id}', 'App\Http\Controllers\DashboardController@log')->name('show.log');
     Route::get('/loggrid/{id}', 'App\Http\Controllers\DashboardController@logGridOnly')->name('show.gridonly');
     Route::get('/profile/{id}', 'App\Http\Controllers\DashboardController@showProfile')->name('show.profile');
@@ -38,5 +38,5 @@ Route::group(['middleware' => 'page-cache'], function(){
     Route::get('/log/showgridb/{userid}/{idmatch}','App\Http\Controllers\DashboardController@showGridB')->name('show.gridb');
     Route::get('/log/showbuff/{userid}/{idmatch}','App\Http\Controllers\DashboardController@getBuffSimp')->name('show.buff');
 
-});
+// });
 

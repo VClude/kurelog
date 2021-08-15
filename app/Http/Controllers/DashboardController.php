@@ -38,7 +38,7 @@ class DashboardController extends Controller
         if(!$input['discord_id'] && !$input['discord_name']){
             return response()->json(['response'=> "missing discord parameter"]);
         }
-        if($quota > 70){
+        if($quota > 100){
             return response()->json(['response'=> "Entry has reach limit"]);
         }
       
@@ -119,10 +119,10 @@ class DashboardController extends Controller
                         $isentry = giveaway::where('discord_id', $usersess)->get();
                         
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(10);
+                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(20);
                         }
                         else{
-                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(10);
+                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
                         }
                     
                         // return response()->json($a);
@@ -165,10 +165,10 @@ class DashboardController extends Controller
                         
                         
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(10);
+                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(20);
                         }
                         else{
-                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(10);
+                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
                         }                    
                         // return response()->json($a);
                         return view('dashboard', ['a'=> $a])->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);

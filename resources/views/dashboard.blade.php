@@ -109,7 +109,7 @@
 
                                 <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals Data</div>
 
-                                 <div class="font-size-sm font-w600 text-uppercase text-success"> Max Entry Extended to 80 users, feel free to sign up, first come first served :) </div>
+                                 <div class="font-size-sm font-w600 text-uppercase text-success"> Max Entry Extended to 100 users, feel free to sign up, first come first served :) </div>
                             </div>
 
     <div class="py-15 px-20 clearfix border-black-op-b">
