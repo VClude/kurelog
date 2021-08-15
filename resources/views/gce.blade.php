@@ -275,12 +275,16 @@ columns: [{
      
 
 
-        document.getElementById('ts').addEventListener('change', function (e) {
-            window.location.href = "{{route('show.gc')}}/" + e.target.value;
+document.getElementById('ts').addEventListener('change', function (e) {
+            var select = document.getElementById('GC');
+            var vs = select.options[select.selectedIndex].value;
+            window.location.href = "{{route('show.gc')}}/" + e.target.value + "/" + vs;
         });
 
         document.getElementById('GC').addEventListener('change', function (d) {
-            window.location.href = "{{route('show.gc')}}/all/" + d.target.value;
+            var select = document.getElementById('ts');
+            var vs = select.options[select.selectedIndex].value;
+            window.location.href = "{{route('show.gc')}}/all/" + vs + "/" + d.target.value;
         });
 
     });
