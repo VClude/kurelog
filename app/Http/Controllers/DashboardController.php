@@ -2792,11 +2792,11 @@ class DashboardController extends Controller
                 $viewer = viewer::first();
 
                 if ($txt == "all") {
-                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
+                    return view('gce')->with('ide', $txt)->with('idg', $gc)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else if ($txt > 0 && $txt <= 13) {
-                    return view('gce')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
+                    return view('gce')->with('ide', $txt)->with('idg', $gc)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else {
-                    return view('gce')->with('ide', "all")->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
+                    return view('gce')->with('ide', "all")->with('idg', $gc)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
         
                 }
 
