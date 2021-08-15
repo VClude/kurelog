@@ -2768,7 +2768,7 @@ class DashboardController extends Controller
 
     }
 
-    public function gcView($txt = "all")
+    public function gcView($txt = "all", $gc = 13)
     {
         $sess = session('usern');
         if (!isset($sess)) {
@@ -2779,11 +2779,11 @@ class DashboardController extends Controller
                 $lastupdate = gcranktime::first();
                 $viewer = viewer::first();
                 if ($txt == "all") {
-                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
+                    return view('gc')->with('ide', $txt)->with('idg', $gc)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else if ($txt > 0 && $txt <= 13) {
-                    return view('gc')->with('ide', $txt)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
+                    return view('gc')->with('ide', $txt)->with('idg', $gc)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
                 } else {
-                    return view('gc')->with('ide', "all")->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
+                    return view('gc')->with('ide', "all")->with('idg', $gc)->with('lu', $lastupdate->lastUpdate)->with('view', $viewer->viewer);
         
                 }
 
@@ -2805,7 +2805,7 @@ class DashboardController extends Controller
 
     }
 
-    public function getGcRank($txt, Request $request)
+    public function getGcRank($txt, $gc, Request $request)
     {
 
         $draw = $request->get('draw');
@@ -2871,8 +2871,8 @@ class DashboardController extends Controller
         }
         // Fetch records
         if ($txt == "all") {
-            $totalRecords = gcrank::select('count(*) as allcount')->count();
-            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' . $searchValue . '%')
+            $totalRecords = gcrank::select('count(*) as allcount')->where('gcevent', $gc)->count();
+            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcevent', $gc)->where('guildName', 'like', '%' . $searchValue . '%')
                 ->count();
 
    
@@ -2880,6 +2880,7 @@ class DashboardController extends Controller
             $records = gcrank::orderBy($columnName, $columnSortOrder)
             // $records = gcrank::orderBy("point4", "DESC")
                 ->select('gcranks.*')
+                ->where('gcevent', $gc)
                 ->where('gcranks.guildName', 'like', '%' . $searchValue . '%')
                 ->skip($start)
                 ->take($rowperpage)
@@ -2893,18 +2894,20 @@ class DashboardController extends Controller
                 ->count();
             $records = gcrank::orderBy($columnName, $columnSortOrder)
                 ->select('gcranks.*')
+                ->where('gcevent', $gc)
                 ->where('gcranks.gvgTimeType', $tx)
                 ->where('gcranks.guildName', 'like', '%' . $searchValue . '%')
                 ->skip($start)
                 ->take($rowperpage)
                 ->get();
         } else {
-            $totalRecords = gcrank::select('count(*) as allcount')->count();
+            $totalRecords = gcrank::select('count(*) as allcount')->where('gcevent', $gc)->count();
 
-            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('guildName', 'like', '%' . $searchValue . '%')
+            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcevent', $gc)->where('guildName', 'like', '%' . $searchValue . '%')
                 ->count();
             $records = gcrank::orderBy($columnName, $columnSortOrder)
                 ->select('gcranks.*')
+                ->where('gcevent', $gc)
                 ->where('gcranks.guildName', 'like', '%' . $searchValue . '%')
                 ->skip($start)
                 ->take($rowperpage)

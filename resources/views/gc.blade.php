@@ -10,7 +10,7 @@
         content="https://cdn.shopify.com/s/files/1/0078/7038/2195/products/CoronaExtraLagerBottle_1x710ml_1024x1024.jpg?v=1606545539" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644734281294568"
      crossorigin="anonymous"></script>
-    <title>GC 11 Rank</title>
+    <title>GC 13 Rank</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
 <body style="background:#36393F;">
 
     <div class="container mt-5">
-        <h2 class="mb-4">GC 12 Rank (Last Update : {{$lu}} UTC)</h2>
+        <h2 class="mb-4">GC 13 Rank (Last Update : {{$lu}} UTC)</h2>
         <p>Update on 04:30 UTC</p>
        <h2 class="mb-4">Site Accessed : {{$view}} times</h2>
 <h2 class="mb-4"><a href="https://www.kurelog.site/public/gc11.json">GC 11 Archive Link</a></h2>
@@ -48,6 +48,13 @@
             <option value="12" {{ $ide == 12 ? 'selected' : '' }}>12</option>
             <option value="13" {{ $ide == 13 ? 'selected' : '' }}>13</option>
         </select>
+
+        <label for="GC">Select GC:</label>
+
+        <select name="GC" id="GC">
+            <option value="12" {{ $idg == 12 ? 'selected' : '' }}>12</option>
+            <option value="13" {{ $idg == 13 ? 'selected' : '' }}>13</option>
+                    </select>
         <div class="row">
             <div class="col-md-12" style="overflow:auto;">
         <table class="table table-bordered yajra-datatable" id="tbl1">
@@ -138,7 +145,7 @@
             processing: true,
             serverSide: true,
             orderable: true,
-            ajax: "{{route('get.gc', $ide)}}",
+            ajax: "{{route('get.gc', $ide, $idg)}}",
             columns: [{
                     data: 'grank',
                     name: 'Rank',

@@ -18,7 +18,7 @@
             <div class="col-md-6 col-xl-12">
                 <div class="block">
                     <div class="block-content">
-                        <h1>GC 12 Rank Data</h1>
+                        <h1>GC 13 Rank Data</h1>
 
                     </div>
                 </div>
