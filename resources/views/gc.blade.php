@@ -145,7 +145,7 @@
             processing: true,
             serverSide: true,
             orderable: true,
-            ajax: "{{route('get.gc', $ide, $idg)}}",
+            ajax: "{{route('get.gc', [$ide, $idg])}}",
             columns: [{
                     data: 'grank',
                     name: 'Rank',
@@ -275,8 +275,12 @@ columns: [{
      
 
 
-        document.getElementById('ts').addEventListener('change', function (e) {
+document.getElementById('ts').addEventListener('change', function (e) {
             window.location.href = "{{route('show.gc')}}/" + e.target.value;
+        });
+
+        document.getElementById('GC').addEventListener('change', function (d) {
+            window.location.href = "{{route('show.gc')}}/all/" + d.target.value;
         });
 
     });
