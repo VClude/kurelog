@@ -284,7 +284,7 @@ document.getElementById('ts').addEventListener('change', function (e) {
         document.getElementById('GC').addEventListener('change', function (d) {
             var select = document.getElementById('ts');
             var vs = select.options[select.selectedIndex].value;
-            window.location.href = "{{route('show.gc')}}/all/" + vs + "/" + d.target.value;
+            window.location.href = "{{route('show.gc')}}/" + vs + "/" + d.target.value;
         });
 
     });
