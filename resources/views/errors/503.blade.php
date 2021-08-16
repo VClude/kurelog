@@ -1,2 +1,2 @@
-<h1>uh oh sorry we are currently Parsing 195 Battle Logs</h1>
-<h2>back soon...</h2>
+<h1>Fetching GC 13 day 1</h1>
+<h2>back soon</h2>

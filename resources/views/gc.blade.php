@@ -67,7 +67,7 @@
                     <th>Day 2</th>
                     <th>Day 3</th>
                     <th>Day 4</th>
-                    <th>Day 5</th>
+                    <th>Day 5</th>a
                     <th>Day 6</th>
                     <th>Lifeforce Gain</th>
                     <th>Win</th>
@@ -84,7 +84,11 @@
 </div>
 
 
-
+        <div class-"row">
+                        <div class="col-md-12" style="overflow:auto;">
+                                        <h3> If there is a problem like API Returning 'DATA INVALID', DM VClude#4666 </h1>
+                        </div>
+        </div>
         <div class="row">
             
             <div class="col-md-12" style="overflow:auto;">

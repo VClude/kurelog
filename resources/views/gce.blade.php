@@ -82,7 +82,11 @@
         </table>
 </div>
 </div>
-
+<div class-"row">
+                        <div class="col-md-12" style="overflow:auto;">
+                                        <h3> If there is a problem like API Returning 'DATA INVALID', DM VClude#4666 </h1>
+                        </div>
+        </div>
 
 
         <div class="row">

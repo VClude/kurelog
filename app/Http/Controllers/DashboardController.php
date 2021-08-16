@@ -117,16 +117,25 @@ class DashboardController extends Controller
                         $request->session()->put('usern', $usersess);
                         $request->session()->put('theuser', $user->getUsername() . '#' . $user->getDiscriminator());
                         $isentry = giveaway::where('discord_id', $usersess)->get();
-                        
+                        $isallow = allowed::where('username', $isAllowed)->get();
+
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(20);
+                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->where('guildDataIdA', '!=', 42937)->orderBy('gvgDataId')->simplePaginate(20);
                         }
                         else{
                             $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
                         }
+
+                        if(count($isallow) > 0){
+                            $de = gvgtop::where('guildDataIdA', '=', 42937)->orderBy('gvgDataId', 'DESC')->simplePaginate(20);
+                        }
+                        else{
+                            $de = gvgtop::where('guildDataIdA', '=', 69696969)->simplePaginate(20);
+
+                        }
                     
                         // return response()->json($a);
-                        return view('dashboard', ['a'=> $a])->with('isentry', $isentry)->with('discordid', $usersess)->with('discordname', session('theuser'));
+                        return view('dashboard', ['a'=> $a, 'de'=> $de])->with('isentry', $isentry)->with('discordid', $usersess)->with('discordname', session('theuser'));
                     } else {
                         return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
 
@@ -162,16 +171,25 @@ class DashboardController extends Controller
                         $theuser = session('theuser');
          
                         $isentry = giveaway::where('discord_id', $sess)->get();
-                        
+                        $isallow = allowed::where('username', $sess)->get();
+
                         
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->orderBy('gvgDataId')->simplePaginate(20);
+                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->where('guildDataIdA', '!=', 42937)->orderBy('gvgDataId')->simplePaginate(20);
                         }
                         else{
                             $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
-                        }                    
+                        }
+
+                        if(count($isallow) > 0){
+                            $de = gvgtop::where('guildDataIdA', '=', 42937)->orderBy('gvgDataId', 'DESC')->simplePaginate(20);
+                        }
+                        else{
+                            $de = gvgtop::where('guildDataIdA', '=', 69696969)->simplePaginate(20);
+
+                        }               
                         // return response()->json($a);
-                        return view('dashboard', ['a'=> $a])->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);
+                        return view('dashboard', ['a'=> $a, 'de'=>$de])->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);
             } else {
                 return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
 
