@@ -6,7 +6,7 @@
     <div class="my-50 text-center">
             
     <h2 class="font-w700 text-white mb-10">{{$gvg->guildDataNameA}} vs {{$gvg->guildDataNameB}}</h2>
-        <h3 class="h5 text-muted mb-0">GC 12 Finals</h3>
+        <h3 class="h5 text-muted mb-0">GC Finals</h3>
 
         </div>
 
@@ -15,6 +15,8 @@
                 <div class="pt-50 pb-20">
                     <h1 class="font-w700 text-white mb-10">Player Grid</h1>
                     <h2 class="h4 font-w400 text-white-op">Player Grid Category</h2>
+                    
+                    <h2 class="font-w700 text-white mb-10">Keep Refreshing when grid shows blankpage</h1>
                 </div>
             </div>
         </div>

@@ -13,11 +13,99 @@
         <div class="bg-pattern bg-black-op-25" style="background-image: url('assets/media/various/bg-pattern.png');">
             <div class="content text-center">
                 <div class="pt-50 pb-20">
-                    <h1 class="font-w700 text-white mb-10">Player Profile</h1>
-                    <h2 class="h4 font-w400 text-white-op">Player Profile Category</h2>
+                    <img
+                                            src="https://kurelog.site/public/media/photos/{{$guildData->guildCountryCode}}.png"> </img>
+                    <h1 class="font-w700 text-white mb-10">{{$guildData->guildName}} </h1>
+                    <h2 class="h4 font-w400 text-white-op">Guild Information</h2>
                 </div>
             </div>
         </div>
+        
+        <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
+            <div class="col-xl-6 d-flex align-items-stretch">
+                    <div class="block block-transparent bg-primary-dark d-flex align-items-center w-100">
+                        <div class="block-content block-content-full">
+
+
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->guildDescription}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Description</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->guildLevel}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Level</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$rank}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Rank</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->ranking}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Ranking</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->joinMember}}/15</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Member</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+    <div class="col-xl-6 d-flex align-items-stretch">
+                    <div class="block block-transparent bg-primary-dark d-flex align-items-center w-100">
+                        <div class="block-content block-content-full">
+
+
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->masterName}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Leader</div>
+                            </div>
+
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->siegeHp}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guildship HP</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$TS}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Current TS</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">{{$guildData->gvgWin}} - {{$guildData->gvgDraw}} - {{$guildData->gvgLose}}</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">Guild Win-Draw-Lose</div>
+                            </div>
+                            
+                            <div class="py-15 px-20 clearfix border-black-op-b">
+
+                                <div class="font-size-h3 font-w600 text-success">-</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light">-</div>
+                            </div>
+                            
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        
+           
+
 
         <div class="row row-deck gutters-tiny" id="accordion2" role="tablist" aria-multiselectable="true">
             <div class="col-md-12">

@@ -38,7 +38,7 @@ class DashboardController extends Controller
         if(!$input['discord_id'] && !$input['discord_name']){
             return response()->json(['response'=> "missing discord parameter"]);
         }
-        if($quota > 100){
+        if($quota > 99999){
             return response()->json(['response'=> "Entry has reach limit"]);
         }
       
@@ -117,10 +117,11 @@ class DashboardController extends Controller
                         $request->session()->put('usern', $usersess);
                         $request->session()->put('theuser', $user->getUsername() . '#' . $user->getDiscriminator());
                         $isentry = giveaway::where('discord_id', $usersess)->get();
-                        $isallow = allowed::where('username', $isAllowed)->get();
+                        $isallow = allowed::where('username', $usersess)->get();
 
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->where('guildDataIdA', '!=', 42937)->orderBy('gvgDataId')->simplePaginate(20);
+                         
+                            $a = gvgtop::where('gvgDataId', '>', 2236000)->orderBy('gvgDataId')->simplePaginate(20);
                         }
                         else{
                             $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
@@ -175,7 +176,8 @@ class DashboardController extends Controller
 
                         
                         if(count($isentry) > 0){
-                            $a = gvgtop::where('totalGuildPointA', '!=', 0)->where('totalGuildPointB', '!=', 0)->where('guildDataIdA', '!=', 42937)->orderBy('gvgDataId')->simplePaginate(20);
+                           
+                            $a = gvgtop::where('gvgDataId', '>', 2236000)->orderBy('gvgDataId')->simplePaginate(20);
                         }
                         else{
                             $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
@@ -190,6 +192,144 @@ class DashboardController extends Controller
                         }               
                         // return response()->json($a);
                         return view('dashboard', ['a'=> $a, 'de'=>$de])->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);
+            } else {
+                return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
+
+            }
+        }
+
+    }
+    
+        public function twelvefinal(Request $request)
+    {
+        $inarr = [];
+        if (!session('usern')) {
+
+            $provider = new \Wohali\OAuth2\Client\Provider\Discord([
+                'clientId' => Config::get('app.disc-client-id'),
+                'clientSecret' => Config::get('app.disc-client-secret'),
+                'redirectUri' => Config::get('app.disc-client-uri'),
+                //  'redirectUri'       => 'http://localhost/kureha-log/public'
+
+            ]);
+
+            if (!isset($_GET['code'])) {
+
+                // Step 1. Get authorization code
+                $options = [
+                    'state' => 'OPTIONAL_CUSTOM_CONFIGURED_STATE',
+                    'scope' => ['identify'], // array or string
+                ];
+
+                $authUrl = $provider->getAuthorizationUrl($options);
+                $request->session()->put('oauth2state', $provider->getState());
+                return redirect()->away($authUrl);
+
+            } elseif (empty($_GET['state']) || ($_GET['state'] !== session('oauth2state'))) {
+                $request->session()->forget('oauth2state');
+                return response()->json(['Invalid State']);
+
+            } else {
+
+                $token = $provider->getAccessToken('authorization_code', [
+                    'code' => $_GET['code'],
+                ]);
+
+                try {
+                    $indev = Config::get('app.debug') ? ' (Development Mode)' : '';
+                    $user = $provider->getResourceOwner($token);
+                    $this->dispatchWebhook($user->getUsername() . '#' . $user->getDiscriminator() . ' Logged in ' . $indev);
+                    viewer::where('id', 1)->increment('viewer');
+                    $usersess = $user->getId();
+                    $inarr = [];
+                    // $checkdemo = allowed::where('username',$usersess)->where('guildId','54')->count();
+                    // if($checkdemo == 0){
+                    //     $givedemo = new allowed;
+                    //     $givedemo->username = $user->getId();
+                    //     $givedemo->guildId = '54';
+                    //     $givedemo->save();
+                    // }
+                    $isAllowed = allowed::where('username', $usersess)->get();
+                    if ($isAllowed) {
+                        foreach ($isAllowed as $d) {
+                            array_push($inarr, $d->guildId);
+                        }
+                        $request->session()->put('usern', $usersess);
+                        $request->session()->put('theuser', $user->getUsername() . '#' . $user->getDiscriminator());
+                        $isentry = giveaway::where('discord_id', $usersess)->get();
+                        $isallow = allowed::where('username', $usersess)->get();
+
+                        if(count($isentry) > 0){
+                               $a = gvgtop::where('gvgDataId', '<', 2160000)->orderBy('gvgDataId')->simplePaginate(20);
+                        }
+                        else{
+                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
+                        }
+
+                        if(count($isallow) > 0){
+                            $de = gvgtop::where('guildDataIdA', '=', 42937)->orderBy('gvgDataId', 'DESC')->simplePaginate(20);
+                        }
+                        else{
+                            $de = gvgtop::where('guildDataIdA', '=', 69696969)->simplePaginate(20);
+
+                        }
+                    
+                        // return response()->json($a);
+                        return view('twelve', ['a'=> $a, 'de'=> $de])->with('isentry', $isentry)->with('discordid', $usersess)->with('discordname', session('theuser'));
+                    } else {
+                        return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
+
+                    }
+
+                } catch (Exception $e) {
+
+                    // Failed to get user details
+                    return response()->json(['Please Login to Continue']);
+
+                }
+            }
+
+        } else {
+
+            $isAllowed = allowed::where('username', session('usern'))->get();
+
+            if ($isAllowed) {
+                foreach ($isAllowed as $d) {
+                    // dd($d->guildId);return;
+                    array_push($inarr, $d->guildId);
+                }
+
+                $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->get();
+
+                // $request->session()->put('usern', $usersess);
+                // return response()->json($a);
+                                        foreach ($isAllowed as $d) {
+                            array_push($inarr, $d->guildId);
+                        }
+             
+                        $sess = session('usern');
+                        $theuser = session('theuser');
+         
+                        $isentry = giveaway::where('discord_id', $sess)->get();
+                        $isallow = allowed::where('username', $sess)->get();
+
+                        
+                        if(count($isentry) > 0){
+                               $a = gvgtop::where('gvgDataId', '<', 2160000)->orderBy('gvgDataId')->simplePaginate(20);
+                        }
+                        else{
+                            $a = gvgtop::whereIn('guildDataIdA', $inarr)->orderBy('battleEndTime', 'Desc')->simplePaginate(20);
+                        }
+
+                        if(count($isallow) > 0){
+                            $de = gvgtop::where('guildDataIdA', '=', 42937)->orderBy('gvgDataId', 'DESC')->simplePaginate(20);
+                        }
+                        else{
+                            $de = gvgtop::where('guildDataIdA', '=', 69696969)->simplePaginate(20);
+
+                        }               
+                        // return response()->json($a);
+                        return view('twelve', ['a'=> $a, 'de'=>$de])->with('isentry', $isentry)->with('discordid', $sess)->with('discordname', $theuser);
             } else {
                 return response()->json('your Discord accounts indicates that You are not allowed to see this content or you are not Astellia, please whitelist your discord by contacting Kureha');
 
@@ -291,6 +431,7 @@ class DashboardController extends Controller
                 $shinma1 = gvgnmlog::where('gvgDataId', $id)->where('readableText', 'like', '%' . $b[0]->name . '%')->orderBy('actTime')->get();
                 $shinma2 = gvgnmlog::where('gvgDataId', $id)->where('readableText', 'like', '%' . $b[1]->name . '%')->orderBy('actTime')->get();
                 $shinma1start = isset($shinma1[0]) ? $shinma1[0]->actTime : 999999999999;
+;
                 $shinma1end = isset($shinma1[1]) ? $shinma1[1]->actTime : gvgnmlog::where('gvgDataId', $id)->orderBy('actTime', 'DESC')->first()->actTime;
                 $shinma1selftotal = $b[0]->guildACount;
                 $shinma1enemytotal = $b[0]->guildBCount;
@@ -696,9 +837,8 @@ class DashboardController extends Controller
             return redirect()->route('index');
         } else {
             viewer::where('id', 1)->increment('viewer');
-            $this->dispatchWebhook($theuser . ' ACCESSING GUILD DATA ID : ' . $id);
-            $isAllowed = wled::where('uesrname', $sess)->first();
-            if ($isAllowed) {
+            
+
                 if (!isset($id)) {
                     return response()->json(['id empty']);
                 }
@@ -709,16 +849,23 @@ class DashboardController extends Controller
                     $client = new \GuzzleHttp\Client();
         
                     $res = $client->request('GET', 'https://xvc.cleverapps.io/getguild/' . $id);
+                    $resGuild = $client->request('GET', 'https://xvc.cleverapps.io/getguilddata/' . $id);
         
                     $resp = json_decode($res->getBody());
+                    $respGuild = json_decode($resGuild->getBody());
                     if ($resp->status != 200) {
                         return response()->json(['DATA INVALID']);
+                    }
+                    if (isset($resp->errors[0]->code)) {
+                        return response()->json(['SinoAPI Maintenance']);
                     }
         
                     if ($resp->payload == null) {
                         return response()->json(['DATA INVALID']);
                     }
+                    
                     $dat = $resp->payload->guildMemberList;
+                    $datGuild = $respGuild->payload;
         
                     $data_arr = array();
                     foreach ($dat as $data) {
@@ -758,6 +905,70 @@ class DashboardController extends Controller
                                 $CJ2 = "Unknown";
                                 break;
                         }
+                        
+                        switch ($datGuild->guildData->gvgTimeType) {
+                            case (1):
+                                $TS = 1;
+                                break;
+                            case (2):
+                                $TS = 2;
+                                break;
+                            case (4):
+                                $TS = 3;
+                                break;
+                            case (8):
+                                $TS = 4;
+                                break;
+                            case (16):
+                                $TS = 5;
+                                break;
+                            case (32):
+                                $TS = 6;
+                                break;
+                            case (64):
+                                $TS = 7;
+                                break;
+                            case (128):
+                                $TS = 8;
+                                break;
+                            case (256):
+                                $TS = 9;
+                                break;
+                            case (512):
+                                $TS = 10;
+                                break;
+                            case (1024):
+                                $TS = 11;
+                                break;
+                            case (2048):
+                                $TS = 12;
+                                break;
+                            case (4096):
+                                $TS = 13;
+                                break;
+                            default:
+                                $TS = "unknown";
+                                break;
+                        }
+                        
+                        switch ($datGuild->guildData->guildRank) {
+                            case (1):
+                                $TSr = "C";
+                                break;
+                            case (2):
+                                $TSr = "B";
+                                break;
+                            case (3):
+                                $TSr = "A";
+                                break;
+                            case (4):
+                                $TSr = "S";
+                                break;
+                            default:
+                                $TSr = "unknown";
+                                break;
+                        }
+            
                         $data_arr[] = array(
                             "name" => $name,
                             "userId" => $userId,
@@ -770,91 +981,14 @@ class DashboardController extends Controller
                         );
                     }
                     // return response()->json($a);
+                    $this->dispatchWebhook($theuser . ' Accessing Guild : ' . $datGuild->guildData->guildName);
                     
                     return $type == "web" ? view('logc')
-                        ->with('member', $data_arr) : response()->json(['member' => $data_arr]);
+                        ->with('member', $data_arr)->with('TS', $TS)->with('rank', $TSr)->with('guildData', $datGuild->guildData) : response()->json(['member' => $data_arr]);
         
                 }
 
-            } else {
-                if (!isset($id)) {
-                    return response()->json(['id empty']);
-                }
-        
-                if (!is_numeric($id)) {
-                    return response()->json(['id must be number']);
-                } else {
-                    $client = new \GuzzleHttp\Client();
-        
-                    $res = $client->request('GET', 'https://xvc.cleverapps.io/getguild/' . $id);
-        
-                    $resp = json_decode($res->getBody());
-                    if ($resp->status != 200) {
-                        return response()->json(['DATA INVALID']);
-                    }
-        
-                    if ($resp->payload == null) {
-                        return response()->json(['DATA INVALID']);
-                    }
-                    $dat = $resp->payload->guildMemberList;
-        
-                    $data_arr = array();
-                    foreach ($dat as $data) {
-                        $name = $data->userData->name;
-                        $userId = $data->userData->userId;
-                        $level = $data->userData->level;
-                        $hp = $data->maxHp;
-                        $cp = $data->totalPower;
-                        $lastlogin = $data->userData->recentLoginTime;
-                        switch ($data->userData->gvgJobMstId) {
-                            case (1):
-                                $CJ2 = "Minstrel";
-                                break;
-                            case (2):
-                                $CJ2 = "Sorcerer";
-                                break;
-                            case (3):
-                                $CJ2 = "Mage";
-                                break;
-                            case (4):
-                                $CJ2 = "Cleric";
-                                break;
-                            case (5):
-                                $CJ2 = "Breaker";
-                                break;
-                            case (6):
-                                $CJ2 = "Crusher";
-                                break;
-                            case (7):
-                                $CJ2 = "Gunner";
-                                break;
-                            case (8):
-                                $CJ2 = "Paladin";
-                                break;
-            
-                            default:
-                                $CJ2 = "Unknown";
-                                break;
-                        }
-                        $data_arr[] = array(
-                            "name" => $name,
-                            "userId" => $userId,
-                            "CJ2" => $CJ2,
-                            "hp" => number_format($hp),
-                            "cp" => number_format($cp),
-                            "level" => $level,
-                            "lastlogin" => $lastlogin
-                            
-                        );
-                    }
-                    // return response()->json($a);
-        
-                    return $type == "web" ? view('logc')
-                        ->with('member', $data_arr) : response()->json(['member' => $data_arr]);
-        
-                }
-
-            }
+           
         }
 
         
@@ -862,8 +996,17 @@ class DashboardController extends Controller
     }
 
 
+
     public function showProfile($id, Request $request)
     {
+        $antistalk = ['785300657', '678890024'];
+        if (in_array($id, $antistalk))
+          {
+              return response()->json(array(
+            'code'      =>  403,
+            'message'   =>  "lul pepegeg"
+        ), 403);
+          }
 
         $sess = session('usern');
         $theuser = session('theuser');
@@ -874,7 +1017,7 @@ class DashboardController extends Controller
         // return response()->json(array(
         //     'code'      =>  404,
         //     'message'   =>  "See you next Sin/Gran Colo"
-        // ), 404);  
+        // ), 404);
         if (!isset($sess)) {
             return redirect()->route('index');
         } else {
@@ -903,6 +1046,12 @@ class DashboardController extends Controller
         
                     if ($resp2->status != 200) {
                         return response()->json(['DATA INVALID']);
+                    }
+                    if (isset($resp->errors[0]->code)) {
+                        return response()->json(['SinoAPI Maintenance']);
+                    }
+                    if (isset($resp2->errors[0]->code)) {
+                        return response()->json(['SinoAPI Maintenance']);
                     }
                     if ($resp->status != 200) {
                         return response()->json(['DATA INVALID']);
@@ -1821,8 +1970,7 @@ class DashboardController extends Controller
                 }
 
 
-                viewer::where('id', 1)->increment('viewer');
-                $this->dispatchWebhook($theuser . ' ACCESSING GRID : ' . $userid . ' , MATCH ' . $idmatch);
+
         
 
                 $y = [];
@@ -2577,6 +2725,9 @@ class DashboardController extends Controller
                 arsort($dpatkb);
                 $dpatkbK = array_keys($dpatkb);
                 $dpatkbV = array_values($dpatkb);
+                
+                viewer::where('id', 1)->increment('viewer');
+                $this->dispatchWebhook($theuser . ' ACCESSING GRID : ' . $userid . ' , MATCH ' . $idmatch);
 
                 // return response()->json($y);
                 return view('grid')
@@ -2786,7 +2937,7 @@ class DashboardController extends Controller
 
     }
 
-    public function gcView($txt = "all", $gc = 13)
+    public function gcView($txt = "all", $gc = 14)
     {
         $sess = session('usern');
         if (!isset($sess)) {
@@ -2907,8 +3058,8 @@ class DashboardController extends Controller
 
 
         } else if ($txt > 0 && $txt <= 13) {
-            $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $tx)->count();
-            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $tx)->where('guildName', 'like', '%' . $searchValue . '%')
+            $totalRecords = gcrank::select('count(*) as allcount')->where('gvgTimeType', $tx)->where('gcevent', $gc)->count();
+            $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcranks.gvgTimeType', $tx)->where('gcevent', $gc)->where('guildName', 'like', '%' . $searchValue . '%')
                 ->count();
             $records = gcrank::orderBy($columnName, $columnSortOrder)
                 ->select('gcranks.*')
@@ -2993,7 +3144,7 @@ class DashboardController extends Controller
                     $TS = "unknown";
                     break;
             }
-            $gain = $point6 == 0 ? 0 : $point6 - $point5;
+            $gain = $point2 == 0 ? 0 : $point2 - $point;
 
             $data_arr[] = array(
                 "grank" => $id,
@@ -3043,10 +3194,10 @@ class DashboardController extends Controller
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
         $searchValue = $search_arr['value']; // Search value
 
-        $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)->count();
-        $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
+        $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)->where('gcevent', 14)->count();
+        $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('gcevent', 13)->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [1, 2, 1024, 2048, 4096])->where('gcevent', 14)->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)
@@ -3142,10 +3293,10 @@ class DashboardController extends Controller
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
         $searchValue = $search_arr['value']; // Search value
 
-        $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)->count();
-        $totalRecordswithFilter = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
+        $totalRecords = gcrank::select('count(*) as allcount')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('gcevent', 14)->where('isEntryUltimateBattle', true)->count();
+        $totalRecordswithFilter = gcrank::select('count(*) as allcount')->where('gcevent', 14)->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->count();
-        $records = gcrank::orderBy('point6', 'DESC')->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
+        $records = gcrank::orderBy('point6', 'DESC')->where('gcevent', 14)->whereIn('gvgTimeType', [4, 8, 16, 32, 64, 128, 256, 512])->where('isEntryUltimateBattle', true)
             ->select('gcranks.*')
             ->skip($start)
             ->take($rowperpage)

@@ -26,12 +26,12 @@
         </div>
     </a>
     
-    <a href="{{ route('gc.twelve') }}">
+    <a href="{{ route('index') }}">
         <div class="row justify-content-center">
             <div class="col-md-6 col-xl-12">
                 <div class="block">
                     <div class="block-content">
-                        <h1>GC 12 Finals Battle Log</h1>
+                        <h1>GC 13 Finals Battle Log</h1>
 
                     </div>
                 </div>
@@ -53,28 +53,6 @@
     </a>
     
   
-    
-                            @foreach ($de as $g)
-                            @if($g->gvgDataId == 2219301)
-                                                    <a href="{{ route('show.gridonly', $g->gvgDataId) }}">
-
-                            @else
-                                                    <a href="{{ route('show.log', $g->gvgDataId) }}">
-
-                            @endif
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-xl-12">
-                                    <div class="block">
-                                        <div class="block-content">
-                                            <h1>{{ $g->battleEndTime }} </br> {{ $g->guildDataNameA }} vs
-                                                {{ $g->guildDataNameB }}</h1>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        @endforeach
 
 
     @if(count($isentry) > 0)
@@ -86,7 +64,7 @@
                 <div class="block-content block-content-full">
                     <div class="py-15 px-20 clearfix border-black-op-b">
 
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 13 Finals (0 LF Guild was not shown here)</div>
+                        <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals (0 LF Guild was not shown here)</div>
 
                     </div>
                 
@@ -157,7 +135,7 @@
                         <div class="block-content block-content-full">
                             <div class="py-15 px-20 clearfix border-black-op-b">
 
-                                <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 & 13 Finals Data</div>
+                                <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 12 Finals Data</div>
 
                                  <div class="font-size-sm font-w600 text-uppercase text-success"> GC 12 & 13 Finals data are pub now, click sign-up and refresh to see the data </div>
                             </div>

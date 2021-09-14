@@ -8,9 +8,7 @@
     <meta name="twitter:description" content="this link will give you corona" />
     <meta name="twitter:image"
         content="https://cdn.shopify.com/s/files/1/0078/7038/2195/products/CoronaExtraLagerBottle_1x710ml_1024x1024.jpg?v=1606545539" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6644734281294568"
-     crossorigin="anonymous"></script>
-    <title>GC 13 Rank</title>
+    <title>GC 14 Rank</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -24,8 +22,9 @@
 <body style="background:#36393F;">
 
     <div class="container mt-5">
-        <h2 class="mb-4">GC 13 Rank (Last Update : {{$lu}} UTC)</h2>
-        <p>Update on 04:30 UTC</p>
+        <h2 class="mb-4">GC 14 Rank (Last Update : {{$lu}} UTC)</h2>
+        <h2 class="mb-4">Update 20 minutes after TS 1 and 20 minutes after TS 10</h2>
+
        <h2 class="mb-4">Site Accessed : {{$view}} times</h2>
 <h2 class="mb-4"><a href="https://www.kurelog.site/public/gc11.json">GC 11 Archive Link</a></h2>
         
@@ -54,6 +53,7 @@
         <select name="GC" id="GC">
             <option value="12" {{ $idg == 12 ? 'selected' : '' }}>12</option>
             <option value="13" {{ $idg == 13 ? 'selected' : '' }}>13</option>
+            <option value="14" {{ $idg == 14 ? 'selected' : '' }}>14</option>
                     </select>
         <div class="row">
             <div class="col-md-12" style="overflow:auto;">
@@ -92,7 +92,7 @@
         <div class="row">
             
             <div class="col-md-12" style="overflow:auto;">
-            <h1> Final Asia Prediction </h1>
+            <h1> Final Asia Prediction</h1>
                 <table class="table table-bordered yajra-datatable" id="tbl2">
                     <thead>
                         <tr>
@@ -113,7 +113,7 @@
         <div class="row">
 
             <div class="col-md-12" style="overflow:auto;">
-                <h1> Final US Prediction </h1>
+                <h1> Final US Prediction</h1>
                 <table class="table table-bordered yajra-datatable" id="tbl3">
                     <thead>
                         <tr>
@@ -143,6 +143,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        
+		
 
         $('#tbl1').DataTable({
 
@@ -165,7 +167,7 @@
                     name: 'Guild Name',
                     render: function (data, type, full, meta) {
                         return "<a href='{{route('show.guild')}}/" + full.guildId + "'>" + full
-                            .guildName + "</a>";
+                            .guildName.replace('<','&lt;').replace('>','&gt;') + "</a>";
                     },
                     sortable: false
                 },
