@@ -40,7 +40,7 @@
         </div>
     </a>
     
-    <a href="{{ route('gc.twelve') }}">
+    <!-- <a href="{{ route('gc.twelve') }}">
         <div class="row justify-content-center">
             <div class="col-md-6 col-xl-12">
                 <div class="block">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-    </a>
+    </a> -->
     
 
     
@@ -93,72 +93,7 @@
                         @endforeach
 
 
-    @if(count($isentry) > 0)
 
-
-    <div class="row gutters-tiny js-appear-enabled animated fadeIn" data-toggle="appear">
-        <div class="col-xl-12 d-flex align-items-stretch">
-            <div class="block block-transparent bg-primary-dark d-flex align-items-center w-100">
-                <div class="block-content block-content-full">
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-
-                        <div class="font-size-sm font-w600 text-uppercase text-success-light"> GC 13 Finals (0 LF Guild was not shown here)</div>
-
-                    </div>
-                
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-                        @foreach ($a as $g)
-                        <a href="{{ route('show.gridonly', $g->gvgDataId) }}">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-xl-12">
-                                    <div class="block">
-                                        <div class="block-content">
-                                            <h1>{{ $g->battleEndTime }} @if($g->selfComboCount == 105) [US] @else [ASIA] @endif @if($g->gvgDataId > 2236000) [GC13] @else [GC12] @endif </br> {{ $g->guildDataNameA }} vs
-                                                {{ $g->guildDataNameB }}</h1>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        @endforeach
-
-
-
-                    </div>
-
-
-                    <div class="py-15 px-20 clearfix border-black-op-b">
-                        
-                            <div class="row justify-content-center">
-                            <div class="col-md-3 col-xl-12"></div>
-                                <div class="col-md-6 col-xl-12">
-                                    
-                                {{ $a->links() }}
-
-                                </div>
-                                <div class="col-md-3 col-xl-12"></div>
-
-                            </div>
-                     
-                       
-
-
-
-                    </div>
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @else
 
             
     <form>
