@@ -57,30 +57,9 @@
         </div>
     </a>
     
-  
-    
-                            @foreach ($de as $g)
-                            @if($g->gvgDataId == 2219301)
-                                                    <a href="{{ route('show.gridonly', $g->gvgDataId) }}">
-
-                            @else
-                                                    <a href="{{ route('show.log', $g->gvgDataId) }}">
-
-                            @endif
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 col-xl-12">
-                                    <div class="block">
-                                        <div class="block-content">
-                                            <h1>{{ $g->battleEndTime }} </br> {{ $g->guildDataNameA }} vs
-                                                {{ $g->guildDataNameB }}</h1>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        @endforeach
-
+    <div class="alert alert-success" role="alert">
+                See you in GC 15 and Sin colo, GC Log was archived due took too much storage.
+            </div>
 
 
 
