@@ -23,7 +23,6 @@
 
     <div class="container mt-5">
         <h2 class="mb-4">GC 14 Rank (Last Update : {{$lu}} UTC)</h2>
-        <h2 class="mb-4">Update 20 minutes after TS 1 and 20 minutes after TS 10</h2>
        <h2 class="mb-4">Site Accessed : {{$view}} times</h2>
 <h2 class="mb-4"><a href="https://www.kurelog.site/public/gc11.json">GC 11 Archive Link</a></h2>
         
@@ -60,19 +59,19 @@
             <thead>
                 <tr>
                     <th>Rank (Server)</th>
+                    <th>TS</th>
                     <th>Rank (TS)</th>
                     <th>Guild Name</th>
                     <th>Day 1</th>
                     <th>Day 2</th>
                     <th>Day 3</th>
                     <th>Day 4</th>
-                    <th>Day 5</th>
+                    <th>Day 5</th>a
                     <th>Day 6</th>
                     <th>Lifeforce Gain</th>
                     <th>Win</th>
                     <th>Lose</th>
                     <th>Total Battle</th>
-                    <th>TS</th>
 
                 </tr>
             </thead>
@@ -156,6 +155,11 @@
                     name: 'Rank',
                     sortable: false
                 },
+                 {
+                    data: 'gvgTimeType',
+                    name: 'TS',
+                    sortable: false
+                },
                 {
                     data: 'tsrank',
                     name: 'TS Rank',
@@ -215,11 +219,7 @@
                     name: 'Total Battle',
                     sortable: false
                 },
-                {
-                    data: 'gvgTimeType',
-                    name: 'TS',
-                    sortable: false
-                },
+               
             ]
         });
 

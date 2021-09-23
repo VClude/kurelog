@@ -10,6 +10,7 @@ use App\Models\gvglog;
 use App\Models\gvgmember;
 use App\Models\gvgmvp;
 use App\Models\gvgnmlog;
+use App\Models\skin;
 use App\Models\gvgshinma;
 use App\Models\wled;
 use App\Models\gvgtop;
@@ -995,7 +996,52 @@ class DashboardController extends Controller
 
     }
 
+    public function sinoSkins(Request $request)
+    {
+      
+        $sess = session('usern');
+        $theuser = session('theuser');
+        if (!isset($theuser)) {
+            $theuser = "someone ";
+        }
+        if (!isset($sess)) {
+            return redirect()->route('index');
+        } else {
+            viewer::where('id', 1)->increment('viewer');
+                
+                    $sk = skin::orderBy("id", "desc")->get();
+                    $this->dispatchWebhook($theuser . ' Accessing Skins');
+                    
+                    return view('skins')
+                        ->with('skin', $sk);
 
+           
+        }
+
+        
+
+    }
+    
+    public function downloadSkins($id, Request $request)
+    {
+                $sess = session('usern');
+        $theuser = session('theuser');
+        if (!isset($theuser)) {
+            $theuser = "someone ";
+        }
+        if (!isset($sess)) {
+            return redirect()->route('index');
+        } else {
+
+                    $sk = skin::where('id', $id)->firstOrFail();
+                    $this->dispatchWebhook($theuser . ' Downloading ' . $sk->charaB .' Skins');
+                    
+                            return redirect()->away($sk->link);
+
+
+           
+        }
+    }
 
     public function showProfile($id, Request $request)
     {
@@ -3144,7 +3190,7 @@ class DashboardController extends Controller
                     $TS = "unknown";
                     break;
             }
-            $gain = $point2 == 0 ? 0 : $point2 - $point;
+            $gain = $point6 == 0 ? 0 : $point6 - $point5;
 
             $data_arr[] = array(
                 "grank" => $id,

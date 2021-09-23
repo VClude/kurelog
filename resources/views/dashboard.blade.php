@@ -26,6 +26,20 @@
         </div>
     </a>
     
+       <a href="{{ route('sino.skins') }}">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-xl-12">
+                <div class="block">
+                    <div class="block-content">
+                        <h1>
+🔥 Sinoalice Skins</h1>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    
     <a href="{{ route('gc.twelve') }}">
         <div class="row justify-content-center">
             <div class="col-md-6 col-xl-12">
@@ -38,6 +52,8 @@
             </div>
         </div>
     </a>
+    
+
     
         <a href="https://ko-fi.com/kurelog">
         <div class="row justify-content-center">
