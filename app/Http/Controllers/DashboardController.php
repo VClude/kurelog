@@ -2774,7 +2774,7 @@ class DashboardController extends Controller
                 
                 viewer::where('id', 1)->increment('viewer');
                 $this->dispatchWebhook($theuser . ' ACCESSING GRID : ' . $userid . ' , MATCH ' . $idmatch);
-                dd($masterarray);return;
+                // dd($masterarray);return;
                 // return response()->json($y);
                 return view('grid')
                     ->with('hdv', $highestdmgvalue)
